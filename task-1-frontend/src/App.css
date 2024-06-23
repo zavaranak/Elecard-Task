@@ -1,0 +1,47 @@
+/* Style cho header */
+.header {
+    width: 100%;
+    /* Chiều rộng tối đa */
+    position: fixed;
+    /* Cố định vị trí */
+    top: 0;
+    /* Gắn liền đầu trang */
+    left: 0;
+    /* Gắn liền cạnh trái */
+    background: #333;
+    /* Màu nền */
+    color: #fff;
+    /* Màu chữ */
+    z-index: 1000;
+    /* Đảm bảo header hiển thị trên các nội dung khác */
+    padding: 10px 0;
+    /* Thêm một chút đệm */
+}
+
+/* Style cho footer */
+.footer {
+    width: 100%;
+    /* Chiều rộng tối đa */
+    position: fixed;
+    /* Cố định vị trí */
+    bottom: 0;
+    /* Gắn liền cuối trang */
+    left: 0;
+    /* Gắn liền cạnh trái */
+    background: #333;
+    /* Màu nền */
+    color: #fff;
+    /* Màu chữ */
+    z-index: 1000;
+    /* Đảm bảo footer hiển thị trên các nội dung khác */
+    padding: 10px 0;
+    /* Thêm một chút đệm */
+}
+
+/* Thêm padding cho nội dung chính để không bị chèn bởi header và footer */
+.body {
+    padding-top: 60px;
+    /* Phải đủ cao để nội dung không bị che bởi header */
+    padding-bottom: 60px;
+    /* Phải đủ cao để nội dung không bị che bởi footer */
+}
