@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteCard } from "../../slices/cardSlice";
-
+//component
 const Card = ({ cardInfo, showValue }) => {
   const dispatch = useDispatch();
   const { url, name } = cardInfo;
@@ -35,7 +35,7 @@ const Card = ({ cardInfo, showValue }) => {
       showInfo = false;
     }
   }
-
+  //return JSX
   return (
     <div>
       <img
@@ -52,5 +52,5 @@ const Card = ({ cardInfo, showValue }) => {
     </div>
   );
 };
-
+//export component
 export default Card;

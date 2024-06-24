@@ -13,11 +13,11 @@
 ## DONE 1/2 ## cardListView: Notification at successful data fetching 
 ## DONE ## cardListView: Card shows information of field, which is applied for sorting
 
-## UNDONE ## treeListView: Nesting list (assumed nested by catergory)
-## UNDONE ## treeListView: List item's info: thumbnail, timestamp, size
-## UNDONE ## treeListView: On click event ListItem show fullsize Image
-## UNDONE ## treeListView: Timestamp in human-readable format
+## DONE ## treeListView: Nesting list (assumed nested by catergory)
+## DONE ## treeListView: List item's info: thumbnail, timestamp, size
 
+## DONE ## Timestamp in human-readable format
+## DONE ## Click evnet shows fullsize Image
 ## UNDONE ## UI design (MUI - optional)
 ## IN PROCESS ## React
 ## IN PROCESS ## Redux Toolkit

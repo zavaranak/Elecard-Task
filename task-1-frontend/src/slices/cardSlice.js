@@ -1,21 +1,24 @@
+//Card View State
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+//Thunk action function
 export const fetchCardAction = () => async (dispatch) => {
   axios
     .get("http://contest.elecard.ru/frontend_data/catalog.json")
     .then((response) => response.data)
     .then((data) => {
       dispatch(fetchCard(data));
-    });
+    })
+    .catch((error)=>{console.log('Can not load data from server. Error Code:',error)})
 };
-
+//Local Storage Logic
 const handleLocalStorage = (name) =>{
   let temp = localStorage.deletedCards;
   let delCards = temp? JSON.parse(temp):[]
   localStorage.deletedCards = JSON.stringify([...delCards,name])
 }
-
+//Slice
 const cardSlice = createSlice({
   name: "cards",
   initialState: { cardsData: [] },
@@ -56,9 +59,9 @@ const cardSlice = createSlice({
   },
 });
 
-export const { fetchCard, deleteCard, removeAllCard, sortCard } =
-  cardSlice.actions;
-
+//Export actions for state updating
+export const { fetchCard, deleteCard, removeAllCard, sortCard } = cardSlice.actions;
+//Length of data "cards"
 export const selectCardsLength = (state) => state.cards.cardsData.length;
-
+//export reducer 
 export default cardSlice.reducer;
