@@ -1,6 +1,18 @@
+import { Box, IconButton,Typography } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 //component
-const FullSizeItem = ({url}) => {
-    return <img src={url} alt={url} style={{position:'fix'}} />
-}
+const FullSizeItem = ({ url,setDisplay }) => {
+  return (
+    <Box className="fullSizeItem">
+      <img src={url} alt={url} />
+      <Box className="fullSizeItem__itemInfo">
+        <Typography></Typography>
+        <IconButton size="large" color="error" onClick={(e)=>{setDisplay(false);e.stopPropagation}}>
+          <CloseIcon fontSize="large"/>
+        </IconButton>
+      </Box>
+    </Box>
+  );
+};
 //export component
-export default FullSizeItem
+export default FullSizeItem;

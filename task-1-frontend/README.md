@@ -2,9 +2,9 @@
 # API: http://contest.elecard.ru/frontend_data/
 -----------------------------------
 ## DONE ## Header/Footer (fixed position)
-## DONE 1/2 ## 2 view types of content: treeListView and cardListView
+## DONE ## 2 view types of content: treeListView and cardListView
 ## DONE ## Radiobutton for switching between views
-## DONE 1/2 ## treeListView is not affected by state-updating action from cardListView
+## DONE ## treeListView is not affected by state-updating action from cardListView
 
 ## DONE ## cardListView: Each card(assumed to be component) is able to close with 'x' button
 ## DONE ## cardListView: Closed cards are stored at localStorage 
@@ -18,12 +18,12 @@
 
 ## DONE ## Timestamp in human-readable format
 ## DONE ## Click evnet shows fullsize Image
-## UNDONE ## UI design (MUI - optional)
-## IN PROCESS ## React
-## IN PROCESS ## Redux Toolkit
-## IN PROCESS## JS,HTML, SCSS
-## UNDONE ## Naming by BEM
-## INPROCESS ## Minial request to server
+## DONE ## React
+## DONE ## Redux Toolkit
+## DONE JS,HTML, SCSS
+## DONE ## Naming by BEM
+## DONE ## UI design (MUI - optional)
+## DONE ## Minial request to server
 
 
 

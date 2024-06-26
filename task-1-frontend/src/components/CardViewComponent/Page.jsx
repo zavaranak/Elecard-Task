@@ -1,8 +1,8 @@
 import Card from "./Card";
 import { useSelector } from "react-redux";
+import { Box,Grid } from "@mui/material";
 //component
-const Page = ({ pageNumb, showValue }) => {
-  const imagePerPage = 8;
+const Page = ({ pageNumb, showValue,imagePerPage }) => {
   const startIndex = imagePerPage * (pageNumb - 1);
   const endIndex = startIndex + imagePerPage;
   const cards = useSelector((state) =>
@@ -10,10 +10,12 @@ const Page = ({ pageNumb, showValue }) => {
   );
   //return JSX
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr" }}>
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12 }}>
       {cards.length > 0 &&
         cards.map((card, index) => <Card key={index} cardInfo={card} showValue={showValue}/>)}
-    </div>
+      </Grid>
+    </Box>
   );
 };
 //export component

@@ -2,25 +2,22 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchTreeItemAction,
-  selectTreeItems,
   selectNestedBranches,
 } from "../../slices/treeSlice";
 import BranchHeader from "./BranchHeader";
+import TaskBar from "../TaskBar";
 //component
-const TreeView = () => {
+const TreeView = ({setView}) => {
   //state and action logic
   const dispatch = useDispatch();
   const nestBranches = useSelector(selectNestedBranches);
-  const items = useSelector(selectTreeItems);
   useEffect(() => {
     dispatch(fetchTreeItemAction());
   }, [dispatch]);
   //return JSX
   return (
-    <div>
-      <h1>
-        Tree From {nestBranches.length} Branches and {items.length} items
-      </h1>
+    <div className="treeView">
+      <TaskBar setView={setView} currentView='tree'/>
       <br />
       {nestBranches.length > 0
         ? nestBranches.map((branch, index) => (

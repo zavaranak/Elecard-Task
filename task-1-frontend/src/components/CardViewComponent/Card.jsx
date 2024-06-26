@@ -1,7 +1,12 @@
 import { useDispatch } from "react-redux";
 import { deleteCard } from "../../slices/cardSlice";
+import { Box, Grid, Divider, Typography, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import FullSizeItem from "../FullSizeItem";
+import { useState } from "react";
 //component
 const Card = ({ cardInfo, showValue }) => {
+  const [displayFSI, setDisplayFSI] = useState(false);
   const dispatch = useDispatch();
   const { url, name } = cardInfo;
   let showInfo;
@@ -37,19 +42,33 @@ const Card = ({ cardInfo, showValue }) => {
   }
   //return JSX
   return (
-    <div>
-      <img
-        src={url}
-        alt={url}
-        style={{ width: "400px", height: "300px", objectFit: "cover" }}
-      />
-      {showInfo && (
-        <p>
-          {showValue}:{value}
-        </p>
-      )}
-      <button onClick={() => dispatch(deleteCard(name))}>Delete</button>
-    </div>
+    <Grid item xs={2} sm={4} md={4}>
+      <Box className="card" onClick={() => setDisplayFSI((prev) => !prev)}>
+        <img className="card__img" src={url} alt={url} />
+        {showInfo && (
+          <div className="card__info">
+            <Divider> {showValue} </Divider>
+            <Typography variant="subtitle1">{value}</Typography>
+          </div>
+        )}
+        <Box className="card__delButton ">
+          <IconButton
+            onClick={(e) => {
+              if (!displayFSI) dispatch(deleteCard(name));
+              e.stopPropagation();
+            }}
+            color="primary"
+          >
+            <CloseIcon fontSize="small" />
+          </IconButton>
+        </Box>
+      </Box>
+      <div>
+        {displayFSI && (
+          <FullSizeItem url={url} setDisplay={setDisplayFSI} />
+        )}
+      </div>
+    </Grid>
   );
 };
 //export component

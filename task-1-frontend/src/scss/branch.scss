@@ -1,0 +1,39 @@
+$color-itemborder: #004dbb20;
+$color-boder: #004dbb80;
+.branchHeader {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-top: 20px;
+  border: $color-boder 2px solid;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  min-width: 800px;
+  &__toggleList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
+
+.branchItem {
+  margin: 10px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr;
+  position: relative;
+  &__thumpnail {
+    height: 50px;
+    width: 100px;
+    object-fit: "cover";
+  }
+  border: $color-itemborder solid 1px;
+}
+
+.branchList {
+  border-top: dashed 1px $color-boder;
+  width: 80%;
+}

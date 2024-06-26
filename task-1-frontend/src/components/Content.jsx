@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CardView from "./CardViewComponent/CardView";
 import TreeView from "./TreeViewComponent/TreeView";
+import { Container} from "@mui/material";
 
 //component
 const Content = () => {
@@ -9,30 +10,10 @@ const Content = () => {
 
   //return jsx
   return (
-    <div className="body">
-      <fieldset>
-        <input
-          onChange={() => setView("cards")}
-          type="radio"
-          id="view1"
-          name="view"
-          value="cards"
-          checked = {view==='cards'}
-        />
-        <label htmlFor="view1">Cards View</label>
-        <input
-          onChange={() => setView("tree")}
-          type="radio"
-          id="view2"
-          name="view"
-          value="tree"
-          checked = {view === 'tree'}
-        />
-        <label htmlFor="view2">Tree View</label>
-      </fieldset>
-      {view === "cards" && <CardView />}
-      {view === "tree" && <TreeView />}
-    </div>
+    <Container className="app__content" maxWidth='xl'>
+      {view === "cards" && <CardView setView={setView}/>}
+      {view === "tree" && <TreeView setView={setView}/>}
+    </Container>
   );
 };
 //export component

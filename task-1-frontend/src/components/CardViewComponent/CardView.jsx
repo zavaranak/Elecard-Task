@@ -1,57 +1,100 @@
 import Page from "./Page";
-import { fetchCardAction, selectCardsLength,removeAllCard } from "../../slices/cardSlice";
+import { fetchCardAction, selectCardsLength } from "../../slices/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { sortCard } from "../../slices/cardSlice";
+import { Pagination, Skeleton } from "@mui/material";
+import TaskBar from "../TaskBar";
 //component
-const CardView = () => {
+const CardView = ({setView}) => {
   //state and action logic
   const cardsLength = useSelector(selectCardsLength);
+  const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
+  const [imagePerPage, setImagePerPage] = useState(6);
   const [currentPage, setPage] = useState(1);
   const [sortOption, setSortOption] = useState("");
-  const lastPage = Math.round(cardsLength / 8);
+  const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
-  function selectHandler(selectedOption) {
-    setSortOption(selectedOption);
-    dispatch(sortCard(selectedOption));
+  function selectHandler(value) {
+    if (value === "default") {
+      setSortOption("");
+      dispatch(fetchCardAction());
+    } else {
+      setSortOption(value);
+      dispatch(sortCard(value));
+    }
   }
-  const cardRecover = () =>{
-    localStorage.deletedCards = []
-    dispatch(fetchCardAction())
-  }
-  useEffect(()=>{dispatch(fetchCardAction())},[dispatch])
+  const cardRecover = () => {
+    localStorage.deletedCards = [];
+    setLocalStorageEmpty(true);
+    dispatch(fetchCardAction());
+  };
+  //Slider Handler with debouncing to optimize performance
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  };
+  const debouncedImagePerPageChange = debounce(
+    (event, value) => setImagePerPage(value),
+    500
+  );
+  ///
   useEffect(() => {
-    setPage(1);
-    setSortOption('')
+    setSortOption("");
+    const checkLocalStorage = localStorage.deletedCards ? true : false;
+    setLocalStorageEmpty(!checkLocalStorage);
   }, [cardsLength]);
+  useEffect(() => {
+    dispatch(fetchCardAction());
+  }, [dispatch]);
   //return JSX
   return (
-    <div>
-      <div>
+    <div className="cardView">
+      <div style={{ marginBottom: "10px" }}>
         {/* <button onClick={() => dispatch(fetchCardAction())}>Fetch Cards</button> */}
-        <button onClick={() => dispatch(removeAllCard())}>Remove All Cards</button>
-        <button onClick={() => cardRecover()}>Recover Delelted Cards</button>
+        {/* <Button onClick={() => dispatch(removeAllCard())}>Remove All Cards</Button> */}
+        {cardsLength > 0 && (
+          <TaskBar
+            currentView='cards'
+            selectHandler={selectHandler}
+            cardRecover={cardRecover}
+            debouncedImagePerPageChange={debouncedImagePerPageChange}
+            localStorageEmpty={localStorageEmpty}
+            setView={setView}
+          />
+        )}
+        <></>
       </div>
-      { cardsLength > 0 &&
-      <select name="sortoption">
-        <option value="" onClick={() => {setSortOption('');dispatch(fetchCardAction())}}>
-          --Unsorted--
-        </option>
-        <option value="filesize" onClick={() => selectHandler("filesize")}>
-          Sort By Size
-        </option>
-        <option value="name" onClick={() => selectHandler("name")}>
-          Sort By Name
-        </option>
-        <option value="timestamp" onClick={() => selectHandler("timestamp")}>
-          Sort By Date
-        </option>
-        <option value="category" onClick={() => selectHandler("category")}>
-          Sort By Category
-        </option>
-      </select>}
-      <Page pageNumb={currentPage} showValue={sortOption} />
-      {currentPage < lastPage && (
+
+      {!(cardsLength > 0) && (
+        <div className="cardView__skeleton">
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </div>
+      )}
+      <Page
+        pageNumb={currentPage}
+        showValue={sortOption}
+        imagePerPage={imagePerPage}
+      />
+      <Pagination
+        className="cardView__pagination"
+        count={pageCount}
+        onChange={(event, page) => setPage(page)}
+        showFirstButton
+        showLastButton
+      />
+      {/* Pagination without MUI
+      {currentPage < pageCount && (
         <button onClick={() => setPage((prev) => prev + 1)}>Next Page</button>
       )}
       {currentPage > 1 && cardsLength > 0 && (
@@ -62,9 +105,9 @@ const CardView = () => {
       {cardsLength > 0 && currentPage !== 1 && (
         <button onClick={() => setPage(1)}>First Page</button>
       )}
-      {cardsLength > 0 && currentPage !== lastPage && (
-        <button onClick={() => setPage(lastPage)}>Last Page</button>
-      )}
+      {cardsLength > 0 && currentPage !== pageCount && (
+        <button onClick={() => setPage(pageCount)}>Last Page</button>
+      )} */}
     </div>
   );
 };

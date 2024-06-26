@@ -1,15 +1,38 @@
 import { useState } from "react";
 import BranchList from "./BranchList";
+import { Box, Typography, IconButton } from "@mui/material";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 //component
 const BranchHeader = ({ branchName }) => {
   //state and logic
   const [listDisplay, setListDisplay] = useState(false);
   //return JSX
   return (
-    <div>
-      <h3 onClick={() => setListDisplay((prev) => !prev)}>Nested branch of category: {branchName}</h3>
+    <Box class="branchHeader">
+      <Box
+        class="branchHeader__toggleList"
+        onClick={() => setListDisplay((prev) => !prev)}
+      >
+        <Typography variant="button" className="branchHeader__label">
+          {!listDisplay && (
+            <IconButton color="success">
+              <ArrowCircleDownIcon />
+            </IconButton>
+          )}
+          {listDisplay && (
+            <IconButton color="warning">
+              <ArrowCircleUpIcon />
+            </IconButton>
+          )}
+          Nested branch of category:
+        </Typography>
+        <Typography variant="overline">
+          <b> {branchName}</b>{" "}
+        </Typography>
+      </Box>
       {listDisplay && <BranchList branchName={branchName} />}
-    </div>
+    </Box>
   );
 };
 //export component
