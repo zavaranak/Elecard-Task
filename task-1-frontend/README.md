@@ -19,14 +19,18 @@
 
 ## DONE ## Timestamp in human-readable format
 ## DONE ## Click evnet shows fullsize Image
+
 ## DONE ## React
 ## DONE ## Redux Toolkit
 ## DONE ## JS,HTML, SCSS
 ## DONE ## Naming by BEM
-## DONE ## UI design (MUI - optional)
+## DONE ## UI design (MUI)
 ## DONE ## Minial request to server
 
+Run with:
+    npm install
 
+    npm run dev 
 
 
 
