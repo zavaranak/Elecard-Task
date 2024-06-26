@@ -21,7 +21,7 @@ const handleLocalStorage = (name) =>{
 //Slice
 const cardSlice = createSlice({
   name: "cards",
-  initialState: { cardsData: [] },
+  initialState: { status:'',cardsData: [] },
   reducers: {
     fetchCard: (state, action) => {
       const cards = action.payload.map((card) => ({
@@ -30,6 +30,7 @@ const cardSlice = createSlice({
         name: card.image.split("/").pop().split(".jpg")[0],
         url: `http://contest.elecard.ru/frontend_data/${card.image}`,
       }));
+      state.status = 'good';
       state.cardsData = cards.filter(card => {
         const temp = localStorage.deletedCards
         if (temp) {
@@ -63,5 +64,6 @@ const cardSlice = createSlice({
 export const { fetchCard, deleteCard, removeAllCard, sortCard } = cardSlice.actions;
 //Length of data "cards"
 export const selectCardsLength = (state) => state.cards.cardsData.length;
+export const selectStatus = (state) => state.cards.status;
 //export reducer 
 export default cardSlice.reducer;

@@ -1,20 +1,27 @@
 import Page from "./Page";
-import { fetchCardAction, selectCardsLength } from "../../slices/cardSlice";
+import {
+  fetchCardAction,
+  selectCardsLength,
+  selectStatus,
+} from "../../slices/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { sortCard } from "../../slices/cardSlice";
-import { Pagination, Skeleton } from "@mui/material";
+import { Pagination, Skeleton, Alert } from "@mui/material";
+import { Check } from "@mui/icons-material";
 import TaskBar from "../TaskBar";
 //component
-const CardView = ({setView}) => {
+const CardView = ({ setView }) => {
   //state and action logic
   const cardsLength = useSelector(selectCardsLength);
+  const [showAlert, setShowAlert] = useState(false);
   const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
   const [imagePerPage, setImagePerPage] = useState(6);
   const [currentPage, setPage] = useState(1);
   const [sortOption, setSortOption] = useState("");
   const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
+  const status = useSelector(selectStatus);
   function selectHandler(value) {
     if (value === "default") {
       setSortOption("");
@@ -50,8 +57,18 @@ const CardView = ({setView}) => {
     setLocalStorageEmpty(!checkLocalStorage);
   }, [cardsLength]);
   useEffect(() => {
+    setShowAlert(true);
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2000);
     dispatch(fetchCardAction());
   }, [dispatch]);
+  useEffect(() => {
+    if (status === "good") {
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 1000);
+    }
+  }, [status]);
   //return JSX
   return (
     <div className="cardView">
@@ -60,7 +77,7 @@ const CardView = ({setView}) => {
         {/* <Button onClick={() => dispatch(removeAllCard())}>Remove All Cards</Button> */}
         {cardsLength > 0 && (
           <TaskBar
-            currentView='cards'
+            currentView="cards"
             selectHandler={selectHandler}
             cardRecover={cardRecover}
             debouncedImagePerPageChange={debouncedImagePerPageChange}
@@ -70,7 +87,15 @@ const CardView = ({setView}) => {
         )}
         <></>
       </div>
-
+      {showAlert && (
+        <Alert
+          className="app__alert "
+          icon={<Check fontSize="inherit" />}
+          severity="success"
+        >
+          Get images successful.
+        </Alert>
+      )}
       {!(cardsLength > 0) && (
         <div className="cardView__skeleton">
           <Skeleton />
@@ -81,6 +106,7 @@ const CardView = ({setView}) => {
           <Skeleton />
         </div>
       )}
+
       <Page
         pageNumb={currentPage}
         showValue={sortOption}

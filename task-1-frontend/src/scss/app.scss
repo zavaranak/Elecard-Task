@@ -6,7 +6,7 @@
 
 $header-height: 60px;
 $footer-height: 30px;
-$color: #004DBB;
+$color: #004dbb;
 
 html,
 body {
@@ -40,11 +40,15 @@ body {
 }
 .app__content {
   background-color: whitesmoke;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      padding-top: calc(#{$header-height} + 20px);
-      padding-bottom: calc(#{$footer-height} + 20px);
-      overflow: auto;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-top: calc(#{$header-height} + 20px);
+  padding-bottom: calc(#{$footer-height} + 20px);
+  overflow: auto;
+}
+.app__alert{
+  position:fixed;
+  top:70px;
+}

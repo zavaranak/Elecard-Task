@@ -2,7 +2,7 @@ $smallscreen: 600px;
 .taskbar {
   margin-block: 10px;
   display: grid;
-  border-bottom: dashed 3px #004DBB40;
+  border-block: solid 3px #004DBB40;
   grid-template-columns: 1fr 1fr 1fr 2fr;
   @media screen and (max-width: $smallscreen) {
     grid-template-columns: 2fr;

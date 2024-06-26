@@ -9,28 +9,34 @@ export const fetchTreeItemAction = () => async (dispatch) => {
     .then((data) => {
       dispatch(fetchItems(data));
     })
-    .then(()=>{dispatch(setNestedBranches())})
-    .catch((error)=>{console.log('Can not load data from server. Error Code:',error)})
+    .then(() => {
+      dispatch(setNestedBranches());
+    })
+    .catch((error) => {
+      console.log("Can not load data from server. Error Code:", error);
+    });
 };
 //Nest items in groups by catergory
 const nestItems = (items) => {
-  const branches = []
-  items.map((item)=>{
-    if (!branches.includes(item.category)) branches.push(item.category)
-  })
-  return branches
+  const branches = [];
+  items.map((item) => {
+    if (!branches.includes(item.category)) branches.push(item.category);
+  });
+  return branches;
 };
 
 //Slice
 const treeSlice = createSlice({
   name: "tree",
   initialState: {
+    status: "",
     nestedBy: "category",
     nestedBranches: [],
     items: [],
   },
   reducers: {
     fetchItems: (state, action) => {
+      state.status = "good";
       state.items = action.payload.map((item) => ({
         ...item,
         category: item.image.split("/")[0],
@@ -38,16 +44,18 @@ const treeSlice = createSlice({
         url: `http://contest.elecard.ru/frontend_data/${item.image}`,
       }));
     },
-    setNestedBranches: (state) =>{
-      state.nestedBranches = nestItems(state.items)
-    }
+    setNestedBranches: (state) => {
+      state.nestedBranches = nestItems(state.items);
+    },
   },
 });
 //export actions
-export const { fetchItems,setNestedBranches } = treeSlice.actions;
+export const { fetchItems, setNestedBranches } = treeSlice.actions;
 //export Selector
 export const selectNestedBranches = (state) => state.treeItems.nestedBranches;
-export const selectTreeItems = (state) =>state.treeItems.items;
-export const selectBranchItemsByBranchName = (state,branchName) => state.treeItems.items.filter(item=>item.category === branchName)
+export const selectTreeItems = (state) => state.treeItems.items;
+export const selectTreeStatus = (state) => state.treeItems.status;
+export const selectBranchItemsByBranchName = (state, branchName) =>
+  state.treeItems.items.filter((item) => item.category === branchName);
 //export reducer
 export default treeSlice.reducer;

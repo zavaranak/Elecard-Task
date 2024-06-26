@@ -3,12 +3,19 @@ import { deleteCard } from "../../slices/cardSlice";
 import { Box, Grid, Divider, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import FullSizeItem from "../FullSizeItem";
-import { useState } from "react";
+import { useState,useRef } from "react";
 //component
 const Card = ({ cardInfo, showValue }) => {
+  const [displayCard, setDisplayCard] = useState (true)
   const [displayFSI, setDisplayFSI] = useState(false);
   const dispatch = useDispatch();
   const { url, name } = cardInfo;
+  const cardRef = useRef()
+  const handleDelete = (e) => {
+    setDisplayCard(false);
+    e.stopPropagation();
+    setTimeout(()=>{dispatch(deleteCard(name));setDisplayCard(true)},500);
+  };
   let showInfo;
   let value;
   switch (showValue) {
@@ -42,8 +49,8 @@ const Card = ({ cardInfo, showValue }) => {
   }
   //return JSX
   return (
-    <Grid item xs={2} sm={4} md={4}>
-      <Box className="card" onClick={() => setDisplayFSI((prev) => !prev)}>
+    <Grid   item xs={2} sm={4} md={4}>
+      <Box ref={cardRef} className={`card ${displayCard ? '' : 'card--deleted'}`}  onClick={() => setDisplayFSI((prev) => !prev)}>
         <img className="card__img" src={url} alt={url} />
         {showInfo && (
           <div className="card__info">
@@ -53,10 +60,7 @@ const Card = ({ cardInfo, showValue }) => {
         )}
         <Box className="card__delButton ">
           <IconButton
-            onClick={(e) => {
-              if (!displayFSI) dispatch(deleteCard(name));
-              e.stopPropagation();
-            }}
+            onClick={(e) => handleDelete(e)}
             color="primary"
           >
             <CloseIcon fontSize="small" />

@@ -7,7 +7,6 @@ import { Container} from "@mui/material";
 const Content = () => {
   //state and action logic
   const [view, setView] = useState("cards");
-
   //return jsx
   return (
     <Container className="app__content" maxWidth='xl'>
