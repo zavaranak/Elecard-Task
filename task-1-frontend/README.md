@@ -30,7 +30,6 @@
 # Run with:
 
     npm install
-
     npm run dev 
 
 # Run docker container
