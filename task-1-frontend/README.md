@@ -28,8 +28,8 @@
 ## DONE ## Minial request to server
 
 Run with:
-    npm install
 
+    npm install
     npm run dev 
 
 
