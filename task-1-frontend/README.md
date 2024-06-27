@@ -27,10 +27,19 @@
 ## DONE ## UI design (MUI)
 ## DONE ## Minial request to server
 
-Run with:
+# Run with:
+
     npm install
 
     npm run dev 
 
+# Run docker container
 
+    docker build -t imagename .
+
+    docker run -p port:8080 imagename 
+
+    or
+
+    docker run -p port:8080  --name containername imagename
 
