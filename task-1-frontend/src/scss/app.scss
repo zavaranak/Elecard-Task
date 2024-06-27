@@ -48,7 +48,24 @@ body {
   padding-bottom: calc(#{$footer-height} + 20px);
   overflow: auto;
 }
-.app__alert{
-  position:fixed;
-  top:70px;
+
+.app__success-message {
+  position: fixed;
+  top: calc(#{$header-height} + 10px);
+  background-color: #76ce79;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  animation: slideDown 1s forwards ease-out;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }

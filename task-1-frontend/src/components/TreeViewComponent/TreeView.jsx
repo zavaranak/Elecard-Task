@@ -7,8 +7,7 @@ import {
 } from "../../slices/treeSlice";
 import BranchHeader from "./BranchHeader";
 import TaskBar from "../TaskBar";
-import { Alert } from "@mui/material";
-import { Check } from "@mui/icons-material";
+import { Typography,Box } from "@mui/material";
 //component
 const TreeView = ({ setView }) => {
   //state and action logic
@@ -19,20 +18,25 @@ const TreeView = ({ setView }) => {
   useEffect(() => {
     dispatch(fetchTreeItemAction());
   }, [dispatch]);
+
   useEffect(() => {
     if (status === "good") {
       setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 1000);
+      setTimeout(() => setShowAlert(false), 2000);
     }
   }, [status]);
+  
   //return JSX
   return (
-    <div className="treeView">
+    <Box className="treeView">
       <TaskBar setView={setView} currentView="tree" />
       {showAlert && (
-        <Alert className='app__alert' icon={<Check fontSize="inherit" />} severity="success">
+        <Typography
+          variant="caption"
+          className="app__success-message"
+        >
           Get images successful.
-        </Alert>
+        </Typography>
       )}
       <br />
       {nestBranches.length > 0
@@ -40,7 +44,7 @@ const TreeView = ({ setView }) => {
             <BranchHeader key={index} branchName={branch} />
           ))
         : "No data"}
-    </div>
+    </Box>
   );
 };
 //export component

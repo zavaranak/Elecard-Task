@@ -8,8 +8,8 @@ import {
 } from "../../slices/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Pagination, Skeleton, Alert } from "@mui/material";
-import { Check } from "@mui/icons-material";
+import { Pagination, Skeleton, Box, Typography } from "@mui/material";
+import {  Check } from "@mui/icons-material";
 import TaskBar from "../TaskBar";
 //component
 const CardView = ({ setView }) => {
@@ -66,13 +66,13 @@ const CardView = ({ setView }) => {
   useEffect(() => {
     if (status === "good") {
       setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 1000);
+      setTimeout(() => setShowAlert(false), 2000);
     }
   }, [status]);
   //return JSX
   return (
-    <div className="cardView">
-      <div style={{ marginBottom: "10px" }}>
+    <Box className="cardView">
+      <Box style={{ marginBottom: "10px" }}>
         {/* <button onClick={() => dispatch(fetchCardAction())}>Fetch Cards</button> */}
         {/* <Button onClick={() => dispatch(removeAllCard())}>Remove All Cards</Button> */}
         {cardsLength > 0 && (
@@ -87,25 +87,26 @@ const CardView = ({ setView }) => {
           />
         )}
         <></>
-      </div>
+      </Box>
       {showAlert && (
-        <Alert
-          className="app__alert "
+        <Typography
+          variant="caption"
+          className="app__success-message "
           icon={<Check fontSize="inherit" />}
           severity="success"
         >
           Get images successful.
-        </Alert>
+        </Typography>
       )}
       {!(cardsLength > 0) && (
-        <div className="cardView__skeleton">
+        <Box className="cardView__skeleton">
           <Skeleton />
           <Skeleton />
           <Skeleton />
           <Skeleton />
           <Skeleton />
           <Skeleton />
-        </div>
+        </Box>
       )}
 
       <Page
@@ -135,7 +136,7 @@ const CardView = ({ setView }) => {
       {cardsLength > 0 && currentPage !== pageCount && (
         <button onClick={() => setPage(pageCount)}>Last Page</button>
       )} */}
-    </div>
+    </Box>
   );
 };
 //export component

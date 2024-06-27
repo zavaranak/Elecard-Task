@@ -6,11 +6,12 @@ $color-boder: #004dbb80;
   flex-direction: column;
   width: 80%;
   margin-top: 20px;
-  border: $color-boder 2px solid;
+  border: 2px solid $color-boder;
   border-radius: 20px;
   justify-content: center;
   align-items: center;
   min-width: 800px;
+  transition: height 0.5s ease;
   &__toggleList {
     display: flex;
     flex-direction: column;
