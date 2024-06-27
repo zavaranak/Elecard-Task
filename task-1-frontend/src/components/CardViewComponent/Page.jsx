@@ -6,7 +6,7 @@ const Page = ({ pageNumb, showValue,imagePerPage }) => {
   const startIndex = imagePerPage * (pageNumb - 1);
   const endIndex = startIndex + imagePerPage;
   const cards = useSelector((state) =>
-    state.cards.cardsData.slice(startIndex, endIndex)
+    state.cards.tempData.slice(startIndex, endIndex)
   );
   //return JSX
   return (

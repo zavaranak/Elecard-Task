@@ -1,4 +1,4 @@
-import { Box, IconButton,Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 //component
 const FullSizeItem = ({ url,setDisplay }) => {
@@ -6,7 +6,6 @@ const FullSizeItem = ({ url,setDisplay }) => {
     <Box className="fullSizeItem">
       <img src={url} alt={url} />
       <Box className="fullSizeItem__itemInfo">
-        <Typography></Typography>
         <IconButton size="large" color="error" onClick={(e)=>{setDisplay(false);e.stopPropagation}}>
           <CloseIcon fontSize="large"/>
         </IconButton>

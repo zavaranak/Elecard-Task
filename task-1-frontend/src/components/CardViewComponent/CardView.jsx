@@ -1,12 +1,13 @@
 import Page from "./Page";
 import {
   fetchCardAction,
+  filterCard,
   selectCardsLength,
   selectStatus,
+  sortCard,
 } from "../../slices/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { sortCard } from "../../slices/cardSlice";
 import { Pagination, Skeleton, Alert } from "@mui/material";
 import { Check } from "@mui/icons-material";
 import TaskBar from "../TaskBar";
@@ -22,14 +23,13 @@ const CardView = ({ setView }) => {
   const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
   const status = useSelector(selectStatus);
-  function selectHandler(value) {
-    if (value === "default") {
-      setSortOption("");
-      dispatch(fetchCardAction());
-    } else {
+  function sortHandler(value) {
       setSortOption(value);
       dispatch(sortCard(value));
-    }
+  }
+  function filterHandler(value) {
+      dispatch(filterCard(value));
+
   }
   const cardRecover = () => {
     localStorage.deletedCards = [];
@@ -50,9 +50,9 @@ const CardView = ({ setView }) => {
     (event, value) => setImagePerPage(value),
     500
   );
+
   ///
   useEffect(() => {
-    setSortOption("");
     const checkLocalStorage = localStorage.deletedCards ? true : false;
     setLocalStorageEmpty(!checkLocalStorage);
   }, [cardsLength]);
@@ -77,8 +77,9 @@ const CardView = ({ setView }) => {
         {/* <Button onClick={() => dispatch(removeAllCard())}>Remove All Cards</Button> */}
         {cardsLength > 0 && (
           <TaskBar
+            filterHandler={filterHandler}
             currentView="cards"
-            selectHandler={selectHandler}
+            sortHandler={sortHandler}
             cardRecover={cardRecover}
             debouncedImagePerPageChange={debouncedImagePerPageChange}
             localStorageEmpty={localStorageEmpty}
