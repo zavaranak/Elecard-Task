@@ -8,7 +8,8 @@
 
 ## DONE ## cardListView: Each card(assumed to be component) is able to close with 'x' button
 ## DONE ## cardListView: Closed cards are stored at localStorage 
-## DONE ## cardListView: Cards sorting: by catergories/timestamp/name/size
+## DONE ## cardListView: Cards sort by timestamp/name/size
+## DONE ## cardListView: Cards filter by category
 ## DONE ## cardListView: Cards distribution to pages with navigation (nextpage/previouspage/firstpage/lastpage) 
 ## DONE ## cardListView: Notification at successful data fetching 
 ## DONE ## cardListView: Card shows information of field, which is applied for sorting
