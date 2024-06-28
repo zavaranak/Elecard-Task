@@ -5,11 +5,12 @@ import {
   selectCardsLength,
   selectStatus,
   sortCard,
-} from "../../slices/cardSlice";
+  sortOrderCard,
+} from "../../store/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Pagination, Skeleton, Box, Typography } from "@mui/material";
-import {  Check } from "@mui/icons-material";
+import { Check } from "@mui/icons-material";
 import TaskBar from "../TaskBar";
 //component
 const CardView = ({ setView }) => {
@@ -19,23 +20,29 @@ const CardView = ({ setView }) => {
   const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
   const [imagePerPage, setImagePerPage] = useState(6);
   const [currentPage, setPage] = useState(1);
-  const [sortOption, setSortOption] = useState("");
+  const [sortOption, setSortOption] = useState("default");
+  const [filterOption, setFilterOption] = useState("");
   const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
   const status = useSelector(selectStatus);
-  function sortHandler(value) {
-      setSortOption(value);
-      dispatch(sortCard(value));
-  }
-  function filterHandler(value) {
-      dispatch(filterCard(value));
-
-  }
+  const sortHandler = (value) => {
+    setSortOption(value);
+    dispatch(sortCard(value));
+  };
+  const filterHandler = (value) => {
+    setFilterOption(value);
+    dispatch(filterCard(value));
+  };
+  const orderHandler = (value) => {
+    dispatch(sortOrderCard(value));
+    if(sortOption!=="default")sortHandler(sortOption);
+  };
   const cardRecover = () => {
     localStorage.deletedCards = [];
     setLocalStorageEmpty(true);
     dispatch(fetchCardAction());
   };
+  const showValue = [sortOption, filterOption];
   //Slider Handler with debouncing to optimize performance
   const debounce = (func, delay) => {
     let timeoutId;
@@ -50,8 +57,7 @@ const CardView = ({ setView }) => {
     (event, value) => setImagePerPage(value),
     500
   );
-
-  ///
+  ///useEffect
   useEffect(() => {
     const checkLocalStorage = localStorage.deletedCards ? true : false;
     setLocalStorageEmpty(!checkLocalStorage);
@@ -64,11 +70,15 @@ const CardView = ({ setView }) => {
     dispatch(fetchCardAction());
   }, [dispatch]);
   useEffect(() => {
+    setPage(1);
     if (status === "good") {
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 2000);
     }
   }, [status]);
+  useEffect(() => {
+    if (currentPage > pageCount) setPage(pageCount);
+  }, [pageCount]);
   //return JSX
   return (
     <Box className="cardView">
@@ -80,6 +90,7 @@ const CardView = ({ setView }) => {
             filterHandler={filterHandler}
             currentView="cards"
             sortHandler={sortHandler}
+            orderHandler={orderHandler}
             cardRecover={cardRecover}
             debouncedImagePerPageChange={debouncedImagePerPageChange}
             localStorageEmpty={localStorageEmpty}
@@ -111,7 +122,7 @@ const CardView = ({ setView }) => {
 
       <Page
         pageNumb={currentPage}
-        showValue={sortOption}
+        showValue={showValue}
         imagePerPage={imagePerPage}
       />
       <Pagination

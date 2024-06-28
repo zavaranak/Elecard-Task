@@ -1,61 +1,54 @@
-import { useDispatch } from "react-redux";
-import { deleteCard } from "../../slices/cardSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCard,selectOrder } from "../../store/cardSlice";
 import { Box, Grid, Divider, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import FullSizeItem from "../FullSizeItem";
+import Modal from "../Modal";
 import { useState,useRef } from "react";
 //component
 const Card = ({ cardInfo, showValue }) => {
   const [displayCard, setDisplayCard] = useState (true)
-  const [displayFSI, setDisplayFSI] = useState(false);
+  const [displayModal, setdisplayModal] = useState(false);
   const dispatch = useDispatch();
   const { url, name } = cardInfo;
   const cardRef = useRef()
   const handleDelete = (e) => {
     setDisplayCard(false);
     e.stopPropagation();
-    setTimeout(()=>{dispatch(deleteCard(name));setDisplayCard(true)},500);
+    setTimeout(()=>{dispatch(deleteCard(name));setDisplayCard(true)},300);
   };
-  let showInfo;
-  let value;
-  switch (showValue) {
+  const order = '[' + useSelector(selectOrder) + ' order] '
+  let showInfo = false
+  let sortBy = ''
+  let category
+  if(showValue[1] && showValue[1]!=='default') {category = 'Category: ' + showValue[1]; showInfo=true}
+  switch (showValue[0]) {
     case "timestamp": {
       showInfo = true;
-      value = new Date(cardInfo[showValue]).toLocaleDateString();
-      showValue = "Date";
+      let sort = new Date(cardInfo[showValue[0]]).toLocaleDateString();
+      sortBy =" Date: " + sort.toString();
       break;
     }
     case "name": {
-      value = cardInfo[showValue];
-      showValue = "Name";
+      sortBy = " Name: " + cardInfo[showValue[0]];
       showInfo = true;
       break;
     }
     case "filesize": {
-      value = cardInfo[showValue];
-      showValue = "Size";
+      sortBy =  " Size: " + cardInfo[showValue[0]];
       showInfo = true;
       break;
-    }
-    case "category": {
-      value = cardInfo[showValue];
-      showValue = "Category";
-      showInfo = true;
-      break;
-    }
-    default: {
-      showInfo = false;
     }
   }
   //return JSX
   return (
     <Grid   item xs={2} sm={4} md={4}>
-      <Box ref={cardRef} className={`card ${displayCard ? '' : 'card--deleted'}`}  onClick={() => setDisplayFSI((prev) => !prev)}>
-        <img className="card__img" src={url} alt={url} />
+      <Box ref={cardRef} className={`card ${displayCard ? '' : 'card--deleted'}`}>
+        <img onClick={() => setdisplayModal((prev) => !prev)} className="card__img" src={url} alt={url} />
         {showInfo && (
           <div className="card__info">
-            <Divider> {showValue} </Divider>
-            <Typography variant="subtitle1">{value}</Typography>
+            <Divider />
+            <Typography variant="overline">{order + sortBy}</Typography>
+            <Typography variant="overline">{category}</Typography>
           </div>
         )}
         <Box className="card__delButton ">
@@ -68,8 +61,8 @@ const Card = ({ cardInfo, showValue }) => {
         </Box>
       </Box>
       <div>
-        {displayFSI && (
-          <FullSizeItem url={url} setDisplay={setDisplayFSI} />
+        {displayModal && (
+          <Modal url={url} setDisplay={setdisplayModal} />
         )}
       </div>
     </Grid>

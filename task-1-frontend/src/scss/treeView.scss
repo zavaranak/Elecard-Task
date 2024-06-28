@@ -1,6 +1,21 @@
+$color-boder: #004dbb80;
 .treeView {
+  width: 90%;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-width: 860px;
+  &__root {
+    width: 100%;
+    margin-top: 10px;
+    border: 2px solid $color-boder;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 850px;
+  }
 }

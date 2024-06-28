@@ -1,19 +1,25 @@
 $smallscreen: 600px;
 .taskbar {
-  margin-block: 10px;
+  padding: 0;
+  box-sizing: border-box;
+  margin-block: 0px;
   display: grid;
   border-block: solid 3px #004dbb40;
-  grid-template-columns: 1fr 1fr 1fr 2fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   @media screen and (max-width: $smallscreen) {
-    grid-template-columns: 2fr;
+    grid-template-columns: 1fr;
   }
   &__switch {
     display: flex;
     align-items: center;
     justify-content: center;
-    grid-column: 3;
+    grid-column: 2;
     &--treeview {
-      grid-column: 3;
+      grid-column: 2;
+    }
+    @media screen and (max-width: $smallscreen) {
+      grid-template-columns: 1fr;
+      grid-column: 1;
     }
   }
   &__item {
@@ -21,13 +27,19 @@ $smallscreen: 600px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin: 20px;
+    margin: 10px;
+    &--row{
+      display: flex;
+      justify-content: center;
+      flex-direction:  row;
+      align-items: center;
+    }
   }
   &__itemSelect {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
-    margin: 20px;
+    margin: 10px;
   }
 }

@@ -9,13 +9,14 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { selectCategories } from "../slices/cardSlice";
+import { selectCategories } from "../store/cardSlice";
 import { useSelector } from "react-redux";
 //component
 const TaskBar = (props) => {
   const {
     filterHandler,
     sortHandler,
+    orderHandler,
     cardRecover,
     debouncedImagePerPageChange,
     localStorageEmpty,
@@ -33,15 +34,7 @@ const TaskBar = (props) => {
     <Box className="taskbar">
       {currentView === "cards" && (
         <>
-          <Box className="taskbar__item">
-            <Button
-              variant="outlined"
-              disabled={localStorageEmpty}
-              onClick={() => cardRecover()}
-            >
-              Recover Delelted Cards
-            </Button>
-          </Box>
+          {/* SORT and FILTER and Order */}
           <Box className="taskbar__itemSelect">
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="sortLabel">SORT</InputLabel>
@@ -81,6 +74,18 @@ const TaskBar = (props) => {
                 ))}
               </Select>
             </FormControl>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="orderLable">ORDER</InputLabel>
+              <Select
+                labelId="orderlabel"
+                label="ORDER"
+                defaultValue={"growing"}
+                onChange={(event) => orderHandler(event.target.value)}
+              >
+                <MenuItem value="growing">Growing</MenuItem>
+                <MenuItem value="falling">Falling</MenuItem>
+              </Select>
+            </FormControl>
           </Box>
         </>
       )}
@@ -111,6 +116,15 @@ const TaskBar = (props) => {
               max={100}
               onChange={debouncedImagePerPageChange}
             />
+          </Box>
+          <Box className="taskbar__item">
+            <Button
+              variant="outlined"
+              disabled={localStorageEmpty}
+              onClick={() => cardRecover()}
+            >
+              Recover Delelted Cards
+            </Button>
           </Box>
         </>
       )}

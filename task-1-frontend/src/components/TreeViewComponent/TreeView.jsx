@@ -4,14 +4,17 @@ import {
   fetchTreeItemAction,
   selectNestedBranches,
   selectTreeStatus,
-} from "../../slices/treeSlice";
+} from "../../store/treeSlice";
 import BranchHeader from "./BranchHeader";
 import TaskBar from "../TaskBar";
-import { Typography,Box } from "@mui/material";
+import { Typography, Box,IconButton } from "@mui/material";
+import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 //component
 const TreeView = ({ setView }) => {
   //state and action logic
   const [showAlert, setShowAlert] = useState("false");
+  const [showBranches, setShowBranches] = useState("false");
   const dispatch = useDispatch();
   const status = useSelector(selectTreeStatus);
   const nestBranches = useSelector(selectNestedBranches);
@@ -25,25 +28,36 @@ const TreeView = ({ setView }) => {
       setTimeout(() => setShowAlert(false), 2000);
     }
   }, [status]);
-  
+
   //return JSX
   return (
     <Box className="treeView">
       <TaskBar setView={setView} currentView="tree" />
       {showAlert && (
-        <Typography
-          variant="caption"
-          className="app__success-message"
-        >
+        <Typography variant="caption" className="app__success-message">
           Get images successful.
         </Typography>
       )}
-      <br />
-      {nestBranches.length > 0
-        ? nestBranches.map((branch, index) => (
+      <Box className="treeView__root" >
+        <Box className="treeView__rootLable" onClick={()=>setShowBranches(prev=>!prev)}>
+        {!showBranches && (
+            <IconButton color="success">
+              <ArrowCircleDownIcon />
+            </IconButton>
+          )}
+          {showBranches && (
+            <IconButton color="warning">
+              <ArrowCircleUpIcon />
+            </IconButton>
+          )}
+          <Typography variant = "h6" align="center">Root</Typography>
+        </Box>
+      {nestBranches.length > 0 
+        ? showBranches && nestBranches.map((branch, index) => (
             <BranchHeader key={index} branchName={branch} />
           ))
         : "No data"}
+      </Box>
     </Box>
   );
 };

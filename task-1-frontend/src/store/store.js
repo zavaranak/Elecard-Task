@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
-import cardSlice from "../slices/cardSlice"
-import treeSlice from "../slices/treeSlice"
+import cardSlice from "./cardSlice"
+import treeSlice from "./treeSlice"
 //store configuration
 export default configureStore(
     {reducer:{

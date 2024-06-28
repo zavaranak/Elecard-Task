@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { selectBranchItemsByBranchName } from "../../slices/treeSlice"
+import { selectBranchItemsByBranchName } from "../../store/treeSlice"
 import BranchItem from "./BranchItem"
 import { Box } from "@mui/material"
 //component

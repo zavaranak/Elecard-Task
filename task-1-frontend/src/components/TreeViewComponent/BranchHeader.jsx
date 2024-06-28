@@ -9,7 +9,7 @@ const BranchHeader = ({ branchName }) => {
   const [listDisplay, setListDisplay] = useState(false);
   //return JSX
   return (
-    <Box class="branchHeader">
+    <Box className="branchHeader">
       <Box
         class="branchHeader__toggleList"
         onClick={() => setListDisplay((prev) => !prev)}
