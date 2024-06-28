@@ -21,8 +21,8 @@
 ### DONE -- Radiobutton for switching between views
 ### DONE -- treeListView is not affected by state-updating action from cardListView
 
-## DONE -- cardListView: Each card(assumed to be component) is able to close with 'x' button
-## DONE -- cardListView: Closed cards are stored at localStorage 
+### DONE -- cardListView: Each card(assumed to be component) is able to close with 'x' button
+### DONE -- cardListView: Closed cards are stored at localStorage 
 ### DONE -- cardListView: Cards sort by timestamp/name/size
 ### DONE -- cardListView: Cards filter by category
 ### DONE -- cardListView: Cards distribution to pages with navigation (nextpage/previouspage/firstpage/lastpage) 
@@ -38,7 +38,7 @@
 
 ### DONE -- React
 ### DONE -- Redux Toolkit
-## DONE -- JS,HTML, SCSS
+### DONE -- JS,HTML, SCSS
 ### DONE -- Naming by BEM
 ### DONE -- UI design (MUI)
 ### DONE -- Minial request to server
