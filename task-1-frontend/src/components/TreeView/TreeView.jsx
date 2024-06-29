@@ -5,16 +5,18 @@ import {
   selectNestedBranches,
   selectTreeStatus,
 } from "../../store/treeSlice";
-import BranchHeader from "./BranchHeader";
-import TaskBar from "../TaskBar";
-import { Typography, Box,IconButton } from "@mui/material";
+import { Typography, Box, IconButton } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
+import Branch from "./Branch/Branch"
+import Alert from "../Alert/Alert";
+import TaskBar from "../TaskBar/TaskBar";
+
 //component
 const TreeView = ({ setView }) => {
   //state and action logic
-  const [showAlert, setShowAlert] = useState("false");
-  const [showBranches, setShowBranches] = useState("false");
+  const [showAlert, setShowAlert] = useState(false);
+  const [showBranches, setShowBranches] = useState(false);
   const dispatch = useDispatch();
   const status = useSelector(selectTreeStatus);
   const nestBranches = useSelector(selectNestedBranches);
@@ -32,34 +34,41 @@ const TreeView = ({ setView }) => {
   //return JSX
   return (
     <Box className="treeView">
+      {/* taskbar */}
       <TaskBar setView={setView} currentView="tree" />
-      {showAlert && (
-        <Typography variant="caption" className="app__success-message">
-          Get images successful.
-        </Typography>
-      )}
-      <Box className="treeView__root" >
-        <Box className="treeView__rootLable" onClick={()=>setShowBranches(prev=>!prev)}>
-        {!showBranches && (
+      {showAlert && <Alert />}
+      {/* Root */}
+      <Box className={`${showBranches?"treeView__root treeView__root--opened":"treeView__root"}`}>
+        <Box
+          className="treeView__rootLable"
+          onClick={() => setShowBranches((prev) => !prev)}
+        >
+          {!showBranches && (
             <IconButton color="success">
               <ArrowCircleDownIcon />
             </IconButton>
           )}
           {showBranches && (
-            <IconButton color="warning">
+            <IconButton color="warning" align="center">
               <ArrowCircleUpIcon />
             </IconButton>
           )}
-          <Typography variant = "h6" align="center">Root</Typography>
+          <Typography variant="button" align="center">
+            <b>ROOT</b>
+          </Typography>
         </Box>
-      {nestBranches.length > 0 
-        ? showBranches && nestBranches.map((branch, index) => (
-            <BranchHeader key={index} branchName={branch} />
-          ))
-        : "No data"}
+ 
+        {nestBranches.length > 0
+          ? showBranches &&
+            nestBranches.map((branch, index) => (
+              <Branch key={index} branchName={branch} />
+            ))
+          : "No data"}
       </Box>
     </Box>
   );
 };
 //export component
 export default TreeView;
+
+

@@ -5,8 +5,8 @@ const Footer = () => {
     return (
       <Box className="app__footer">
         <Container>
-          <Typography variant="body2" align="center">
-            &copy; 2024 Frontend with React by Dang
+          <Typography variant="button" align="center">
+            <b>&copy; 2024 Frontend with React by Dang</b>
           </Typography>
         </Container>
       </Box>

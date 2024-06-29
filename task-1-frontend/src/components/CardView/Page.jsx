@@ -1,4 +1,4 @@
-import Card from "./Card";
+import Card from "./Card/Card";
 import { useSelector } from "react-redux";
 import { Box,Grid } from "@mui/material";
 //component

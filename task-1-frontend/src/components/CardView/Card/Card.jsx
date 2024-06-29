@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCard,selectOrder } from "../../store/cardSlice";
+import { deleteCard,selectOrder } from "../../../store/cardSlice"
 import { Box, Grid, Divider, Typography, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import Modal from "../Modal";
+import Modal from "../../Modal/Modal";
 import { useState,useRef } from "react";
 //component
 const Card = ({ cardInfo, showValue }) => {
@@ -25,16 +25,16 @@ const Card = ({ cardInfo, showValue }) => {
     case "timestamp": {
       showInfo = true;
       let sort = new Date(cardInfo[showValue[0]]).toLocaleDateString();
-      sortBy =" Date: " + sort.toString();
+      sortBy = order + " Date: " + sort.toString();
       break;
     }
     case "name": {
-      sortBy = " Name: " + cardInfo[showValue[0]];
+      sortBy = order + " Name: " + cardInfo[showValue[0]];
       showInfo = true;
       break;
     }
     case "filesize": {
-      sortBy =  " Size: " + cardInfo[showValue[0]];
+      sortBy =  order + " Size: " + cardInfo[showValue[0]];
       showInfo = true;
       break;
     }
@@ -47,7 +47,7 @@ const Card = ({ cardInfo, showValue }) => {
         {showInfo && (
           <div className="card__info">
             <Divider />
-            <Typography variant="overline">{order + sortBy}</Typography>
+            <Typography variant="overline">{sortBy}</Typography>
             <Typography variant="overline">{category}</Typography>
           </div>
         )}

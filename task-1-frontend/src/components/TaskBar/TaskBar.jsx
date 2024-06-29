@@ -9,10 +9,10 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { selectCategories } from "../store/cardSlice";
+import { selectCategories } from "../../store/cardSlice";
 import { useSelector } from "react-redux";
 //component
-const TaskBar = (props) => {
+const Taskbar = (props) => {
   const {
     filterHandler,
     sortHandler,
@@ -31,13 +31,17 @@ const TaskBar = (props) => {
   };
   const categories = useSelector(selectCategories);
   return (
-    <Box className="taskbar">
+    <Box
+      className={`${currentView === "tree" ? "taskbar--treeView" : "taskbar"}`}
+    >
       {currentView === "cards" && (
         <>
           {/* SORT and FILTER and Order */}
           <Box className="taskbar__itemSelect">
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="sortLabel">SORT</InputLabel>
+              <InputLabel id="sortLabel">
+                <b>SORT</b>
+              </InputLabel>
               <Select
                 labelId="sortLabel"
                 label="SORT"
@@ -59,7 +63,9 @@ const TaskBar = (props) => {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="filterLabel">FILTER</InputLabel>
+              <InputLabel id="filterLabel">
+                <b>FILTER</b>
+              </InputLabel>
               <Select
                 labelId="filterLabel"
                 label="FILTER"
@@ -75,7 +81,9 @@ const TaskBar = (props) => {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="orderLable">ORDER</InputLabel>
+              <InputLabel id="orderLable">
+                <b>ORDER</b>
+              </InputLabel>
               <Select
                 labelId="orderlabel"
                 label="ORDER"
@@ -89,31 +97,32 @@ const TaskBar = (props) => {
           </Box>
         </>
       )}
-      <Box
-        className={`${
-          currentView === "tree"
-            ? "taskbar__switch--treeview"
-            : "taskbar__switch"
-        }`}
-      >
-        <Typography variant="button">tree view</Typography>
+      {/* Switch View */}
+      <Box className="taskbar__switch">
+        <Typography variant="button">
+          <b>tree view</b>
+        </Typography>
 
         <Switch
           defaultChecked={currentView === "tree"}
+          color="success"
           onChange={ViewChangeHandler}
         />
       </Box>
-
+      {/* Recover Images and Images per page */}
       {currentView === "cards" && (
         <>
           <Box className="taskbar__item">
-            <Typography variant="button"> Images per Page</Typography>
+            <Typography variant="button">
+              <b>Images per Page</b>
+            </Typography>
             <Slider
               aria-label="ImagePerPage"
               defaultValue={6}
               valueLabelDisplay="auto"
               min={6}
               max={100}
+              sx={{ color: "black" }}
               onChange={debouncedImagePerPageChange}
             />
           </Box>
@@ -123,7 +132,7 @@ const TaskBar = (props) => {
               disabled={localStorageEmpty}
               onClick={() => cardRecover()}
             >
-              Recover Delelted Cards
+              <b>Recover Delelted Cards</b>
             </Button>
           </Box>
         </>
@@ -131,5 +140,5 @@ const TaskBar = (props) => {
     </Box>
   );
 };
-
-export default TaskBar;
+//export component
+export default Taskbar;

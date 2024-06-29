@@ -1,6 +1,6 @@
 import { useState } from "react";
-import CardView from "./CardViewComponent/CardView";
-import TreeView from "./TreeViewComponent/TreeView";
+import CardView from "./CardView/CardView";
+import TreeView from "./TreeView/TreeView";
 import { Box} from "@mui/material";
 
 //component

@@ -40,7 +40,7 @@ const cardSlice = createSlice({
     cardsData: [],
     tempData: [],
     categories: [],
-    sortOrder: 'growing',
+    sortOrder: "growing",
   },
   reducers: {
     fetchCard: (state, action) => {
@@ -57,7 +57,7 @@ const cardSlice = createSlice({
           return !JSON.parse(temp).includes(card.name);
         } else return true;
       });
-      state.tempData = state.cardsData;
+      state.tempData = state.cardsData.slice(0);
       state.categories = findCategories(state.cardsData);
     },
     deleteCard: (state, action) => {
@@ -65,41 +65,50 @@ const cardSlice = createSlice({
       state.cardsData = state.cardsData.filter(
         (card) => card.name !== action.payload
       );
-      state.tempData = state.tempData.filter(
-        (card) => card.name !== action.payload
-      );
+      state.tempData = state.cardsData.slice(0);
     },
     removeAllCard: (state) => {
       state.tempData = [];
     },
-    sortCard: (state, action) => {
-      let compare = (state.sortOrder==='growing')?growingOrder:(state.sortOrder==='falling')?fallingOrder:()=>{}
-      if (action.payload === "default") state.tempData = state.cardsData;
-      else
-        state.tempData = state.tempData.sort((a, b) =>
-          compare(a[action.payload], b[action.payload])
-        );
-    },
     sortOrderCard: (state, action) => {
-      state.sortOrder = action.payload
+      state.sortOrder = action.payload;
     },
-    filterCard: (state, action) => {
-      if (action.payload === "default") state.tempData = state.cardsData;
-      else
-        state.tempData = state.cardsData.filter(
-          (card) => card.category === action.payload
+    sortAndFilterCard: (state, action) => {
+      let [sortBy, filterBy] = action.payload;
+      state.tempData = state.cardsData.slice(0);
+
+      if (filterBy !== "default") {
+        state.tempData = state.tempData.filter(
+          (card) => card.category === filterBy
         );
+      }
+
+      if (sortBy !== "default") {
+        let compare =
+          state.sortOrder === "growing"
+            ? growingOrder
+            : state.sortOrder === "falling"
+            ? fallingOrder
+            : () => 0;
+        state.tempData = state.tempData.sort((a, b) =>
+          compare(a[sortBy], b[sortBy])
+        );
+      }
     },
   },
 });
 
 //Export actions for state updating
-export const { fetchCard, deleteCard, removeAllCard, sortCard, filterCard,sortOrderCard } =
-  cardSlice.actions;
+export const {
+  fetchCard,
+  deleteCard,
+  removeAllCard,
+  sortOrderCard,
+  sortAndFilterCard,
+} = cardSlice.actions;
 //Length of data "cards"
 export const selectCardsLength = (state) => state.cards.tempData.length;
 export const selectStatus = (state) => state.cards.status;
-export const selectFilteredCard = (state) => state.cards.filteredData;
 export const selectCategories = (state) => state.cards.categories;
 export const selectOrder = (state) => state.cards.sortOrder;
 //export reducer

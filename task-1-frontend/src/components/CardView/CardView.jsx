@@ -1,17 +1,16 @@
 import Page from "./Page";
 import {
   fetchCardAction,
-  filterCard,
   selectCardsLength,
   selectStatus,
-  sortCard,
   sortOrderCard,
+  sortAndFilterCard,
 } from "../../store/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { Pagination, Skeleton, Box, Typography } from "@mui/material";
-import { Check } from "@mui/icons-material";
-import TaskBar from "../TaskBar";
+import { Pagination, Skeleton, Box } from "@mui/material";
+import Alert from "../Alert/Alert";
+import TaskBar from "../TaskBar/TaskBar";
 //component
 const CardView = ({ setView }) => {
   //state and action logic
@@ -21,21 +20,22 @@ const CardView = ({ setView }) => {
   const [imagePerPage, setImagePerPage] = useState(6);
   const [currentPage, setPage] = useState(1);
   const [sortOption, setSortOption] = useState("default");
-  const [filterOption, setFilterOption] = useState("");
+  const [filterOption, setFilterOption] = useState("default");
   const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
   const status = useSelector(selectStatus);
+  
   const sortHandler = (value) => {
     setSortOption(value);
-    dispatch(sortCard(value));
+    dispatch(sortAndFilterCard([value,filterOption]))
   };
   const filterHandler = (value) => {
     setFilterOption(value);
-    dispatch(filterCard(value));
+    dispatch(sortAndFilterCard([sortOption,value]))
   };
   const orderHandler = (value) => {
     dispatch(sortOrderCard(value));
-    if(sortOption!=="default")sortHandler(sortOption);
+    dispatch(sortAndFilterCard([sortOption,filterOption]))
   };
   const cardRecover = () => {
     localStorage.deletedCards = [];
@@ -99,16 +99,7 @@ const CardView = ({ setView }) => {
         )}
         <></>
       </Box>
-      {showAlert && (
-        <Typography
-          variant="caption"
-          className="app__success-message "
-          icon={<Check fontSize="inherit" />}
-          severity="success"
-        >
-          Get images successful.
-        </Typography>
-      )}
+      {showAlert && <Alert />}
       {!(cardsLength > 0) && (
         <Box className="cardView__skeleton">
           <Skeleton />

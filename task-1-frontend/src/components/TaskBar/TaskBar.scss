@@ -1,22 +1,21 @@
-$smallscreen: 600px;
+$smallscreen: 700px;
 .taskbar {
   padding: 0;
   box-sizing: border-box;
-  margin-block: 0px;
+  margin-bottom: 30px;
   display: grid;
-  border-block: solid 3px #004dbb40;
+  border-bottom: solid 3px #004dbb;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   @media screen and (max-width: $smallscreen) {
     grid-template-columns: 1fr;
   }
   &__switch {
+    margin-left: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     grid-column: 2;
-    &--treeview {
-      grid-column: 2;
-    }
+
     @media screen and (max-width: $smallscreen) {
       grid-template-columns: 1fr;
       grid-column: 1;
@@ -41,5 +40,9 @@ $smallscreen: 600px;
     justify-content: center;
     flex-direction: row;
     margin: 10px;
+  }
+  &--treeView{
+    display:flex;
+    justify-content: center;
   }
 }
