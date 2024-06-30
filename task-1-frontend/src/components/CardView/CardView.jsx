@@ -18,13 +18,13 @@ const CardView = ({ setView }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
   const [imagePerPage, setImagePerPage] = useState(6);
-  const [currentPage, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const [sortOption, setSortOption] = useState("default");
   const [filterOption, setFilterOption] = useState("default");
   const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
   const status = useSelector(selectStatus);
-  
+
   const sortHandler = (value) => {
     setSortOption(value);
     dispatch(sortAndFilterCard([value,filterOption]))
@@ -70,21 +70,20 @@ const CardView = ({ setView }) => {
     dispatch(fetchCardAction());
   }, [dispatch]);
   useEffect(() => {
-    setPage(1);
+    setCurrentPage(1);
     if (status === "good") {
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 2000);
     }
   }, [status]);
   useEffect(() => {
-    if (currentPage > pageCount) setPage(pageCount);
-  }, [pageCount]);
+    if(pageCount===0)setCurrentPage(1);
+    else setCurrentPage(Math.min(currentPage, pageCount));
+  }, [currentPage, pageCount]);
   //return JSX
   return (
     <Box className="cardView">
       <Box style={{ marginBottom: "10px" }}>
-        {/* <button onClick={() => dispatch(fetchCardAction())}>Fetch Cards</button> */}
-        {/* <Button onClick={() => dispatch(removeAllCard())}>Remove All Cards</Button> */}
         {cardsLength > 0 && (
           <TaskBar
             filterHandler={filterHandler}
@@ -117,26 +116,30 @@ const CardView = ({ setView }) => {
         imagePerPage={imagePerPage}
       />
       <Pagination
-        className="cardView__pagination"
-        count={pageCount}
-        onChange={(event, page) => setPage(page)}
-        showFirstButton
-        showLastButton
-      />
+      className="cardView__pagination"
+      color="primary"
+      count={Math.max(1, pageCount)}
+      page={currentPage}
+      onChange={(event, page) => {
+           setCurrentPage(page);
+      }}
+      showFirstButton
+      showLastButton
+    />
       {/* Pagination without MUI
       {currentPage < pageCount && (
-        <button onClick={() => setPage((prev) => prev + 1)}>Next Page</button>
+        <button onClick={() => setCurrentPage((prev) => prev + 1)}>Next Page</button>
       )}
       {currentPage > 1 && cardsLength > 0 && (
-        <button onClick={() => setPage((prev) => prev - 1)}>
+        <button onClick={() => setCurrentPage((prev) => prev - 1)}>
           Previous Page
         </button>
       )}
       {cardsLength > 0 && currentPage !== 1 && (
-        <button onClick={() => setPage(1)}>First Page</button>
+        <button onClick={() => setCurrentPage(1)}>First Page</button>
       )}
       {cardsLength > 0 && currentPage !== pageCount && (
-        <button onClick={() => setPage(pageCount)}>Last Page</button>
+        <button onClick={() => setCurrentPage(pageCount)}>Last Page</button>
       )} */}
     </Box>
   );
