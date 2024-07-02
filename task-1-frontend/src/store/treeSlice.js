@@ -1,4 +1,3 @@
-//Tree View States
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 //Thunk action function
@@ -25,7 +24,6 @@ const nestItems = (items) => {
   return branches;
 };
 
-//Slice
 const treeSlice = createSlice({
   name: "tree",
   initialState: {
@@ -49,13 +47,13 @@ const treeSlice = createSlice({
     },
   },
 });
-//export actions
+
 export const { fetchItems, setNestedBranches } = treeSlice.actions;
-//export Selector
+
 export const selectNestedBranches = (state) => state.treeItems.nestedBranches;
 export const selectTreeItems = (state) => state.treeItems.items;
 export const selectTreeStatus = (state) => state.treeItems.status;
 export const selectBranchItemsByBranchName = (state, branchName) =>
   state.treeItems.items.filter((item) => item.category === branchName);
-//export reducer
+
 export default treeSlice.reducer;

@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { selectCategories } from "../../store/cardSlice";
 import { useSelector } from "react-redux";
-//component
+
 const Taskbar = (props) => {
   const {
     filterHandler,
@@ -32,12 +32,12 @@ const Taskbar = (props) => {
   const categories = useSelector(selectCategories);
   return (
     <Box
-      className={`${currentView === "tree" ? "taskbar--treeView" : "taskbar"}`}
+      className={`${currentView === "tree" ? "taskbar_tree_view" : "taskbar"}`}
     >
       {currentView === "cards" && (
         <>
           {/* SORT and FILTER and Order */}
-          <Box className="taskbar__itemSelect">
+          <Box className="taskbar__selectors">
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="sortLabel">
                 <b>SORT</b>
@@ -140,5 +140,5 @@ const Taskbar = (props) => {
     </Box>
   );
 };
-//export component
+
 export default Taskbar;

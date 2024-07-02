@@ -11,9 +11,8 @@ import { useEffect, useState } from "react";
 import { Pagination, Skeleton, Box } from "@mui/material";
 import Alert from "../Alert/Alert";
 import TaskBar from "../TaskBar/TaskBar";
-//component
+
 const CardView = ({ setView }) => {
-  //state and action logic
   const cardsLength = useSelector(selectCardsLength);
   const [showAlert, setShowAlert] = useState(false);
   const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
@@ -27,22 +26,21 @@ const CardView = ({ setView }) => {
 
   const sortHandler = (value) => {
     setSortOption(value);
-    dispatch(sortAndFilterCard([value,filterOption]))
+    dispatch(sortAndFilterCard([value, filterOption]));
   };
   const filterHandler = (value) => {
     setFilterOption(value);
-    dispatch(sortAndFilterCard([sortOption,value]))
+    dispatch(sortAndFilterCard([sortOption, value]));
   };
   const orderHandler = (value) => {
     dispatch(sortOrderCard(value));
-    dispatch(sortAndFilterCard([sortOption,filterOption]))
+    dispatch(sortAndFilterCard([sortOption, filterOption]));
   };
   const cardRecover = () => {
     localStorage.deletedCards = [];
     setLocalStorageEmpty(true);
     dispatch(fetchCardAction());
   };
-  const showValue = [sortOption, filterOption];
   //Slider Handler with debouncing to optimize performance
   const debounce = (func, delay) => {
     let timeoutId;
@@ -57,7 +55,6 @@ const CardView = ({ setView }) => {
     (event, value) => setImagePerPage(value),
     500
   );
-  ///useEffect
   useEffect(() => {
     const checkLocalStorage = localStorage.deletedCards ? true : false;
     setLocalStorageEmpty(!checkLocalStorage);
@@ -77,10 +74,9 @@ const CardView = ({ setView }) => {
     }
   }, [status]);
   useEffect(() => {
-    if(pageCount===0)setCurrentPage(1);
+    if (pageCount === 0) setCurrentPage(1);
     else setCurrentPage(Math.min(currentPage, pageCount));
   }, [currentPage, pageCount]);
-  //return JSX
   return (
     <Box className="cardView">
       <Box style={{ marginBottom: "10px" }}>
@@ -110,39 +106,19 @@ const CardView = ({ setView }) => {
         </Box>
       )}
 
-      <Page
-        pageNumb={currentPage}
-        showValue={showValue}
-        imagePerPage={imagePerPage}
-      />
+      <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
-      className="cardView__pagination"
-      color="primary"
-      count={Math.max(1, pageCount)}
-      page={currentPage}
-      onChange={(event, page) => {
-           setCurrentPage(page);
-      }}
-      showFirstButton
-      showLastButton
-    />
-      {/* Pagination without MUI
-      {currentPage < pageCount && (
-        <button onClick={() => setCurrentPage((prev) => prev + 1)}>Next Page</button>
-      )}
-      {currentPage > 1 && cardsLength > 0 && (
-        <button onClick={() => setCurrentPage((prev) => prev - 1)}>
-          Previous Page
-        </button>
-      )}
-      {cardsLength > 0 && currentPage !== 1 && (
-        <button onClick={() => setCurrentPage(1)}>First Page</button>
-      )}
-      {cardsLength > 0 && currentPage !== pageCount && (
-        <button onClick={() => setCurrentPage(pageCount)}>Last Page</button>
-      )} */}
+        className="cardView__pagination"
+        color="primary"
+        count={Math.max(1, pageCount)}
+        page={currentPage}
+        onChange={(event, page) => {
+          setCurrentPage(page);
+        }}
+        showFirstButton
+        showLastButton
+      />
     </Box>
   );
 };
-//export component
 export default CardView;

@@ -1,4 +1,3 @@
-//Card View State
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -14,13 +13,13 @@ export const fetchCardAction = () => async (dispatch) => {
       console.log("Can not load data from server. Error Code:", error);
     });
 };
-//Local Storage Logic
+
 const handleLocalStorage = (name) => {
   let temp = localStorage.deletedCards;
   let delCards = temp ? JSON.parse(temp) : [];
   localStorage.deletedCards = JSON.stringify([...delCards, name]);
 };
-//Nest items in groups by catergory
+
 const findCategories = (items) => {
   const branches = [];
   items.map((item) => {
@@ -28,11 +27,10 @@ const findCategories = (items) => {
   });
   return branches;
 };
-//Compare function
+
 const growingOrder = (a, b) => (a > b ? true : b > a ? false - 1 : 0);
 const fallingOrder = (a, b) => (a < b ? true : b < a ? false - 1 : 0);
 
-//Slice
 const cardSlice = createSlice({
   name: "cards",
   initialState: {
@@ -98,7 +96,6 @@ const cardSlice = createSlice({
   },
 });
 
-//Export actions for state updating
 export const {
   fetchCard,
   deleteCard,
@@ -106,10 +103,10 @@ export const {
   sortOrderCard,
   sortAndFilterCard,
 } = cardSlice.actions;
-//Length of data "cards"
+
 export const selectCardsLength = (state) => state.cards.tempData.length;
 export const selectStatus = (state) => state.cards.status;
 export const selectCategories = (state) => state.cards.categories;
 export const selectOrder = (state) => state.cards.sortOrder;
-//export reducer
+
 export default cardSlice.reducer;

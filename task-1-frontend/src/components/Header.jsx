@@ -1,6 +1,5 @@
 import { Box, Toolbar, Typography } from "@mui/material";
 
-//component
 const Header = () => {
   return (
     <Box className="app__header">
@@ -12,5 +11,5 @@ const Header = () => {
     </Box>
   );
 };
-//export component
+
 export default Header;

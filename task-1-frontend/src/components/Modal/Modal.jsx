@@ -1,14 +1,27 @@
 import { Box, IconButton } from "@mui/material";
+import { useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-//component
+
 const Modal = ({ url, setDisplay }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
   return (
-    <Box className="modal">
-      <Box className="modal__contentBox">
+    <Box
+      className="modal"
+      onClick={() => {
+        console.log("clicked");
+      }}
+    >
+      <Box className="modal__content_box">
         <img src={url} alt={url} />
-        <Box className="modal__delButton">
+        <Box className="modal__del_button">
           <IconButton
-            size="large"
+            size="small"
             color="error"
             onClick={(e) => {
               setDisplay(false);
@@ -22,5 +35,5 @@ const Modal = ({ url, setDisplay }) => {
     </Box>
   );
 };
-//export component
+
 export default Modal;

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import {selectBranchItemsByBranchName} from "../../../store/treeSlice"
+import { selectBranchItemsByBranchName } from "../../../store/treeSlice";
 import { Box, Typography, IconButton } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Leaf from "./Leaf/Leaf";
-//component
+
 const Branch = ({ branchName }) => {
-  //state and logic
   const [listDisplay, setListDisplay] = useState(false);
-  const leaves = useSelector((state)=>selectBranchItemsByBranchName(state,branchName))
-  //return JSX
+  const leaves = useSelector((state) =>
+    selectBranchItemsByBranchName(state, branchName)
+  );
   return (
     <Box className="branch">
       <Box
@@ -24,7 +24,7 @@ const Branch = ({ branchName }) => {
             </IconButton>
           )}
           {listDisplay && (
-            <IconButton color="warning">
+            <IconButton color="error">
               <ArrowCircleUpIcon />
             </IconButton>
           )}
@@ -33,11 +33,14 @@ const Branch = ({ branchName }) => {
           <b> {branchName}</b>{" "}
         </Typography>
       </Box>
-      {listDisplay && <Box className='branch--open'>
-        {leaves.map((item,index) => <Leaf key={index} item ={item} />)}
-    </Box>}
+      {listDisplay && (
+        <Box className="branch_opened">
+          {leaves.map((item, index) => (
+            <Leaf key={index} item={item} />
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
-//export component
 export default Branch;

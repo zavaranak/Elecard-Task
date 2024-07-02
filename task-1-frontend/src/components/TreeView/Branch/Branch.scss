@@ -1,23 +1,24 @@
 $color-itemborder: #0706004d;
 $color-boder: #0706004d;
 .branch {
-  margin: 10px;
   display: flex;
   flex-direction: column;
+  margin: 10px;
   width: 90%;
   border: 2px solid $color-boder;
   border-radius: 20px;
   justify-content: center;
   align-items: center;
-  // transition: height 0.5s ease;
-  &__toggleArea{
+  background-color: #fff;
+  color: #000;
+  &__toggleArea {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
   }
-  &--open {
+  &_opened {
     border-top: dashed 1px $color-boder;
     width: 80%;
   }

@@ -8,13 +8,11 @@ import {
 import { Typography, Box, IconButton } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import Branch from "./Branch/Branch"
+import Branch from "./Branch/Branch";
 import Alert from "../Alert/Alert";
 import TaskBar from "../TaskBar/TaskBar";
 
-//component
 const TreeView = ({ setView }) => {
-  //state and action logic
   const [showAlert, setShowAlert] = useState(false);
   const [showBranches, setShowBranches] = useState(false);
   const dispatch = useDispatch();
@@ -31,25 +29,31 @@ const TreeView = ({ setView }) => {
     }
   }, [status]);
 
-  //return JSX
   return (
-    <Box className="treeView">
-      {/* taskbar */}
+    <Box
+      className={'treeView'}
+    >
       <TaskBar setView={setView} currentView="tree" />
       {showAlert && <Alert />}
-      {/* Root */}
-      <Box className={`${showBranches?"treeView__root treeView__root--opened":"treeView__root"}`}>
+
+      <Box
+        className={`${
+          showBranches
+            ? "treeView__root treeView__root_opened"
+            : "treeView__root"
+        }`}
+      >
         <Box
-          className="treeView__rootLable"
+          className="treeView__root_lable"
           onClick={() => setShowBranches((prev) => !prev)}
         >
           {!showBranches && (
-            <IconButton color="success">
+            <IconButton sx={{color:"white"}}>
               <ArrowCircleDownIcon />
             </IconButton>
           )}
           {showBranches && (
-            <IconButton color="warning" align="center">
+            <IconButton sx={{color:"white"}} align="center">
               <ArrowCircleUpIcon />
             </IconButton>
           )}
@@ -57,7 +61,7 @@ const TreeView = ({ setView }) => {
             <b>ROOT</b>
           </Typography>
         </Box>
- 
+
         {nestBranches.length > 0
           ? showBranches &&
             nestBranches.map((branch, index) => (
@@ -68,7 +72,5 @@ const TreeView = ({ setView }) => {
     </Box>
   );
 };
-//export component
+
 export default TreeView;
-
-
