@@ -3,7 +3,6 @@ $smallscreen: 700px;
   padding: 0;
   box-sizing: border-box;
   display: grid;
-  border-bottom: solid 3px #000;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   @media screen and (max-width: $smallscreen) {
     grid-template-columns: 1fr;

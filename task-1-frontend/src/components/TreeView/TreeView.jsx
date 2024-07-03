@@ -1,23 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchTreeItemAction,
   selectNestedBranches,
   selectTreeStatus,
 } from "../../store/treeSlice";
-import { Typography, Box, IconButton } from "@mui/material";
+import { Typography, IconButton } from "@mui/material";
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Branch from "./Branch/Branch";
 import Alert from "../Alert/Alert";
 import TaskBar from "../TaskBar/TaskBar";
+import ButtonToTop from "../ButtonToTop/ButtonToTop";
 
 const TreeView = ({ setView }) => {
   const [showAlert, setShowAlert] = useState(false);
-  const [showBranches, setShowBranches] = useState(false);
+  const [showBranches, setShowBranches] = useState(true);
   const dispatch = useDispatch();
   const status = useSelector(selectTreeStatus);
   const nestBranches = useSelector(selectNestedBranches);
+  const rootTag = useRef();
+
   useEffect(() => {
     dispatch(fetchTreeItemAction());
   }, [dispatch]);
@@ -30,46 +33,48 @@ const TreeView = ({ setView }) => {
   }, [status]);
 
   return (
-    <Box
-      className={'treeView'}
-    >
+    <div className={"tree_view"}>
       <TaskBar setView={setView} currentView="tree" />
+
       {showAlert && <Alert />}
 
-      <Box
+      <div
         className={`${
           showBranches
-            ? "treeView__root treeView__root_opened"
-            : "treeView__root"
+            ? "tree_view__root tree_view__root_opened"
+            : "tree_view__root"
         }`}
       >
-        <Box
-          className="treeView__root_lable"
+        <div
+          ref={rootTag}
+          className="tree_view__lable"
           onClick={() => setShowBranches((prev) => !prev)}
         >
           {!showBranches && (
-            <IconButton sx={{color:"white"}}>
+            <IconButton color="success">
               <ArrowCircleDownIcon />
             </IconButton>
           )}
           {showBranches && (
-            <IconButton sx={{color:"white"}} align="center">
+            <IconButton color="primary" align="center">
               <ArrowCircleUpIcon />
             </IconButton>
           )}
-          <Typography variant="button" align="center">
+          <Typography sx={{color:"#004dbb"}} variant="button" align="center">
             <b>ROOT</b>
           </Typography>
-        </Box>
+        </div>
 
         {nestBranches.length > 0
           ? showBranches &&
             nestBranches.map((branch, index) => (
-              <Branch key={index} branchName={branch} />
+              <Branch key={index} order={index+1} branchName={branch} />
             ))
           : "No data"}
-      </Box>
-    </Box>
+      </div>
+      <ButtonToTop order={0} />
+      {/* <ButtonToTop order={15} rootTag={rootTag} /> */}
+    </div>
   );
 };
 

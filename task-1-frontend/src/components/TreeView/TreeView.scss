@@ -1,6 +1,7 @@
 $color-boder: #004dbb;
-.treeView {
-  padding:10px;
+.tree_view {
+  position:relative;
+  padding: 10px;
   box-sizing: border-box;
   width: 85%;
   margin-top: 20px;
@@ -8,6 +9,7 @@ $color-boder: #004dbb;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   &__root {
     width: 100%;
     margin-top: 10px;
@@ -16,22 +18,34 @@ $color-boder: #004dbb;
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #fff;
-    background-color: #004dbb;
-    
+    transition: height 1s ease-in-out, max-height 1s ease-in-out;
     &_opened {
-      animation: expandBox 0.3s ease-out;
+      animation: open_box 2s ease-in-out forwards;
     }
   }
-  &__root_lable {
-    width: 100%;cursor: pointer;
+  &__lable {
+    width: 100%;
+    cursor: pointer;
   }
 }
-@keyframes expandBox {
+
+@keyframes open_box {
   0% {
-    height: 0;
+    max-height: 200px;
+  }
+  50% {
+    max-height: 1000px;
+  }
+  60%{
+    max-height: 1300px ;
+  }
+  70%{
+    max-height: 1500px ;
+  }
+  90%{
+    max-height: 2000px ;
   }
   100% {
-    height: 500px;
+    max-height: auto;
   }
 }

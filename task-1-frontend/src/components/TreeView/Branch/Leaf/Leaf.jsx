@@ -11,8 +11,8 @@ const Leaf = ({ item }) => {
       <Box className="leaf__image" onClick={() => {setdisplayModal(true)}}>
         <img className="leaf__thumpnail" src={item.url} alt={item.name} />
       </Box>
-      <Box className="leaf__name"><Typography variant="subtitile2">
-        <b>{item.name}</b>
+      <Box className="leaf__name"><Typography  sx={{color:"#004dbb"}}  variant="subtitile2">
+        {item.name}
       </Typography></Box>
       
       <Box className="leaf__info">

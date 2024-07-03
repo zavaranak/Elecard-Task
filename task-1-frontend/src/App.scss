@@ -6,13 +6,17 @@
 @import "./components/CardView/Card/Card.scss";
 @import "./components/TreeView/Branch/Branch.scss";
 @import "./components/TreeView/Branch/Leaf/Leaf.scss";
+@import "./components/ButtonToTop/ButtonToTop.scss";
+
 
 $header-height: 80px;
 $footer-height: 30px;
-$color: #004dbb;
-$color-content: #ffffff;
+$color-main: #004dbb;
+$color-content: #F3F8FC;
 html,
 body {
+  background-color: $color-content;
+;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -28,7 +32,7 @@ body {
     height: 100%;
   }
   &__header {
-    background-color: $color;
+    background-color: $color-main;
     color: white;
     position: fixed;
     top: 0;
@@ -40,7 +44,7 @@ body {
   }
   &__footer {
     background-color: white;
-    color: $color;
+    color: $color-main;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -48,7 +52,7 @@ body {
     height: $footer-height;
     display: flex;
     justify-content: center;
-    border-top: $color 2px solid;
+    border-top: $color-main 2px solid;
   }
   &__content {
     background-color: $color-content;

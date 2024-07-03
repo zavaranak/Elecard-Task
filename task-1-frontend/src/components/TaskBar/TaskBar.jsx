@@ -99,7 +99,7 @@ const Taskbar = (props) => {
       )}
       {/* Switch View */}
       <Box className="taskbar__switch">
-        <Typography variant="button">
+        <Typography sx={{color:"#004dbb"}} variant="button">
           <b>tree view</b>
         </Typography>
 
@@ -113,7 +113,7 @@ const Taskbar = (props) => {
       {currentView === "cards" && (
         <>
           <Box className="taskbar__item">
-            <Typography variant="button">
+            <Typography sx={{color:"#004dbb"}} variant="button">
               <b>Images per Page</b>
             </Typography>
             <Slider
@@ -122,7 +122,7 @@ const Taskbar = (props) => {
               valueLabelDisplay="auto"
               min={6}
               max={100}
-              sx={{ color: "black" }}
+              sx={{color:"#004dbb"}}
               onChange={debouncedImagePerPageChange}
             />
           </Box>

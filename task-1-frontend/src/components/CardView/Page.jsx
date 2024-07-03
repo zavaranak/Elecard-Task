@@ -13,7 +13,7 @@ const Page = ({ pageNumb, imagePerPage }) => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid
         container
-        spacing={{ xs: 2, md: 3 }}
+        spacing={{ xs: 1, md: 2 }}
         columns={{ xs: 2, sm: 8, md: 12 }}
       >
         {cards.length > 0 &&

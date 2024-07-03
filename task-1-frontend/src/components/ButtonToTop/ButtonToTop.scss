@@ -1,0 +1,12 @@
+.button_to_top {
+  position: fixed;
+  bottom: 5%;
+  right: 50px;
+  z-index: 100;
+  &_unactive {
+    display: none;
+  }
+  &_active {
+    display: block;
+  }
+}

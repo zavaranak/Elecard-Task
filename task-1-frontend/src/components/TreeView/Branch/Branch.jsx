@@ -1,23 +1,27 @@
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { useSelector } from "react-redux";
 import { selectBranchItemsByBranchName } from "../../../store/treeSlice";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Typography, IconButton } from "@mui/material";
+import ButtonToTop from "../../ButtonToTop/ButtonToTop"
 import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
 import Leaf from "./Leaf/Leaf";
 
-const Branch = ({ branchName }) => {
+const Branch = ({ branchName, order }) => {
   const [listDisplay, setListDisplay] = useState(false);
   const leaves = useSelector((state) =>
     selectBranchItemsByBranchName(state, branchName)
   );
+  const branchRef = useRef()
   return (
-    <Box className="branch">
-      <Box
-        class="branch__toggleArea"
+    <div 
+    ref={branchRef}
+    className="branch">
+      <div
+        className="branch__label"
         onClick={() => setListDisplay((prev) => !prev)}
       >
-        <Typography variant="button" className="branch__label">
+        <Typography variant="button">
           {!listDisplay && (
             <IconButton color="success">
               <ArrowCircleDownIcon />
@@ -32,15 +36,17 @@ const Branch = ({ branchName }) => {
         <Typography variant="button">
           <b> {branchName}</b>{" "}
         </Typography>
-      </Box>
+      </div>
+        
       {listDisplay && (
-        <Box className="branch_opened">
+        <div className="branch__list">
           {leaves.map((item, index) => (
             <Leaf key={index} item={item} />
           ))}
-        </Box>
+        </div>
       )}
-    </Box>
+      <ButtonToTop order={order*7} rootTag={branchRef} name={branchName} />
+    </div>
   );
 };
 export default Branch;

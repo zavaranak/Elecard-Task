@@ -1,25 +1,26 @@
 $color-itemborder: #0706004d;
-$color-boder: #0706004d;
+$color-boder: #00B0B0;
 .branch {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 10px;
   width: 90%;
   border: 2px solid $color-boder;
   border-radius: 20px;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  color: #000;
-  &__toggleArea {
+  overflow: hidden;
+  
+
+  &__label {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     cursor: pointer;
   }
-  &_opened {
-    border-top: dashed 1px $color-boder;
+  &__list {
     width: 80%;
+    animation: open_box 2.5s ease-out; 
   }
 }

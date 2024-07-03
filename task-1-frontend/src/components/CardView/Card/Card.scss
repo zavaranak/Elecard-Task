@@ -1,40 +1,60 @@
-
-$color-card: #070600BF;
+$color-card: #004dbb;
 $color-font: #070600;
+$color-boder: #00B0B0;
 .card {
   display: flex;
-  box-sizing: border-box;
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: $color-card 2px solid;
+  border: 1px $color-boder solid;
   box-sizing: border-box;
-  transition: 0.5s;
-  border-radius: 8px;
-  &:hover{
-    border: #004dbbbf 2px solid;
-    color: #004dbbbf
-  }
+  transition: 0.3s;
+  background-color: white;
   &__image {
     width: 100%;
-    height: 260px;
-    object-fit: cover;
-    cursor: pointer;
-    border-radius: 5px;
+    img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+    &_suggested {
+      color: $color-boder;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+      border: 2px solid;
+      opacity: 0;
+      z-index: 90;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 10px;
+      text-align: center;
+    }
+
+    &:hover &_suggested {
+      opacity: 1;
+      width: 300px;
+      transform: translate(-50%, -60%);
+    }
+    &:hover img {
+      filter: brightness(0.3);
+    }
   }
   &__info {
-    width:90%;
-    margin-top: 10px;
+    padding-inline: 3px;
+    width: 98%;
     color: $color-font;
     display: flex;
-    justify-content: space-between ;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
-  &__break{
+  &__break {
     height: 0;
     flex-basis: 100%;
   }
-  &__name{
+  &__name {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -49,12 +69,10 @@ $color-font: #070600;
       background-color: whitesmoke;
     }
   }
-
   &_deleted {
     animation: fadeOut 0.5s ease-in-out forwards;
   }
 }
-
 @keyframes fadeOut {
   0% {
     opacity: 1;
