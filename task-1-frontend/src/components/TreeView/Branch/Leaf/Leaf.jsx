@@ -8,19 +8,26 @@ const Leaf = ({ item }) => {
   const size = item.filesize / (1024 * 1024);
   return (
     <Box className="leaf">
-      <Box className="leaf__image" onClick={() => {setdisplayModal(true)}}>
+      <Box
+        className="leaf__image"
+        onClick={() => {
+          setdisplayModal(true);
+        }}
+      >
         <img className="leaf__thumpnail" src={item.url} alt={item.name} />
       </Box>
-      <Box className="leaf__name"><Typography  sx={{color:"#004dbb"}}  variant="subtitile2">
-        {item.name}
-      </Typography></Box>
-      
+      <Box className="leaf__name">
+        <Typography sx={{ color: "#004dbb" }} variant="subtitile2">
+          {item.name}
+        </Typography>
+      </Box>
+
       <Box className="leaf__info">
         <Typography variant="caption">Date: {date} </Typography>
         <Typography variant="caption">Size: {size.toFixed(2)}MB</Typography>
       </Box>
       <div>
-        {displayModal && <Modal url={item.url} setDisplay={setdisplayModal}/>}
+        {displayModal && <Modal url={item.url} setDisplay={setdisplayModal} />}
       </div>
     </Box>
   );

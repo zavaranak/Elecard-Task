@@ -38,7 +38,14 @@ export const selectNestedBranches = createSelector(
   (treeState) => treeState.nestedBranches
 );
 
-export const selectBranchItemsByBranchName = (state, branchName) =>
-  state.treeItems.items.filter((item) => item.category === branchName);
+const selectItems = createSelector(
+  [selectTreeState],
+  (treeState) => treeState.items
+);
+
+export const selectBranchItemsByBranchName = (branchName) =>
+  createSelector([selectItems], (items) =>
+    items.filter((item) => item.category === branchName)
+  );
 
 export default treeSlice.reducer;

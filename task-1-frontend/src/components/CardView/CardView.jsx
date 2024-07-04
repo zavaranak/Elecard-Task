@@ -15,11 +15,12 @@ const CardView = ({ setView }) => {
   const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
   const [imagePerPage, setImagePerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount, setPageCount] = useState(
+    Math.round(cardsLength / imagePerPage)
+  );
   const [sortOption, setSortOption] = useState("default");
   const [filterOption, setFilterOption] = useState("default");
-  const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
-
   const sortHandler = (value) => {
     setSortOption(value);
     dispatch(sortAndFilterCard([value, filterOption]));
@@ -62,7 +63,8 @@ const CardView = ({ setView }) => {
   useEffect(() => {
     if (pageCount === 0) setCurrentPage(1);
     else setCurrentPage(Math.min(currentPage, pageCount));
-  }, [currentPage, pageCount]);
+    setPageCount(Math.round(cardsLength / imagePerPage));
+  }, [currentPage, pageCount, imagePerPage, cardsLength]);
   return (
     <Box className="cardView">
       <Box style={{ marginBottom: "10px" }}>

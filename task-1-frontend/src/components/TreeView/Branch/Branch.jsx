@@ -9,9 +9,10 @@ import Leaf from "./Leaf/Leaf";
 
 const Branch = ({ branchName, order }) => {
   const [listDisplay, setListDisplay] = useState(false);
-  const leaves = useSelector((state) =>
-    selectBranchItemsByBranchName(state, branchName)
-  );
+
+  const selectItems = selectBranchItemsByBranchName(branchName);
+  const leaves = useSelector(selectItems);
+
   const branchRef = useRef();
   return (
     <div ref={branchRef} className="branch">

@@ -116,6 +116,11 @@ export const {
 
 const selectCardState = (state) => state.cards;
 
+export const selectCardsInRange = (start, end) =>
+  createSelector([selectCardState], (cardState) =>
+    cardState.tempData.slice(start, end)
+  );
+
 export const selectCardsLength = createSelector(
   [selectCardState],
   (cardState) => cardState.tempData.length
@@ -135,7 +140,6 @@ export const selectCategories = createSelector(
   [selectCardState],
   (cardState) => cardState.categories
 );
-
 export const selectOrder = createSelector(
   [selectCardState],
   (cardState) => cardState.sortOrder

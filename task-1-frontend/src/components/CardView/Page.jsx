@@ -1,14 +1,13 @@
 import Card from "./Card/Card";
 import { useSelector } from "react-redux";
 import { Box, Grid } from "@mui/material";
+import { selectCardsInRange } from "../../store/cardSlice";
 
 const Page = ({ pageNumb, imagePerPage }) => {
   const startIndex = imagePerPage * (pageNumb - 1);
   const endIndex = startIndex + imagePerPage;
-  const cards = useSelector((state) =>
-    state.cards.tempData.slice(startIndex, endIndex)
-  );
-
+  const cardSelector = selectCardsInRange(startIndex, endIndex);
+  const cards = useSelector(cardSelector);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
