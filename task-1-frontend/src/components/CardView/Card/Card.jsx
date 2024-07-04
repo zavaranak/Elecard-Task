@@ -57,7 +57,10 @@ const Card = ({ cardInfo }) => {
           </div>
         </div>
         <Box className="card__del_button ">
-          <IconButton onClick={(e) => handleDelete(e)} color="primary">
+          <IconButton
+            onClick={(e) => handleDelete(e)}
+            sx={{ color: "#00b0b0" }}
+          >
             <CloseIcon fontSize="small" />
           </IconButton>
         </Box>

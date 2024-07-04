@@ -4,19 +4,14 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const Modal = ({ url, setDisplay }) => {
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    
+    document.body.style.overflow = "hidden";
+
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     };
   }, []);
   return (
-    <Box
-      className="modal"
-      onClick={() => {
-        console.log("clicked");
-      }}
-    >
+    <Box className="modal">
       <Box className="modal__content_box">
         <img src={url} alt={url} />
         <Box className="modal__del_button">

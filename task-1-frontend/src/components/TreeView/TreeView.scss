@@ -1,24 +1,22 @@
-$color-boder: #004dbb;
 .tree_view {
-  position:relative;
-  padding: 10px;
+  position: relative;
   box-sizing: border-box;
-  width: 85%;
-  margin-top: 20px;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   &__root {
+    box-sizing: border-box;
     width: 100%;
     margin-top: 10px;
-    border: 2px solid $color-boder;
+    border: 2px solid map-get($color, "main");
     border-radius: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: height 1s ease-in-out, max-height 1s ease-in-out;
+    transition: all 1s ease-in-out;
     &_opened {
       animation: open_box 2s ease-in-out forwards;
     }
@@ -26,26 +24,5 @@ $color-boder: #004dbb;
   &__lable {
     width: 100%;
     cursor: pointer;
-  }
-}
-
-@keyframes open_box {
-  0% {
-    max-height: 200px;
-  }
-  50% {
-    max-height: 1000px;
-  }
-  60%{
-    max-height: 1300px ;
-  }
-  70%{
-    max-height: 1500px ;
-  }
-  90%{
-    max-height: 2000px ;
-  }
-  100% {
-    max-height: auto;
   }
 }

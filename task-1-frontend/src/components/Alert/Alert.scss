@@ -1,32 +1,22 @@
 .alert {
   position: fixed;
-  top: 90px;
+  top: map-get($height, "header");
   left: 1px;
   display: flex;
   flex-direction: row;
-  background-color: #fff;
-  color: #38c73c;
-  padding: 10px 20px;
-  border: #38c73c solid 3px;
-  animation: slideDown 2s forwards ease-out;
-  font-size: 15px;
+  background-color: map-get($color, "secondary");
+  animation: slideDown 3s forwards ease-in;
+  font-size: 20px;
   &__message {
     margin: 0;
-    padding: 0;
-  }
-}
-
-@keyframes slideDown {
-  0% {
-    transform: translateX(-100px);
-    opacity: 0;
-  }
-  60% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(-100px);
-    opacity: 0;
+    padding-right: 20px;
+    &_good {
+      color: map-get($color, "success");
+      border-right: 5px solid map-get($color, "success");
+    }
+    &_bad {
+      color: map-get($color, "failed");
+      border-right: 5px solid map-get($color, "failed");
+    }
   }
 }

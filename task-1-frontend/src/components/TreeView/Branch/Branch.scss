@@ -1,5 +1,3 @@
-$color-itemborder: #0706004d;
-$color-boder: #00B0B0;
 .branch {
   display: flex;
   flex-direction: column;
@@ -7,11 +5,9 @@ $color-boder: #00B0B0;
   align-items: center;
   margin: 10px;
   width: 90%;
-  border: 2px solid $color-boder;
+  border: 2px solid map-get($color, "border");
   border-radius: 20px;
   overflow: hidden;
-  
-
   &__label {
     width: 100%;
     display: flex;
@@ -20,7 +16,7 @@ $color-boder: #00B0B0;
     cursor: pointer;
   }
   &__list {
-    width: 80%;
-    animation: open_box 2.5s ease-out; 
+    width: 85%;
+    animation: open_box 2.5s ease-out;
   }
 }

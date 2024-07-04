@@ -1,21 +1,25 @@
-$smallscreen: 700px;
 .taskbar {
-  padding: 0;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
-  @media screen and (max-width: $smallscreen) {
+  @media screen and (max-width: map-get($screen,"small")) {
     grid-template-columns: 1fr;
   }
+  @media screen and (min-width: map-get($screen,"small")) and (max-width: map-get($screen,"medium")) {
+    grid-template-columns: 1fr 1fr;
+  }
+
   &__switch {
     margin-left: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     grid-column: 2;
-    @media screen and (max-width: $smallscreen) {
-      grid-template-columns: 1fr;
+    @media screen and (max-width: map-get($screen,"small")) {
       grid-column: 1;
+    }
+    @media screen and (min-width: map-get($screen,"small")) and (max-width: map-get($screen,"medium")) {
+      grid-column: 2;
     }
   }
   &__item {
@@ -32,8 +36,9 @@ $smallscreen: 700px;
     flex-direction: row;
     margin: 10px;
   }
-  &_tree_view{
-    display:flex;
+  &_tree_view {
+    margin-top: 30px;
+    display: flex;
     justify-content: center;
   }
 }

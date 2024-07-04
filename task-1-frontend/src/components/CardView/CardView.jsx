@@ -1,20 +1,17 @@
 import Page from "./Page";
 import {
-  fetchCardAction,
   selectCardsLength,
-  selectStatus,
   sortOrderCard,
   sortAndFilterCard,
+  restoreCards,
 } from "../../store/cardSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { Pagination, Skeleton, Box } from "@mui/material";
-import Alert from "../Alert/Alert";
 import TaskBar from "../TaskBar/TaskBar";
 
 const CardView = ({ setView }) => {
   const cardsLength = useSelector(selectCardsLength);
-  const [showAlert, setShowAlert] = useState(false);
   const [localStorageEmpty, setLocalStorageEmpty] = useState(true);
   const [imagePerPage, setImagePerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +19,6 @@ const CardView = ({ setView }) => {
   const [filterOption, setFilterOption] = useState("default");
   const pageCount = Math.round(cardsLength / imagePerPage);
   const dispatch = useDispatch();
-  const status = useSelector(selectStatus);
 
   const sortHandler = (value) => {
     setSortOption(value);
@@ -39,9 +35,10 @@ const CardView = ({ setView }) => {
   const cardRecover = () => {
     localStorage.deletedCards = [];
     setLocalStorageEmpty(true);
-    dispatch(fetchCardAction());
+    dispatch(restoreCards());
+    dispatch(sortAndFilterCard([sortOption, filterOption]));
   };
-  //Slider Handler with debouncing to optimize performance
+  //Slider handler with debouncing to optimize performance
   const debounce = (func, delay) => {
     let timeoutId;
     return (...args) => {
@@ -60,19 +57,8 @@ const CardView = ({ setView }) => {
     setLocalStorageEmpty(!checkLocalStorage);
   }, [cardsLength]);
   useEffect(() => {
-    setShowAlert(true);
-    setTimeout(() => {
-      setShowAlert(false);
-    }, 2000);
-    dispatch(fetchCardAction());
-  }, [dispatch]);
-  useEffect(() => {
     setCurrentPage(1);
-    if (status === "good") {
-      setShowAlert(true);
-      setTimeout(() => setShowAlert(false), 2000);
-    }
-  }, [status]);
+  }, []);
   useEffect(() => {
     if (pageCount === 0) setCurrentPage(1);
     else setCurrentPage(Math.min(currentPage, pageCount));
@@ -94,7 +80,6 @@ const CardView = ({ setView }) => {
         )}
         <></>
       </Box>
-      {showAlert && <Alert />}
       {!(cardsLength > 0) && (
         <Box className="cardView__skeleton">
           <Skeleton />

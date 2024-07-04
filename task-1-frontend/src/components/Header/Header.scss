@@ -1,0 +1,11 @@
+.header {
+  background-color: map-get($color, "main");
+  color: map-get($color, "secondary");
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: map-get($height, "header");
+  display: flex;
+  justify-content: center;
+}

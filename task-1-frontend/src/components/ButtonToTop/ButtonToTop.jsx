@@ -16,7 +16,7 @@ const ButtonToTop = ({ rootTag, order, name }) => {
   useEffect(() => {
     window.addEventListener("scroll", updateButtonVisibility);
     window.addEventListener("resize", updateButtonVisibility);
-    
+
     const observer = new MutationObserver(updateButtonVisibility);
     observer.observe(document.body, { childList: true, subtree: true });
 
@@ -51,7 +51,11 @@ const ButtonToTop = ({ rootTag, order, name }) => {
       }`}
     >
       <Button
-        sx={{ width: "180px", fontWeight:700, backgroundColor:`${rootTag ?"#00B0B0":"#004dbb"}`}}
+        sx={{
+          width: "180px",
+          fontWeight: 700,
+          backgroundColor: `${rootTag ? "#00B0B0" : "#004dbb"}`,
+        }}
         onClick={ScrollTop}
         variant="contained"
         startIcon={<ArrowCircleUp />}

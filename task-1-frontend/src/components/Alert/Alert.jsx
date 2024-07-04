@@ -1,10 +1,22 @@
 import { Box } from "@mui/material";
 import { Check } from "@mui/icons-material";
 
-const Alert = () => {
+const Alert = ({ status }) => {
+  const message =
+    status === "good"
+      ? "Images loading successful"
+      : status === "bad"
+      ? "Images loading failed"
+      : "";
   return (
     <Box className="alert">
-      <Check /> <p className="alert__message">Successfully get images</p>
+      <p
+        className={`alert__message ${
+          status === "good" ? "alert__message_good" : "alert__message_bad"
+        }`}
+      >
+        <Check /> {message}
+      </p>
     </Box>
   );
 };

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 //Thunk action function
@@ -34,7 +34,7 @@ const fallingOrder = (a, b) => (a < b ? true : b < a ? false - 1 : 0);
 const cardSlice = createSlice({
   name: "cards",
   initialState: {
-    status: "",
+    status: "loading",
     cardsData: [],
     tempData: [],
     categories: [],
@@ -42,28 +42,29 @@ const cardSlice = createSlice({
   },
   reducers: {
     fetchCard: (state, action) => {
-      const cards = action.payload.map((card) => ({
-        ...card,
-        category: card.image.split("/")[0],
-        name: card.image.split("/").pop().split(".jpg")[0],
-        url: `http://contest.elecard.ru/frontend_data/${card.image}`,
-      }));
-      state.status = "good";
-      state.cardsData = cards.filter((card) => {
-        const temp = localStorage.deletedCards;
-        if (temp) {
-          return !JSON.parse(temp).includes(card.name);
-        } else return true;
-      });
-      state.tempData = state.cardsData.slice(0);
-      state.categories = findCategories(state.cardsData);
+      if (action.payload.length > 0) {
+        const cards = action.payload.map((card) => ({
+          ...card,
+          category: card.image.split("/")[0],
+          name: card.image.split("/").pop().split(".jpg")[0],
+          url: `http://contest.elecard.ru/frontend_data/${card.image}`,
+        }));
+        state.status = "good";
+        state.cardsData = cards;
+        state.tempData = cards.filter((card) => {
+          const temp = localStorage.deletedCards;
+          if (temp) {
+            return !JSON.parse(temp).includes(card.name);
+          } else return true;
+        });
+        state.categories = findCategories(state.cardsData);
+      } else state.status = "bad";
     },
     deleteCard: (state, action) => {
       handleLocalStorage(action.payload);
-      state.cardsData = state.cardsData.filter(
+      state.tempData = state.tempData.filter(
         (card) => card.name !== action.payload
       );
-      state.tempData = state.cardsData.slice(0);
     },
     removeAllCard: (state) => {
       state.tempData = [];
@@ -73,7 +74,12 @@ const cardSlice = createSlice({
     },
     sortAndFilterCard: (state, action) => {
       let [sortBy, filterBy] = action.payload;
-      state.tempData = state.cardsData.slice(0);
+      state.tempData = state.cardsData.filter((card) => {
+        const temp = localStorage.deletedCards;
+        if (temp) {
+          return !JSON.parse(temp).includes(card.name);
+        } else return true;
+      });
 
       if (filterBy !== "default") {
         state.tempData = state.tempData.filter(
@@ -93,6 +99,9 @@ const cardSlice = createSlice({
         );
       }
     },
+    restoreCards: (state) => {
+      state.tempData = state.cardsData;
+    },
   },
 });
 
@@ -102,11 +111,33 @@ export const {
   removeAllCard,
   sortOrderCard,
   sortAndFilterCard,
+  restoreCards,
 } = cardSlice.actions;
 
-export const selectCardsLength = (state) => state.cards.tempData.length;
-export const selectStatus = (state) => state.cards.status;
-export const selectCategories = (state) => state.cards.categories;
-export const selectOrder = (state) => state.cards.sortOrder;
+const selectCardState = (state) => state.cards;
 
+export const selectCardsLength = createSelector(
+  [selectCardState],
+  (cardState) => cardState.tempData.length
+);
+
+export const selectCardsData = createSelector(
+  [selectCardState],
+  (cardState) => cardState.cardsData
+);
+
+export const selectStatus = createSelector(
+  [selectCardState],
+  (cardState) => cardState.status
+);
+
+export const selectCategories = createSelector(
+  [selectCardState],
+  (cardState) => cardState.categories
+);
+
+export const selectOrder = createSelector(
+  [selectCardState],
+  (cardState) => cardState.sortOrder
+);
 export default cardSlice.reducer;

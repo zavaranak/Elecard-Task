@@ -2,7 +2,7 @@ import { Box, Toolbar, Typography } from "@mui/material";
 
 const Header = () => {
   return (
-    <Box className="app__header">
+    <Box className="header">
       <Toolbar>
         <Typography variant="button">
           <b>Challenge CW 2023 (frontend)</b>
