@@ -17,7 +17,7 @@ const Content = () => {
   }, [status]);
   useEffect(() => {
     dispatch(fetchCardAction());
-  });
+  }, [dispatch]);
 
   return (
     <Box className={`content`} maxWidth="xl">
