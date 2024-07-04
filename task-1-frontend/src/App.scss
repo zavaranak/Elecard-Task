@@ -68,15 +68,4 @@ body {
       min-width: 860px;
     }
   }
-  &__success-message {
-    position: fixed;
-    top: calc(#{$header-height} + 10px);
-    background-color: #ffffff;
-    color: #38c73c;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: #004dbb solid 3px;
-    animation: slideDown 1s forwards ease-out;
-    font-size: 20px;
-  }
 }
