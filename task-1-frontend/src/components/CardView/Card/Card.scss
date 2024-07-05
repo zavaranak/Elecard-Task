@@ -7,6 +7,7 @@
   transition: 0.3s;
   background-color: map-get($color, "secondary");
   overflow: hidden;
+  height: calc(map-get($height, "card") + 50px);
   &__image {
     width: 100%;
     img {

@@ -4,7 +4,11 @@ import axios from "axios";
 //Thunk action function
 export const fetchCardAction = () => async (dispatch) => {
   axios
-    .get("http://contest.elecard.ru/frontend_data/catalog.json")
+    .get("/api/catalog.json", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
     .then((response) => response.data)
     .then((data) => {
       dispatch(fetchCard(data));

@@ -28,7 +28,6 @@ const ButtonToTop = ({ rootTag, order, name }) => {
   }, [updateButtonVisibility]);
 
   const ScrollTop = () => {
-    console.log(name);
     if (rootTag && rootTag.current) {
       const yOffset = rootTag.current.offsetTop;
       window.scrollTo({
