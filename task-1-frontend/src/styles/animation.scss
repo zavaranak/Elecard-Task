@@ -1,15 +1,12 @@
-@keyframes slideDown {
+@keyframes slideIn {
   0% {
     transform: translateX(-30px);
-    opacity: 0;
   }
-  20% {
+  30% {
     transform: translateX(0);
-    opacity: 1;
   }
   100% {
-    transform: translateX(-30px);
-    opacity: 0;
+    transform: translateX(-100%);
   }
 }
 @keyframes fadeOut {

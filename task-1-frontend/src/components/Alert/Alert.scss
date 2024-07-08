@@ -1,22 +1,25 @@
 .alert {
   position: fixed;
-  top: map-get($height, "header");
+  top: map-get($height, 'header');
   left: 1px;
   display: flex;
   flex-direction: row;
-  background-color: map-get($color, "secondary");
-  animation: slideDown 3s forwards ease-in;
+  background-color: map-get($color, 'secondary');
+  animation: slideIn 3s forwards ease-in;
   font-size: 20px;
+  padding: 20px;
+  opacity: 1;
+  z-index: 200;
   &__message {
     margin: 0;
     padding-right: 20px;
     &_good {
-      color: map-get($color, "success");
-      border-right: 5px solid map-get($color, "success");
+      color: map-get($color, 'success');
+      border-right: 5px solid map-get($color, 'success');
     }
     &_bad {
-      color: map-get($color, "failed");
-      border-right: 5px solid map-get($color, "failed");
+      color: map-get($color, 'failed');
+      border-right: 5px solid map-get($color, 'failed');
     }
   }
 }

@@ -1,12 +1,12 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSelector, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 //Thunk action function
 export const fetchCardAction = () => async (dispatch) => {
   axios
-    .get("/api/catalog.json", {
+    .get('/api/catalog.json', {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     })
     .then((response) => response.data)
@@ -14,7 +14,7 @@ export const fetchCardAction = () => async (dispatch) => {
       dispatch(fetchCard(data));
     })
     .catch((error) => {
-      console.log("Can not load data from server. Error Code:", error);
+      console.log('Can not load data from server. Error Code:', error);
     });
 };
 
@@ -36,24 +36,24 @@ const growingOrder = (a, b) => (a > b ? true : b > a ? false - 1 : 0);
 const fallingOrder = (a, b) => (a < b ? true : b < a ? false - 1 : 0);
 
 const cardSlice = createSlice({
-  name: "cards",
+  name: 'cards',
   initialState: {
-    status: "loading",
+    status: 'loading',
     cardsData: [],
     tempData: [],
     categories: [],
-    sortOrder: "growing",
+    sortOrder: 'growing',
   },
   reducers: {
     fetchCard: (state, action) => {
       if (action.payload.length > 0) {
         const cards = action.payload.map((card) => ({
           ...card,
-          category: card.image.split("/")[0],
-          name: card.image.split("/").pop().split(".jpg")[0],
+          category: card.image.split('/')[0],
+          name: card.image.split('/').pop().split('.jpg')[0],
           url: `http://contest.elecard.ru/frontend_data/${card.image}`,
         }));
-        state.status = "good";
+        state.status = 'good';
         state.cardsData = cards;
         state.tempData = cards.filter((card) => {
           const temp = localStorage.deletedCards;
@@ -62,7 +62,7 @@ const cardSlice = createSlice({
           } else return true;
         });
         state.categories = findCategories(state.cardsData);
-      } else state.status = "bad";
+      } else state.status = 'bad';
     },
     deleteCard: (state, action) => {
       handleLocalStorage(action.payload);
@@ -85,17 +85,17 @@ const cardSlice = createSlice({
         } else return true;
       });
 
-      if (filterBy !== "default") {
+      if (filterBy !== 'default') {
         state.tempData = state.tempData.filter(
           (card) => card.category === filterBy
         );
       }
 
-      if (sortBy !== "default") {
+      if (sortBy !== 'default') {
         let compare =
-          state.sortOrder === "growing"
+          state.sortOrder === 'growing'
             ? growingOrder
-            : state.sortOrder === "falling"
+            : state.sortOrder === 'falling'
             ? fallingOrder
             : () => 0;
         state.tempData = state.tempData.sort((a, b) =>

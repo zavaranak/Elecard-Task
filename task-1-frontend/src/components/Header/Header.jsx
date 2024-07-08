@@ -1,13 +1,13 @@
-import { Box, Toolbar, Typography } from "@mui/material";
+import { Box, Typography } from '@mui/material';
 
 const Header = () => {
   return (
-    <Box className="header">
-      <Toolbar>
-        <Typography variant="button">
+    <Box className='header'>
+      <div className='header__title'>
+        <Typography variant='button'>
           <b>Challenge CW 2023 (frontend)</b>
         </Typography>
-      </Toolbar>
+      </div>
     </Box>
   );
 };

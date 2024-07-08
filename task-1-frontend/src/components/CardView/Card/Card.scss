@@ -1,22 +1,23 @@
 .card {
   display: flex;
+  padding: 0;
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 1px map-get($color, "border") solid;
+  border: 1px map-get($color, 'border') solid;
   transition: 0.3s;
-  background-color: map-get($color, "secondary");
+  background-color: map-get($color, 'secondary');
   overflow: hidden;
-  height: calc(map-get($height, "card") + 50px);
+  height: calc(map-get($height, 'card') + 50px);
   &__image {
     width: 100%;
     img {
       width: 100%;
-      height: map-get($height, "card");
+      height: map-get($height, 'card');
       object-fit: cover;
     }
     &_suggested {
-      color: map-get($color, "border");
+      color: map-get($color, 'border');
       position: absolute;
       top: 50%;
       left: 50%;
@@ -56,13 +57,13 @@
     justify-content: center;
   }
   &__del_button {
-    background-color: map-get($color, "dark");
+    background-color: map-get($color, 'dark');
     border-radius: 60%;
     position: absolute;
     right: 10px;
     top: 10px;
     &:hover {
-      background-color: map-get($color, "secondary");
+      background-color: map-get($color, 'secondary');
     }
   }
   &_deleted {
