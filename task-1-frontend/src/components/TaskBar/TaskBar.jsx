@@ -12,6 +12,8 @@ import {
 import { selectCategories } from '../../store/cardSlice';
 import { useSelector } from 'react-redux';
 import { DarkMode } from '@mui/icons-material';
+import styles from './TaskBar.module.scss';
+import clsx from 'clsx';
 
 const Taskbar = (props) => {
   const {
@@ -27,18 +29,20 @@ const Taskbar = (props) => {
   const ViewChangeHandler = () => {
     setTimeout(
       () => setView((prev) => (prev === 'cards' ? 'tree' : 'cards')),
-      400
+      500
     );
   };
+  const classByView = clsx(
+    (currentView === 'tree' && styles.taskbar_tree_view) || styles.taskbar
+  );
+
   const categories = useSelector(selectCategories);
   return (
-    <Box
-      className={`${currentView === 'tree' ? 'taskbar_tree_view' : 'taskbar'}`}
-    >
+    <Box className={classByView}>
       {currentView === 'cards' && (
         <>
           {/* SORT and FILTER and Order */}
-          <Box className='taskbar__selectors'>
+          <Box className={styles.taskbar__selectors}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id='sortLabel'>
                 <b>SORT</b>
@@ -99,9 +103,9 @@ const Taskbar = (props) => {
         </>
       )}
       {/* Switch View */}
-      <Box className='taskbar__center_item'>
+      <Box className={styles.taskbar__center_item}>
         <Button startIcon={<DarkMode />} />
-        <Box className='taskbar__switch'>
+        <Box className={styles.taskbar__switch}>
           <Typography sx={{ color: '#004dbb' }} variant='button'>
             <b>tree view</b>
           </Typography>
@@ -115,7 +119,7 @@ const Taskbar = (props) => {
       {/* Recover Images and Images per page */}
       {currentView === 'cards' && (
         <>
-          <Box className='taskbar__item'>
+          <Box className={styles.taskbar__item}>
             <Typography sx={{ color: '#004dbb' }} variant='button'>
               <b>Images per Page</b>
             </Typography>
@@ -129,7 +133,7 @@ const Taskbar = (props) => {
               onChange={debouncedImagePerPageChange}
             />
           </Box>
-          <Box className='taskbar__item'>
+          <Box className={styles.taskbar__item}>
             <Button
               variant='outlined'
               disabled={localStorageEmpty}

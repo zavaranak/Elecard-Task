@@ -1,18 +1,22 @@
 import { Box } from '@mui/material';
-
+import styles from './Alert.module.scss';
+import clsx from 'clsx';
 const Alert = ({ status }) => {
-  const message =
-    status === 'good' ? 'Images loading successful' : 'Images loading failed';
-
+  const goodStatus = status === 'good';
+  const badStatus = status === 'bad';
+  const message = goodStatus
+    ? 'Images loading successful'
+    : badStatus
+    ? 'Images loading failed'
+    : '';
+  const messageClass = clsx(
+    styles.alert__message,
+    goodStatus && styles.alert__message_good,
+    badStatus && styles.alert__message_bad
+  );
   return (
-    <Box className='alert'>
-      <p
-        className={`alert__message ${
-          status === 'good' ? 'alert__message_good' : 'alert__message_bad'
-        }`}
-      >
-        {message}
-      </p>
+    <Box className={styles.alert}>
+      <p className={messageClass}>{message}</p>
     </Box>
   );
 };

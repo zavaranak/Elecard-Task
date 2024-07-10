@@ -1,3 +1,4 @@
+@import '../../../styles/animation.scss';
 .branch {
   display: flex;
   flex-direction: column;
@@ -5,7 +6,7 @@
   align-items: center;
   margin: 10px;
   width: 90%;
-  border: 2px solid map-get($color, "border");
+  border: 2px var(--border-color) solid;
   border-radius: 20px;
   overflow: hidden;
   &__label {

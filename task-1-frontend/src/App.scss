@@ -1,19 +1,6 @@
 @import '../node_modules/normalize.css/normalize.css';
 @import './styles/pallete.scss';
-@import './styles/animation.scss';
 @import './styles/sizing.scss';
-@import './components/TaskBar/TaskBar.scss';
-@import './components/TreeView/TreeView.scss';
-@import './components/Modal/Modal.scss';
-@import './components/Alert/Alert.scss';
-@import './components/CardView/CardView.scss';
-@import './components/CardView/Card/Card.scss';
-@import './components/TreeView/Branch/Branch.scss';
-@import './components/TreeView/Branch/Leaf/Leaf.scss';
-@import './components/ButtonToTop/ButtonToTop.scss';
-@import './components/Content/Content.scss';
-@import './components/Header/Header.scss';
-@import './components/Footer/Footer.scss';
 
 .app {
   display: flex;

@@ -1,6 +1,6 @@
 .modal {
   position: fixed;
-  background-color: map-get($color, "dark2");
+  background-color: var(--dark2-color);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -15,14 +15,14 @@
   }
   &__del_button {
     border-radius: 60%;
-    background-color: map-get($color, "secondary");
+    background-color: var(--secondary-color);
     position: absolute;
     right: -50px;
     top: -50px;
     border: solid 5px transparent;
     transition: 0.5s;
     &:hover {
-      border: solid 5px map-get($color, "failed");
+      border: solid 5px var(--failed-color);
     }
     @media screen and (max-width: 650px) {
       top: -70px;
@@ -30,6 +30,6 @@
     }
   }
   img {
-    border: 5px map-get($color, "secondary") solid;
+    border: 5px var(--secondary-color) solid;
   }
 }

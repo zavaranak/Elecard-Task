@@ -1,3 +1,4 @@
+$small-screen: 768px;
 .leaf {
   width: 100%;
   height: 40px;
@@ -5,9 +6,8 @@
   display: flex;
   gap: 10px;
   position: relative;
-  border: map-get($color, "border") solid 2px;
+  border: var(--border-color) solid 2px;
   border-radius: 4px;
-  animation: expandBox 0.1s;
   transition: 0.5s;
   overflow: hidden;
   &__thumpnail {
@@ -24,7 +24,7 @@
     display: flex;
     justify-content: space-between;
     gap: 5%;
-    @media screen and (max-width: map-get($screen,"small")) {
+    @media screen and (max-width: $small-screen) {
       display: none;
     }
   }

@@ -1,14 +1,15 @@
-import Page from "./Page";
+import Page from './Page';
 import {
   selectCardsLength,
   sortOrderCard,
   sortAndFilterCard,
   restoreCards,
-} from "../../store/cardSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { Pagination, Skeleton, Box } from "@mui/material";
-import TaskBar from "../TaskBar/TaskBar";
+} from '../../store/cardSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Pagination, Skeleton, Box } from '@mui/material';
+import TaskBar from '../TaskBar/TaskBar';
+import styles from './CardView.module.scss';
 
 const CardView = ({ setView }) => {
   const cardsLength = useSelector(selectCardsLength);
@@ -18,8 +19,8 @@ const CardView = ({ setView }) => {
   const [pageCount, setPageCount] = useState(
     Math.round(cardsLength / imagePerPage)
   );
-  const [sortOption, setSortOption] = useState("default");
-  const [filterOption, setFilterOption] = useState("default");
+  const [sortOption, setSortOption] = useState('default');
+  const [filterOption, setFilterOption] = useState('default');
   const dispatch = useDispatch();
   const sortHandler = (value) => {
     setSortOption(value);
@@ -66,12 +67,12 @@ const CardView = ({ setView }) => {
     setPageCount(Math.round(cardsLength / imagePerPage));
   }, [currentPage, pageCount, imagePerPage, cardsLength]);
   return (
-    <Box className="cardView">
-      <Box style={{ marginBottom: "10px" }}>
+    <Box className={styles.card_view}>
+      <Box style={{ marginBottom: '10px' }}>
         {cardsLength > 0 && (
           <TaskBar
             filterHandler={filterHandler}
-            currentView="cards"
+            currentView='cards'
             sortHandler={sortHandler}
             orderHandler={orderHandler}
             cardRecover={cardRecover}
@@ -83,7 +84,7 @@ const CardView = ({ setView }) => {
         <></>
       </Box>
       {!(cardsLength > 0) && (
-        <Box className="cardView__skeleton">
+        <Box className={styles.card_view__skeleton}>
           <Skeleton />
           <Skeleton />
           <Skeleton />
@@ -95,8 +96,8 @@ const CardView = ({ setView }) => {
 
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
-        className="cardView__pagination"
-        color="primary"
+        className={styles.card_view__pagination}
+        color='primary'
         count={Math.max(1, pageCount)}
         page={currentPage}
         onChange={(event, page) => {

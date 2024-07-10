@@ -1,12 +1,12 @@
 .footer {
   background-color: white;
-  color: map-get($color, "main");
+  color: var(--main-color);
   text-align: center;
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: map-get($height, "footer");
+  height: var(--footer-height);
   display: flex;
   justify-content: center;
-  border-top: map-get($color, "main") 2px solid;
+  border-top: var(--main-color) 2px solid;
 }

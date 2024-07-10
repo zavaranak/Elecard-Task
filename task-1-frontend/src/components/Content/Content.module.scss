@@ -1,11 +1,11 @@
 .content {
-  background-color: map-get($color, 'content');
+  background-color: var(--content-color);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: calc(map-get($height, 'header') + 15px);
-  padding-bottom: calc(map-get($height, 'footer') + 10px);
+  padding-top: calc(var(--header-height) + 15px);
+  padding-bottom: calc(var(--footer-height) + 10px);
   margin-inline: auto;
   width: 100%;
   position: relative;

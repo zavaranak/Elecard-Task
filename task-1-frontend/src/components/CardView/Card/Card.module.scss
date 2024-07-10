@@ -1,23 +1,24 @@
+@import '../../../styles/animation.scss';
 .card {
   display: flex;
   padding: 0;
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 1px map-get($color, 'border') solid;
+  border: 1px var(--border-color) solid;
   transition: 0.3s;
-  background-color: map-get($color, 'secondary');
+  background-color: var(--secondary-color);
   overflow: hidden;
-  height: calc(map-get($height, 'card') + 50px);
+  height: calc(var(--card-height) + 50px);
   &__image {
     width: 100%;
     img {
       width: 100%;
-      height: map-get($height, 'card');
+      height: var(--card-height);
       object-fit: cover;
     }
     &_suggested {
-      color: map-get($color, 'border');
+      color: var(--border-color);
       position: absolute;
       top: 50%;
       left: 50%;
@@ -47,26 +48,22 @@
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  &__break {
-    height: 0;
-    flex-basis: 100%;
-  }
   &__name {
     display: flex;
     width: 100%;
     justify-content: center;
   }
   &__del_button {
-    background-color: map-get($color, 'dark');
+    background-color: var(--dark-color);
     border-radius: 60%;
     position: absolute;
     right: 10px;
     top: 10px;
     &:hover {
-      background-color: map-get($color, 'secondary');
+      background-color: var(--secondary-color);
     }
   }
   &_deleted {
-    animation: fadeOut 0.5s ease-in-out forwards;
+    animation: fade_out 0.5s ease-in-out forwards;
   }
 }

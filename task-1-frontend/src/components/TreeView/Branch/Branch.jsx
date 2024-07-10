@@ -1,11 +1,12 @@
-import { useState, useRef } from "react";
-import { useSelector } from "react-redux";
-import { selectBranchItemsByBranchName } from "../../../store/treeSlice";
-import { Typography, IconButton } from "@mui/material";
-import ButtonToTop from "../../ButtonToTop/ButtonToTop";
-import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
-import ArrowCircleUpIcon from "@mui/icons-material/ArrowCircleUp";
-import Leaf from "./Leaf/Leaf";
+import { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { selectBranchItemsByBranchName } from '../../../store/treeSlice';
+import { Typography, IconButton } from '@mui/material';
+import ButtonToTop from '../../ButtonToTop/ButtonToTop';
+import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
+import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import Leaf from './Leaf/Leaf';
+import styles from './Branch.module.scss';
 
 const Branch = ({ branchName, order }) => {
   const [listDisplay, setListDisplay] = useState(false);
@@ -15,30 +16,30 @@ const Branch = ({ branchName, order }) => {
 
   const branchRef = useRef();
   return (
-    <div ref={branchRef} className="branch">
+    <div ref={branchRef} className={styles.branch}>
       <div
-        className="branch__label"
+        className={styles.branch__label}
         onClick={() => setListDisplay((prev) => !prev)}
       >
-        <Typography variant="button">
+        <Typography variant='button'>
           {!listDisplay && (
-            <IconButton color="success">
+            <IconButton color='success'>
               <ArrowCircleDownIcon />
             </IconButton>
           )}
           {listDisplay && (
-            <IconButton sx={{ color: "#00B0B0" }}>
+            <IconButton sx={{ color: '#00B0B0' }}>
               <ArrowCircleUpIcon />
             </IconButton>
           )}
         </Typography>
-        <Typography variant="button">
-          <b> {branchName}</b>{" "}
+        <Typography variant='button'>
+          <b> {branchName}</b>{' '}
         </Typography>
       </div>
 
       {listDisplay && (
-        <div className="branch__list">
+        <div className={styles.branch__list}>
           {leaves.map((item, index) => (
             <Leaf key={index} item={item} />
           ))}

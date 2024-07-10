@@ -1,4 +1,4 @@
-@keyframes slideIn {
+@keyframes slide_in {
   0% {
     transform: translateX(-30px);
   }
@@ -9,7 +9,7 @@
     transform: translateX(-100%);
   }
 }
-@keyframes fadeOut {
+@keyframes fade_out {
   0% {
     opacity: 1;
   }

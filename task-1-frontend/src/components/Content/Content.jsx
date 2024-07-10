@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardAction, selectStatus } from '../../store/cardSlice';
 import Alert from '../Alert/Alert';
+import styles from './Content.module.scss';
 
 const Content = () => {
   const [view, setView] = useState('cards');
@@ -20,7 +21,7 @@ const Content = () => {
   }, [dispatch]);
 
   return (
-    <Box className={`content`} maxWidth='xl'>
+    <Box className={styles.content} maxWidth='xl'>
       {showAlert && <Alert status={status} />}
       {view === 'cards' && <CardView setView={setView} />}
       {view === 'tree' && <TreeView setView={setView} />}

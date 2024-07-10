@@ -4,6 +4,8 @@ import { Box, Grid, Typography, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '../../Modal/Modal';
 import { useState, useRef } from 'react';
+import styles from './Card.module.scss';
+import clsx from 'clsx';
 
 const Card = ({ cardInfo }) => {
   const [displayCard, setDisplayCard] = useState(true);
@@ -21,23 +23,21 @@ const Card = ({ cardInfo }) => {
   };
   const date = new Date(timestamp).toLocaleDateString();
   const size = (filesize / (1024 * 1024)).toFixed(2);
+  const cardClass = clsx(styles.card, displayCard || styles.card_deleted);
   return (
     <Grid item xs={1.9} sm={3.9} md={3.9}>
-      <div
-        ref={cardRef}
-        className={`card ${displayCard ? '' : 'card_deleted'}`}
-      >
-        <div className='card__image'>
+      <div ref={cardRef} className={cardClass}>
+        <div className={styles.card__image}>
           <img src={url} alt={url} />
           <Typography
             variant='button'
             onClick={() => setdisplayModal((prev) => !prev)}
-            className='card__image_suggested'
+            className={styles.card__image_suggested}
           >
             See full image
           </Typography>
         </div>
-        <div className='card__info'>
+        <div className={styles.card__info}>
           <div>
             <Typography variant='caption'>{date}</Typography>
           </div>
@@ -49,14 +49,14 @@ const Card = ({ cardInfo }) => {
           <div>
             <Typography variant='caption'>{size} MB</Typography>
           </div>
-          <div className='card__break'></div>
-          <div className='card__name'>
+          <div className={styles.card__break}></div>
+          <div className={styles.card__name}>
             <Typography color='primary' align='center' variant='button'>
               {name}
             </Typography>
           </div>
         </div>
-        <Box className='card__del_button '>
+        <Box className={styles.card__del_button}>
           <IconButton
             onClick={(e) => handleDelete(e)}
             sx={{ color: '#00b0b0' }}
