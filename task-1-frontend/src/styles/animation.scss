@@ -2,8 +2,11 @@
   0% {
     transform: translateX(-30px);
   }
-  30% {
-    transform: translateX(0);
+  10% {
+    transform: translateX(0px);
+  }
+  95% {
+    transform: translateX(0px);
   }
   100% {
     transform: translateX(-100%);
@@ -35,5 +38,23 @@
   }
   100% {
     max-height: auto;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+  25% {
+    transform: rotate3d(0, 0, 1, 90deg);
+  }
+  50% {
+    transform: rotate3d(0, 0, 1, 180deg);
+  }
+  75% {
+    transform: rotate3d(0, 0, 1, 270deg);
+  }
+  100% {
+    transform: rotate3d(0, 0, 1, 360deg);
   }
 }

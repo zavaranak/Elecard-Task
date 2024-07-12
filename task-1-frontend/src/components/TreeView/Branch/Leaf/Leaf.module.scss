@@ -17,6 +17,9 @@ $small-screen: 768px;
     cursor: pointer;
   }
   &__name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 50%;
   }
   &__info {

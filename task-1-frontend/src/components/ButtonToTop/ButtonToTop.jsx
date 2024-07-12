@@ -54,7 +54,9 @@ const ButtonToTop = ({ rootTag, order, name }) => {
         sx={{
           width: '180px',
           fontWeight: 700,
-          backgroundColor: `${rootTag ? '#00B0B0' : '#004dbb'}`,
+          backgroundColor: `${
+            rootTag ? 'var(--border-color)' : 'var(--main-color)'
+          }`,
         }}
         onClick={ScrollTop}
         variant='contained'

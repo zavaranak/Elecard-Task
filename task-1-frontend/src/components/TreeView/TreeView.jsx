@@ -44,11 +44,11 @@ const TreeView = ({ setView }) => {
             </IconButton>
           )}
           {showBranches && (
-            <IconButton color='primary' align='center'>
+            <IconButton sx={{ color: 'var(--border-color)' }} align='center'>
               <ArrowCircleUpIcon />
             </IconButton>
           )}
-          <Typography sx={{ color: '#004dbb' }} variant='button' align='center'>
+          <Typography variant='button' align='center'>
             <b>ROOT</b>
           </Typography>
         </div>

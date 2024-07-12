@@ -22,9 +22,7 @@ const Leaf = ({ item }) => {
         />
       </Box>
       <Box className={styles.leaf__name}>
-        <Typography sx={{ color: '#004dbb' }} variant='subtitile2'>
-          {item.name}
-        </Typography>
+        <Typography variant='subtitile2'>{item.name}</Typography>
       </Box>
 
       <Box className={styles.leaf__info}>

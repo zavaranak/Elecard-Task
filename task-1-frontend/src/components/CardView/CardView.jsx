@@ -97,7 +97,7 @@ const CardView = ({ setView }) => {
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
         className={styles.card_view__pagination}
-        color='primary'
+        sx={{ button: { color: 'var(--text-main-color)' } }}
         count={Math.max(1, pageCount)}
         page={currentPage}
         onChange={(event, page) => {

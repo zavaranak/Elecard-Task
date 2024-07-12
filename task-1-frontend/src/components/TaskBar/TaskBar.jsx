@@ -8,12 +8,14 @@ import {
   Box,
   FormControl,
   InputLabel,
+  IconButton,
 } from '@mui/material';
 import { selectCategories } from '../../store/cardSlice';
 import { useSelector } from 'react-redux';
-import { DarkMode } from '@mui/icons-material';
+import { DarkMode, LightMode } from '@mui/icons-material';
 import styles from './TaskBar.module.scss';
 import clsx from 'clsx';
+import { useState } from 'react';
 
 const Taskbar = (props) => {
   const {
@@ -26,6 +28,9 @@ const Taskbar = (props) => {
     setView,
     currentView,
   } = props;
+  const [darktheme, setDarktheme] = useState(
+    localStorage.darktheme ? JSON.parse(localStorage.darktheme) : false
+  );
   const ViewChangeHandler = () => {
     setTimeout(
       () => setView((prev) => (prev === 'cards' ? 'tree' : 'cards')),
@@ -35,6 +40,13 @@ const Taskbar = (props) => {
   const classByView = clsx(
     (currentView === 'tree' && styles.taskbar_tree_view) || styles.taskbar
   );
+
+  const themeHandler = () => {
+    document.documentElement.classList.toggle('dark-theme');
+    console.log(darktheme);
+    localStorage.setItem('darktheme', !darktheme);
+    setDarktheme((prev) => !prev);
+  };
 
   const categories = useSelector(selectCategories);
   return (
@@ -48,6 +60,7 @@ const Taskbar = (props) => {
                 <b>SORT</b>
               </InputLabel>
               <Select
+                className={styles.taskbar__selector}
                 labelId='sortLabel'
                 label='SORT'
                 defaultValue={'default'}
@@ -57,7 +70,7 @@ const Taskbar = (props) => {
                   <Typography variant='button'>default</Typography>
                 </MenuItem>
                 <MenuItem value='filesize'>
-                  <Typography variant='button'>by size </Typography>
+                  <Typography variant='button'>by size</Typography>
                 </MenuItem>
                 <MenuItem value='name'>
                   <Typography variant='button'>by name</Typography>
@@ -72,6 +85,7 @@ const Taskbar = (props) => {
                 <b>FILTER</b>
               </InputLabel>
               <Select
+                className={styles.taskbar__selector}
                 labelId='filterLabel'
                 label='FILTER'
                 defaultValue={'default'}
@@ -90,6 +104,7 @@ const Taskbar = (props) => {
                 <b>ORDER</b>
               </InputLabel>
               <Select
+                className={styles.taskbar__selector}
                 labelId='orderlabel'
                 label='ORDER'
                 defaultValue={'growing'}
@@ -104,14 +119,28 @@ const Taskbar = (props) => {
       )}
       {/* Switch View */}
       <Box className={styles.taskbar__center_item}>
-        <Button startIcon={<DarkMode />} />
+        <IconButton
+          className={styles.taskbar__dark_mode_button}
+          onClick={themeHandler}
+        >
+          {(darktheme && (
+            <LightMode
+              className={styles.taskbar__dark_mode_button_clicked}
+              style={{ color: 'var(--text-main-color)' }}
+            />
+          )) || (
+            <DarkMode
+              className={styles.taskbar__dark_mode_button_clicked}
+              style={{ color: 'var(--text-main-color)' }}
+            />
+          )}
+        </IconButton>
         <Box className={styles.taskbar__switch}>
-          <Typography sx={{ color: '#004dbb' }} variant='button'>
+          <Typography variant='button'>
             <b>tree view</b>
           </Typography>
           <Switch
             defaultChecked={currentView === 'tree'}
-            color='success'
             onChange={ViewChangeHandler}
           />
         </Box>
@@ -120,26 +149,36 @@ const Taskbar = (props) => {
       {currentView === 'cards' && (
         <>
           <Box className={styles.taskbar__item}>
-            <Typography sx={{ color: '#004dbb' }} variant='button'>
+            <Typography variant='button'>
               <b>Images per Page</b>
             </Typography>
             <Slider
               aria-label='ImagePerPage'
+              color='var(--text-main-color)'
               defaultValue={6}
               valueLabelDisplay='auto'
               min={6}
               max={100}
-              sx={{ color: '#004dbb' }}
               onChange={debouncedImagePerPageChange}
             />
           </Box>
           <Box className={styles.taskbar__item}>
             <Button
-              variant='outlined'
+              variant='contained'
+              sx={{
+                fontWeight: '600',
+                color: 'var(--text-main-color)',
+                background: 'var(--background-color)',
+                ':disabled': {
+                  opacity: 1,
+                  color: 'var(--disabled-color)',
+                  cursor: 'not-allowed',
+                },
+              }}
               disabled={localStorageEmpty}
               onClick={() => cardRecover()}
             >
-              <b>Recover Delelted Cards</b>
+              Recover Delelted Cards
             </Button>
           </Box>
         </>

@@ -7,9 +7,10 @@
   position: relative;
   border: 1px var(--border-color) solid;
   transition: 0.3s;
-  background-color: var(--secondary-color);
+  background-color: var(--background-color);
   overflow: hidden;
   height: calc(var(--card-height) + 50px);
+  color: var(--text-main-color);
   &__image {
     width: 100%;
     img {
@@ -43,15 +44,11 @@
     }
   }
   &__info {
-    width: 98%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    column-gap: 20px;
   }
   &__name {
-    display: flex;
-    width: 100%;
-    justify-content: center;
   }
   &__del_button {
     background-color: var(--dark-color);
@@ -60,7 +57,7 @@
     right: 10px;
     top: 10px;
     &:hover {
-      background-color: var(--secondary-color);
+      background-color: var(--background-color);
     }
   }
   &_deleted {

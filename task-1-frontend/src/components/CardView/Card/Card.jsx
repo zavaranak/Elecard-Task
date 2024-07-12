@@ -49,17 +49,16 @@ const Card = ({ cardInfo }) => {
           <div>
             <Typography variant='caption'>{size} MB</Typography>
           </div>
-          <div className={styles.card__break}></div>
-          <div className={styles.card__name}>
-            <Typography color='primary' align='center' variant='button'>
-              {name}
-            </Typography>
-          </div>
+        </div>
+        <div className={styles.card__name}>
+          <Typography align='center' variant='button'>
+            {name}
+          </Typography>
         </div>
         <Box className={styles.card__del_button}>
           <IconButton
             onClick={(e) => handleDelete(e)}
-            sx={{ color: '#00b0b0' }}
+            sx={{ color: 'var(--border-color)' }}
           >
             <CloseIcon fontSize='small' />
           </IconButton>

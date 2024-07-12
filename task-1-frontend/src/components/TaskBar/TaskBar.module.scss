@@ -1,9 +1,10 @@
 $small-screen: 768px;
 $medium-screen: 1024px;
 $large-screen: 1280px;
-
+@import '../../styles/animation.scss';
 .taskbar {
   box-sizing: border-box;
+  color: var(--text-main-color);
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   @media screen and (max-width: $small-screen) {
@@ -32,7 +33,18 @@ $large-screen: 1280px;
     justify-content: center;
     flex-direction: row;
     margin: 10px;
+    color: var(--text-main-color) !important;
+    label,
+    li,
+    input,
+    fieldset,
+    div,
+    svg {
+      color: var(--text-main-color) !important;
+    }
+    border-inline: var(--text-main-color) 1px solid;
   }
+
   &_tree_view {
     display: flex;
     justify-content: center;
@@ -43,6 +55,7 @@ $large-screen: 1280px;
     align-items: center;
     justify-content: center;
     grid-column: 2;
+    color: var(--text-main-color) !important;
     @media screen and (max-width: $small-screen) {
       grid-column: 1;
     }
@@ -51,5 +64,8 @@ $large-screen: 1280px;
     }
   }
   &__dark_mode_button {
+    &_clicked {
+      animation: rotate 0.5s normal linear;
+    }
   }
 }
