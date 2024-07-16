@@ -178,7 +178,7 @@ const Taskbar = (props) => {
               disabled={localStorageEmpty}
               onClick={() => cardRecover()}
             >
-              Recover Delelted Cards
+              Recover Deleted Cards
             </Button>
           </Box>
         </>
