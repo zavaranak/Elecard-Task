@@ -14,17 +14,26 @@
     transform: translate(-50%, -50%);
   }
   &__del_button {
-    border-radius: 60%;
+    color: var(--text-main-color);
+    padding: 0;
+    margin: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
     background-color: var(--background-color);
     position: absolute;
     right: -50px;
     top: -50px;
     border: solid 5px transparent;
-    transition: 0.5s;
+    transition: 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &:hover {
       border: solid 5px var(--failed-color);
+      color: var(--failed-color);
     }
-    @media screen and (max-width: 650px) {
+    @media screen and (max-width: 700px) {
       top: -70px;
       right: 45%;
     }

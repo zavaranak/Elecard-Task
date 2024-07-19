@@ -5,12 +5,10 @@ import {
   selectNestedBranches,
 } from '../../store/treeSlice';
 import clsx from 'clsx';
-import { Typography, IconButton } from '@mui/material';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import Branch from './Branch/Branch';
 import TaskBar from '../TaskBar/TaskBar';
 import ButtonToTop from '../ButtonToTop/ButtonToTop';
+import ArrowIcon from '../SvgIcon/ArrowIcon/ArrowIcon';
 import { selectCardsData } from '../../store/cardSlice';
 import styles from './TreeView.module.scss';
 const TreeView = ({ setView }) => {
@@ -21,7 +19,7 @@ const TreeView = ({ setView }) => {
   const rootTag = useRef();
   useEffect(() => {
     dispatch(fetchTreeItemAction(data));
-  }, [dispatch]);
+  }, [dispatch, data]);
 
   const classRoot = clsx([
     styles.tree_view__root,
@@ -39,18 +37,21 @@ const TreeView = ({ setView }) => {
           onClick={() => setShowBranches((prev) => !prev)}
         >
           {!showBranches && (
-            <IconButton color='success'>
-              <ArrowCircleDownIcon />
-            </IconButton>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <ArrowIcon />
+              <p>
+                <b>ROOT</b>
+              </p>
+            </div>
           )}
           {showBranches && (
-            <IconButton sx={{ color: 'var(--border-color)' }} align='center'>
-              <ArrowCircleUpIcon />
-            </IconButton>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <ArrowIcon up={true} />
+              <p>
+                <b>ROOT</b>
+              </p>
+            </div>
           )}
-          <Typography variant='button' align='center'>
-            <b>ROOT</b>
-          </Typography>
         </div>
 
         {nestBranches.length > 0
@@ -60,7 +61,7 @@ const TreeView = ({ setView }) => {
             ))
           : 'No data'}
       </div>
-      <ButtonToTop order={0} />
+      <ButtonToTop main={true} order={0} />
     </div>
   );
 };

@@ -1,6 +1,5 @@
-import { Box, IconButton } from '@mui/material';
 import { useEffect } from 'react';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '../SvgIcon/CloseIcon/CloseIcon';
 import styles from './Modal.module.scss';
 
 const Modal = ({ url, setDisplay }) => {
@@ -12,23 +11,21 @@ const Modal = ({ url, setDisplay }) => {
     };
   }, []);
   return (
-    <Box className={styles.modal}>
-      <Box className={styles.modal__content_box}>
+    <div className={styles.modal}>
+      <div className={styles.modal__content_box}>
         <img src={url} alt={url} />
-        <Box className={styles.modal__del_button}>
-          <IconButton
-            size='small'
-            color='error'
-            onClick={(e) => {
-              setDisplay(false);
-              e.stopPropagation;
-            }}
-          >
-            <CloseIcon fontSize='large' />
-          </IconButton>
-        </Box>
-      </Box>
-    </Box>
+
+        <button
+          className={styles.modal__del_button}
+          onClick={(e) => {
+            setDisplay(false);
+            e.stopPropagation;
+          }}
+        >
+          <CloseIcon size={50} />
+        </button>
+      </div>
+    </div>
   );
 };
 

@@ -1,0 +1,16 @@
+$small-screen: 950px;
+$large-screen: 1500px;
+.page {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 16px;
+  @media screen and (max-width: $small-screen) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  @media screen and (min-width: $small-screen) and (max-width: $large-screen) {
+    grid-template-columns: repeat(10, 1fr);
+  }
+  @media screen and (min-width: $large-screen) {
+    grid-template-columns: repeat(15, 1fr);
+  }
+}

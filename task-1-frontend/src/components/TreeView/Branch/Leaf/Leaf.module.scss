@@ -6,8 +6,8 @@ $small-screen: 768px;
   display: flex;
   gap: 10px;
   position: relative;
-  border: var(--border-color) solid 2px;
-  border-radius: 4px;
+  border: var(--border-color) solid 1px;
+  border-radius: 2px;
   transition: 0.5s;
   overflow: hidden;
   &__thumpnail {

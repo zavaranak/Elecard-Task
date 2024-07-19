@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import CardView from '../CardView/CardView';
 import TreeView from '../TreeView/TreeView';
-import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardAction, selectStatus } from '../../store/cardSlice';
 import Alert from '../Alert/Alert';
@@ -21,11 +20,11 @@ const Content = () => {
   }, [dispatch]);
 
   return (
-    <Box className={styles.content} maxWidth='xl'>
+    <div className={styles.content}>
       {showAlert && <Alert status={status} />}
       {view === 'cards' && <CardView setView={setView} />}
       {view === 'tree' && <TreeView setView={setView} />}
-    </Box>
+    </div>
   );
 };
 

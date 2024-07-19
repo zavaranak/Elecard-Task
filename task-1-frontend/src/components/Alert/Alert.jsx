@@ -1,4 +1,3 @@
-import { Box, Typography } from '@mui/material';
 import styles from './Alert.module.scss';
 import clsx from 'clsx';
 const Alert = ({ status }) => {
@@ -15,11 +14,9 @@ const Alert = ({ status }) => {
     badStatus && styles.alert__message_bad
   );
   return (
-    <Box className={styles.alert}>
-      <Typography variant='button' className={messageClass}>
-        <b>{message}</b>
-      </Typography>
-    </Box>
+    <div className={styles.alert}>
+      <p className={messageClass}>{message}</p>
+    </div>
   );
 };
 export default Alert;

@@ -1,16 +1,18 @@
 @import '../../../styles/animation.scss';
+
 .card {
   display: flex;
   padding: 0;
   flex-direction: column;
   align-items: center;
   position: relative;
-  border: 1px var(--border-color) solid;
   transition: 0.3s;
   background-color: var(--background-color);
   overflow: hidden;
   height: calc(var(--card-height) + 50px);
+  width: 450px;
   color: var(--text-main-color);
+  grid-column: span 5;
   &__image {
     width: 100%;
     img {
@@ -48,11 +50,13 @@
     grid-template-columns: 2fr 2fr 2fr;
     column-gap: 20px;
   }
-  &__name {
-  }
   &__del_button {
+    margin: 0;
+    padding: 0;
     background-color: var(--dark-color);
-    border-radius: 60%;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
     position: absolute;
     right: 10px;
     top: 10px;

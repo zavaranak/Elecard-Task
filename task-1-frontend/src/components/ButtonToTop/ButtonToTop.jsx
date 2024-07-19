@@ -1,15 +1,14 @@
-import { Button } from '@mui/material';
-import ArrowCircleUp from '@mui/icons-material/ArrowCircleUp';
 import { useEffect, useState, useCallback } from 'react';
 import styles from './ButtonToTop.module.scss';
 import clsx from 'clsx';
 
-const ButtonToTop = ({ rootTag, order, name }) => {
+const ButtonToTop = ({ main, rootTag, order, name }) => {
   const [buttonDisplay, setButtonDisplay] = useState(false);
   const buttonClass = clsx(
     styles.button_to_top,
     (buttonDisplay && styles.button_to_top_active) ||
-      styles.button_to_top_unactive
+      styles.button_to_top_unactive,
+    main && styles.button_to_top_main
   );
   const updateButtonVisibility = useCallback(() => {
     if (rootTag && rootTag.current) {
@@ -49,22 +48,13 @@ const ButtonToTop = ({ rootTag, order, name }) => {
   };
 
   return (
-    <div style={{ bottom: `${order + 7}%` }} className={buttonClass}>
-      <Button
-        sx={{
-          width: '180px',
-          fontWeight: 700,
-          backgroundColor: `${
-            rootTag ? 'var(--border-color)' : 'var(--main-color)'
-          }`,
-        }}
-        onClick={ScrollTop}
-        variant='contained'
-        startIcon={<ArrowCircleUp />}
-      >
-        {rootTag ? `To ${name}` : 'Back to top'}
-      </Button>
-    </div>
+    <button
+      style={{ bottom: `${order + 7}%` }}
+      className={buttonClass}
+      onClick={ScrollTop}
+    >
+      {rootTag ? `To ${name}` : 'Back to top'}
+    </button>
   );
 };
 

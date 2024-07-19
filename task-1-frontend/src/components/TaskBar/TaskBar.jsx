@@ -1,15 +1,4 @@
-import {
-  Button,
-  Select,
-  MenuItem,
-  Typography,
-  Slider,
-  Switch,
-  Box,
-  FormControl,
-  InputLabel,
-  IconButton,
-} from '@mui/material';
+import { Slider, Switch } from '@mui/material';
 import { selectCategories } from '../../store/cardSlice';
 import { useSelector } from 'react-redux';
 import { DarkMode, LightMode } from '@mui/icons-material';
@@ -50,76 +39,64 @@ const Taskbar = (props) => {
 
   const categories = useSelector(selectCategories);
   return (
-    <Box className={classByView}>
+    <div className={classByView}>
       {currentView === 'cards' && (
         <>
           {/* SORT and FILTER and Order */}
-          <Box className={styles.taskbar__selectors}>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='sortLabel'>
+          <div className={styles.taskbar__selectors}>
+            <div className={styles.taskbar__selector}>
+              <label id='sortLabel'>
                 <b>SORT</b>
-              </InputLabel>
-              <Select
+              </label>
+              <select
                 className={styles.taskbar__selector}
-                labelId='sortLabel'
-                label='SORT'
                 defaultValue={'default'}
                 onChange={(event) => sortHandler(event.target.value)}
               >
-                <MenuItem value='default'>
-                  <Typography variant='button'>default</Typography>
-                </MenuItem>
-                <MenuItem value='filesize'>
-                  <Typography variant='button'>by size</Typography>
-                </MenuItem>
-                <MenuItem value='name'>
-                  <Typography variant='button'>by name</Typography>
-                </MenuItem>
-                <MenuItem value='timestamp'>
-                  <Typography variant='button'>by date</Typography>
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='filterLabel'>
+                <option value='default'>default</option>
+                <option value='filesize'>by size</option>
+                <option value='name'>by name</option>
+                <option value='timestamp'>by date</option>
+              </select>
+            </div>
+
+            <div className={styles.taskbar__selector}>
+              <label id='filterLabel'>
                 <b>FILTER</b>
-              </InputLabel>
-              <Select
+              </label>
+              <select
                 className={styles.taskbar__selector}
-                labelId='filterLabel'
-                label='FILTER'
                 defaultValue={'default'}
                 onChange={(event) => filterHandler(event.target.value)}
               >
-                <MenuItem value='default'>All</MenuItem>
+                <option value='default'>all</option>
                 {categories.map((map, index) => (
-                  <MenuItem key={index} value={map}>
-                    <Typography variant='button'>{map}</Typography>
-                  </MenuItem>
+                  <option key={index} value={map}>
+                    {map}
+                  </option>
                 ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='orderLable'>
+              </select>
+            </div>
+
+            <div className={styles.taskbar__selector}>
+              <label id='orderLable'>
                 <b>ORDER</b>
-              </InputLabel>
-              <Select
+              </label>
+              <select
                 className={styles.taskbar__selector}
-                labelId='orderlabel'
-                label='ORDER'
                 defaultValue={'growing'}
                 onChange={(event) => orderHandler(event.target.value)}
               >
-                <MenuItem value='growing'>Growing</MenuItem>
-                <MenuItem value='falling'>Falling</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+                <option value='growing'>growing</option>
+                <option value='falling'>falling</option>
+              </select>
+            </div>
+          </div>
         </>
       )}
       {/* Switch View */}
-      <Box className={styles.taskbar__center_item}>
-        <IconButton
+      <div className={styles.taskbar__center_item}>
+        <button
           className={styles.taskbar__dark_mode_button}
           onClick={themeHandler}
         >
@@ -134,24 +111,24 @@ const Taskbar = (props) => {
               style={{ color: 'var(--text-main-color)' }}
             />
           )}
-        </IconButton>
-        <Box className={styles.taskbar__switch}>
-          <Typography variant='button'>
+        </button>
+        <div className={styles.taskbar__switch}>
+          <p>
             <b>tree view</b>
-          </Typography>
+          </p>
           <Switch
             defaultChecked={currentView === 'tree'}
             onChange={ViewChangeHandler}
           />
-        </Box>
-      </Box>
+        </div>
+      </div>
       {/* Recover Images and Images per page */}
       {currentView === 'cards' && (
         <>
-          <Box className={styles.taskbar__item}>
-            <Typography variant='button'>
+          <div className={styles.taskbar__item}>
+            <p>
               <b>Images per Page</b>
-            </Typography>
+            </p>
             <Slider
               aria-label='ImagePerPage'
               color='var(--text-main-color)'
@@ -161,29 +138,19 @@ const Taskbar = (props) => {
               max={100}
               onChange={debouncedImagePerPageChange}
             />
-          </Box>
-          <Box className={styles.taskbar__item}>
-            <Button
-              variant='contained'
-              sx={{
-                fontWeight: '600',
-                color: 'var(--text-main-color)',
-                background: 'var(--background-color)',
-                ':disabled': {
-                  opacity: 1,
-                  color: 'var(--disabled-color)',
-                  cursor: 'not-allowed',
-                },
-              }}
+          </div>
+          <div className={styles.taskbar__item}>
+            <button
+              className={styles.taskbar__recover_button}
               disabled={localStorageEmpty}
               onClick={() => cardRecover()}
             >
-              Recover Deleted Cards
-            </Button>
-          </Box>
+              Recover deleted cards
+            </button>
+          </div>
         </>
       )}
-    </Box>
+    </div>
   );
 };
 

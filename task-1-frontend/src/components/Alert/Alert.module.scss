@@ -1,11 +1,12 @@
 @import '../../styles/animation.scss';
+@import '../../styles/text.scss';
 .alert {
   position: fixed;
   top: var(--header-height);
   left: 0;
   display: flex;
   flex-direction: row;
-  background-color: var(--content-color);
+  background-color: var(--background-color);
   animation: slide_in 2s forwards ease-in;
   padding: 15px;
   opacity: 1;
@@ -13,6 +14,8 @@
   border: var(--border-color) 1px solid;
   border-radius: 0 10px 10px 0;
   &__message {
+    @include uppercase;
+    font-weight: 1000;
     margin: 0;
     padding-right: 20px;
     &_good {

@@ -1,10 +1,8 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { selectBranchItemsByBranchName } from '../../../store/treeSlice';
-import { Typography, IconButton } from '@mui/material';
 import ButtonToTop from '../../ButtonToTop/ButtonToTop';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
+import ArrowIcon from '../../SvgIcon/ArrowIcon/ArrowIcon';
 import Leaf from './Leaf/Leaf';
 import styles from './Branch.module.scss';
 
@@ -21,21 +19,21 @@ const Branch = ({ branchName, order }) => {
         className={styles.branch__label}
         onClick={() => setListDisplay((prev) => !prev)}
       >
-        <Typography variant='button'>
+        <p>
           {!listDisplay && (
-            <IconButton color='success'>
-              <ArrowCircleDownIcon />
-            </IconButton>
+            <div>
+              <ArrowIcon />
+            </div>
           )}
           {listDisplay && (
-            <IconButton sx={{ color: '#00B0B0' }}>
-              <ArrowCircleUpIcon />
-            </IconButton>
+            <div>
+              <ArrowIcon up={true} />
+            </div>
           )}
-        </Typography>
-        <Typography variant='button'>
+        </p>
+        <p>
           <b> {branchName}</b>{' '}
-        </Typography>
+        </p>
       </div>
 
       {listDisplay && (

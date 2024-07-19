@@ -1,12 +1,32 @@
+@import '../../styles/text.scss';
 .button_to_top {
+  font-weight: 700;
+  width: 150px;
+  height: 40px;
   position: fixed;
   bottom: 5%;
   right: 50px;
   z-index: 100;
+  border: solid 1px;
+  border-radius: 5px;
+  font-size: 12px;
+  @include uppercase;
+  background-color: var(--background-color);
+  color: var(--text-main-color);
+  cursor: pointer;
   &_unactive {
     display: none;
   }
   &_active {
     display: block;
+  }
+  &_main {
+    color: var(--background-color);
+    border: var(--border-color);
+    background-color: var(--border-color);
+  }
+  &:hover {
+    color: var(--background-color);
+    background-color: var(--text-main-color);
   }
 }

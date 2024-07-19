@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { deleteCard } from '../../../store/cardSlice';
-import { Box, Grid, Typography, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from '../../SvgIcon/CloseIcon/CloseIcon';
 import Modal from '../../Modal/Modal';
 import { useState, useRef } from 'react';
 import styles from './Card.module.scss';
@@ -25,49 +24,44 @@ const Card = ({ cardInfo }) => {
   const size = (filesize / (1024 * 1024)).toFixed(2);
   const cardClass = clsx(styles.card, displayCard || styles.card_deleted);
   return (
-    <Grid item xs={1.9} sm={3.9} md={3.9}>
-      <div ref={cardRef} className={cardClass}>
-        <div className={styles.card__image}>
-          <img src={url} alt={url} />
-          <Typography
-            variant='button'
-            onClick={() => setdisplayModal((prev) => !prev)}
-            className={styles.card__image_suggested}
-          >
-            See full image
-          </Typography>
+    <div ref={cardRef} className={cardClass}>
+      <div className={styles.card__image}>
+        <img src={url} alt={url} />
+        <p
+          onClick={() => setdisplayModal((prev) => !prev)}
+          className={styles.card__image_suggested}
+        >
+          See full image
+        </p>
+      </div>
+      <div className={styles.card__info}>
+        <div>
+          <p>{date}</p>
         </div>
-        <div className={styles.card__info}>
-          <div>
-            <Typography variant='caption'>{date}</Typography>
-          </div>
-          <div>
-            <Typography variant='caption'>
-              <b>{category}</b>
-            </Typography>
-          </div>
-          <div>
-            <Typography variant='caption'>{size} MB</Typography>
-          </div>
+        <div>
+          <p>
+            <b>{category}</b>
+          </p>
         </div>
-        <div className={styles.card__name}>
-          <Typography align='center' variant='button'>
-            {name}
-          </Typography>
+        <div>
+          <p>{size} MB</p>
         </div>
-        <Box className={styles.card__del_button}>
-          <IconButton
-            onClick={(e) => handleDelete(e)}
-            sx={{ color: 'var(--border-color)' }}
-          >
-            <CloseIcon fontSize='small' />
-          </IconButton>
-        </Box>
+      </div>
+      <div className={styles.card__name}>
+        <p>{name}</p>
+      </div>
+      <div className={styles.card__del_button}>
+        <div
+          onClick={(e) => handleDelete(e)}
+          style={{ color: 'var(--border-color)' }}
+        >
+          <CloseIcon size={30} />
+        </div>
       </div>
       <div>
         {displayModal && <Modal url={url} setDisplay={setdisplayModal} />}
       </div>
-    </Grid>
+    </div>
   );
 };
 export default Card;

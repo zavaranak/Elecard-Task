@@ -1,4 +1,4 @@
-import Page from './Page';
+import Page from './Page/Page';
 import {
   selectCardsLength,
   sortOrderCard,
@@ -7,7 +7,8 @@ import {
 } from '../../store/cardSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Pagination, Skeleton, Box } from '@mui/material';
+import { Pagination } from '@mui/material';
+import Skeleton from './Skeleton/Skeleton';
 import TaskBar from '../TaskBar/TaskBar';
 import styles from './CardView.module.scss';
 
@@ -67,8 +68,8 @@ const CardView = ({ setView }) => {
     setPageCount(Math.round(cardsLength / imagePerPage));
   }, [currentPage, pageCount, imagePerPage, cardsLength]);
   return (
-    <Box className={styles.card_view}>
-      <Box style={{ marginBottom: '10px' }}>
+    <div className={styles.card_view}>
+      <div style={{ marginBottom: '10px' }}>
         {cardsLength > 0 && (
           <TaskBar
             filterHandler={filterHandler}
@@ -82,17 +83,8 @@ const CardView = ({ setView }) => {
           />
         )}
         <></>
-      </Box>
-      {!(cardsLength > 0) && (
-        <Box className={styles.card_view__skeleton}>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
-        </Box>
-      )}
+      </div>
+      {!(cardsLength > 0) && <Skeleton />}
 
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
@@ -106,7 +98,7 @@ const CardView = ({ setView }) => {
         showFirstButton
         showLastButton
       />
-    </Box>
+    </div>
   );
 };
 export default CardView;

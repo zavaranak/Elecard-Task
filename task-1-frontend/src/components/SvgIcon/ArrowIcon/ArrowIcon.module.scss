@@ -1,0 +1,11 @@
+.arrowIcon {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  &_up {
+    color: var(--success-color);
+  }
+  &_down {
+    color: var(--border-color);
+  }
+}

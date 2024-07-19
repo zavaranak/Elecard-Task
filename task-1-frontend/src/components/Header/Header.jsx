@@ -1,14 +1,13 @@
-import { Box, Typography } from '@mui/material';
 import styles from './Header.module.scss';
 const Header = () => {
   return (
-    <Box className={styles.header}>
+    <div className={styles.header}>
       <div className={styles.header__title}>
-        <Typography variant='button'>
+        <p>
           <b>Challenge CW 2023 (frontend)</b>
-        </Typography>
+        </p>
       </div>
-    </Box>
+    </div>
   );
 };
 

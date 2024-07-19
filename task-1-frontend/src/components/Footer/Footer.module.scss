@@ -1,4 +1,6 @@
+@import '../../styles/text.scss';
 .footer {
+  @include uppercase;
   background-color: var(--background-color);
   color: var(--text-main-color);
   text-align: center;
@@ -8,5 +10,6 @@
   height: var(--footer-height);
   display: flex;
   justify-content: center;
+  align-items: center;
   border-top: var(--main-color) 2px solid;
 }

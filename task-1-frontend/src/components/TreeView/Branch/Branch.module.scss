@@ -1,4 +1,5 @@
 @import '../../../styles/animation.scss';
+@import '../../../styles/text.scss';
 .branch {
   display: flex;
   flex-direction: column;
@@ -7,9 +8,12 @@
   margin: 10px;
   width: 90%;
   border: 2px var(--border-color) solid;
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: hidden;
+  padding: 10px;
   &__label {
+    @include uppercase;
+    font-size: 12px;
     width: 100%;
     display: flex;
     flex-direction: row;

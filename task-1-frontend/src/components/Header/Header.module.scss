@@ -1,4 +1,6 @@
+@import '../../styles/text.scss';
 .header {
+  @include uppercase;
   background-color: var(--background-color);
   color: var(--text-main-color);
   position: fixed;
@@ -7,8 +9,6 @@
   z-index: 100;
   height: var(--header-height);
   display: flex;
-  border-bottom: var(--main-color) solid 3px;
-  //justify-content: center;
   &__title {
     margin: auto;
   }
