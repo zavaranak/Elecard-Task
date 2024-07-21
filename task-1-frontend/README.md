@@ -14,6 +14,7 @@
 
     Конфигурация тестирования:
         Зависимые (npm install --save-dev)
+        
             @testing-library/jest-dom
             # для использования Matcher (toBeInTheDocument/toBeVisible/toHaveTextContent/...)
 
@@ -30,7 +31,7 @@
             # для перевода ES6/ES7/JSX на ES5
 
             identity-obj-proxy
-            # для импорта модуль стиля
+            # для импорта модулей стиля
 
         Ноывые файлы
             .babelrc
