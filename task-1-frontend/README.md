@@ -13,7 +13,7 @@
 ### DONE -- Создать unit test для Alert и Modal (Jest и React Testing Library).
 
     Конфигурация тестирования:
-        Зависиммые (npm install --save-dev)
+        Зависимые (npm install --save-dev)
             @testing-library/jest-dom
             # для использования Matcher (toBeInTheDocument/toBeVisible/toHaveTextContent/...)
 
