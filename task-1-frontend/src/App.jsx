@@ -3,6 +3,7 @@ import Footer from './components/Footer/Footer';
 import Content from './components/Content/Content';
 import './App.scss';
 import { useEffect } from 'react';
+
 const App = () => {
   useEffect(() => {
     const darkmode = localStorage.getItem('darktheme');

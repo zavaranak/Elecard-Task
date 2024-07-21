@@ -13,7 +13,7 @@ const Content = () => {
   const status = useSelector(selectStatus);
   useEffect(() => {
     setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 5000);
+    setTimeout(() => setShowAlert(false), 3000);
   }, [status]);
   useEffect(() => {
     dispatch(fetchCardAction());

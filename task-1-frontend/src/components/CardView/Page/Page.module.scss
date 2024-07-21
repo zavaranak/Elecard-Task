@@ -1,9 +1,10 @@
-$small-screen: 950px;
+$small-screen: 1000px;
 $large-screen: 1500px;
 .page {
   display: grid;
   grid-template-columns: repeat(15, 1fr);
   gap: 16px;
+  margin: auto;
   @media screen and (max-width: $small-screen) {
     grid-template-columns: repeat(5, 1fr);
   }

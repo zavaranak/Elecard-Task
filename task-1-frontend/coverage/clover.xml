@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1721549878357" clover="3.2.0">
+  <project timestamp="1721549878362" name="All files">
+    <metrics statements="19" coveredstatements="19" conditionals="12" coveredconditionals="11" methods="6" coveredmethods="6" elements="37" coveredelements="36" complexity="0" loc="19" ncloc="19" packages="3" files="3" classes="3"/>
+    <package name="Alert">
+      <metrics statements="7" coveredstatements="7" conditionals="12" coveredconditionals="11" methods="1" coveredmethods="1"/>
+      <file name="Alert.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\Alert\Alert.jsx">
+        <metrics statements="7" coveredstatements="7" conditionals="12" coveredconditionals="11" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+      </file>
+    </package>
+    <package name="Modal">
+      <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <file name="Modal.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\Modal\Modal.jsx">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="SvgIcon.CloseIcon">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="CloseIcon.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\SvgIcon\CloseIcon\CloseIcon.jsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

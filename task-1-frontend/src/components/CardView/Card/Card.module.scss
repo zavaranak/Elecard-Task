@@ -1,5 +1,5 @@
 @import '../../../styles/animation.scss';
-
+@import '../../../styles/text.scss';
 .card {
   display: flex;
   padding: 0;
@@ -21,6 +21,8 @@
       object-fit: cover;
     }
     &_suggested {
+      @include uppercase;
+      font-weight: 600;
       color: var(--border-color);
       position: absolute;
       top: 50%;
@@ -46,9 +48,10 @@
     }
   }
   &__info {
+    font-weight: 350;
     display: grid;
     grid-template-columns: 2fr 2fr 2fr;
-    column-gap: 20px;
+    column-gap: 100px;
   }
   &__del_button {
     margin: 0;

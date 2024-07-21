@@ -7,12 +7,11 @@
   display: flex;
   flex-direction: row;
   background-color: var(--background-color);
-  animation: slide_in 2s forwards ease-in;
+  animation: slide_in 3s forwards;
   padding: 15px;
   opacity: 1;
   z-index: 200;
-  border: var(--border-color) 1px solid;
-  border-radius: 0 10px 10px 0;
+  border-radius: 0 5px 5px 0;
   &__message {
     @include uppercase;
     font-weight: 1000;
@@ -20,11 +19,11 @@
     padding-right: 20px;
     &_good {
       color: var(--success-color);
-      border-right: 5px solid var(--success-color);
+      border-right: solid 5px;
     }
     &_bad {
       color: var(--failed-color);
-      border-right: 5px solid var(--failed-color);
+      border-right: solid 5px;
     }
   }
 }

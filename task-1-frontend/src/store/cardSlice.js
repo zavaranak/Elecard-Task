@@ -1,10 +1,11 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const apiURL = import.meta.env.VITE_API_URL;
 //Thunk action function
 export const fetchCardAction = () => async (dispatch) => {
   axios
-    .get('/api/catalog.json', {
+    .get(`${apiURL}/catalog.json`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -13,8 +14,8 @@ export const fetchCardAction = () => async (dispatch) => {
     .then((data) => {
       dispatch(fetchCard(data));
     })
-    .catch((error) => {
-      console.log('Can not load data from server. Error Code:', error);
+    .catch(() => {
+      dispatch(setBadStatus());
     });
 };
 
@@ -51,7 +52,7 @@ const cardSlice = createSlice({
           ...card,
           category: card.image.split('/')[0],
           name: card.image.split('/').pop().split('.jpg')[0],
-          url: `http://contest.elecard.ru/frontend_data/${card.image}`,
+          url: `${apiURL + '/' + card.image}`,
         }));
         state.status = 'good';
         state.cardsData = cards;
@@ -106,6 +107,9 @@ const cardSlice = createSlice({
     restoreCards: (state) => {
       state.tempData = state.cardsData;
     },
+    setBadStatus: (state) => {
+      state.status = 'bad';
+    },
   },
 });
 
@@ -116,6 +120,7 @@ export const {
   sortOrderCard,
   sortAndFilterCard,
   restoreCards,
+  setBadStatus,
 } = cardSlice.actions;
 
 const selectCardState = (state) => state.cards;

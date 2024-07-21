@@ -1,6 +1,7 @@
 @import '../../styles/text.scss';
 .header {
   @include uppercase;
+  font-weight: 900;
   background-color: var(--background-color);
   color: var(--text-main-color);
   position: fixed;

@@ -10,7 +10,33 @@
 
 ### DONE -- Максимально использовать теги HTML вместо MUI
 
-### UNDONE -- Создать unit test для Alert и Modal (Jest и React Testing Library).
+### DONE -- Создать unit test для Alert и Modal (Jest и React Testing Library).
+
+    Конфигурация тестирования:
+        Зависиммые (npm install --save-dev)
+            @testing-library/jest-dom
+            # для использования Matcher (toBeInTheDocument/toBeVisible/toHaveTextContent/...)
+
+            jest-environment-jsdom
+            # для создания среды тестирования
+
+            @testing-library/react @testing-library/dom
+            # для использования инструменотов(render, screen, fireEvent,..) и поиска элементов (getBy.., findBy...)
+
+            jest
+            # фремворк тестирования
+
+            babel-jest @babel/preset-env @babel/preset-react
+            # для перевода ES6/ES7/JSX на ES5
+
+            identity-obj-proxy
+            # для импорта модуль стиля
+
+        Ноывые файлы
+            .babelrc
+            jest.config.json
+        Обновленный файл
+            .eslintrc.cjs
 
 # Пятый чеклист - 16 июля
 

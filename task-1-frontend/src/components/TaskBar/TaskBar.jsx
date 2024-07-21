@@ -32,7 +32,6 @@ const Taskbar = (props) => {
 
   const themeHandler = () => {
     document.documentElement.classList.toggle('dark-theme');
-    console.log(darktheme);
     localStorage.setItem('darktheme', !darktheme);
     setDarktheme((prev) => !prev);
   };
@@ -127,7 +126,7 @@ const Taskbar = (props) => {
         <>
           <div className={styles.taskbar__item}>
             <p>
-              <b>Images per Page</b>
+              <b>Images per page</b>
             </p>
             <Slider
               aria-label='ImagePerPage'
