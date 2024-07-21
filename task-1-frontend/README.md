@@ -34,10 +34,14 @@
             # для импорта модулей стиля
 
         Ноывые файлы
-            .babelrc
-            jest.config.json
+        
+            .babelrc # добавить presets
+            
+            jest.config.json #config (testEnvironment,moduleNameMapper,transform,setupFilesAfterEnv)
+            
         Обновленный файл
-            .eslintrc.cjs
+        
+            .eslintrc.cjs # env{jest:true}
 
 # Пятый чеклист - 16 июля
 
