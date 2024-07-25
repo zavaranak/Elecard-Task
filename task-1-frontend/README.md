@@ -1,210 +1,191 @@
 # Чеклист задач
 
-# API: http://contest.elecard.ru/frontend_data/
+    API: http://contest.elecard.ru/frontend_data/
 
----
+## Седьмой чеклист - 25 июля
 
-# Шестой чеклист - 17 июля
+### Замечания:
 
-## Задачи
+- Unit test оформиляться польностью на английском.
+- Установить атрибут data-testid компонетам тестирования.
+- Искать компоненты тестирования по атрибуту data-testid.
+- Тестировать все props и их влияние на компонент.
+- Один ожидание резутата для каждого теста.
+- Сохранить svg отдельным файлом.
 
-### DONE -- Максимально использовать теги HTML вместо MUI
+### Задачи:
 
-### DONE -- Создать unit test для Alert и Modal (Jest и React Testing Library).
+- Реализация скачивание картинок.
+- Unit test для скачивания картинок и ещё двух компонентов на выбор.
 
-    Конфигурация тестирования:
-        Зависимые (npm install --save-dev)
-        
-            @testing-library/jest-dom
-            # для использования Matcher (toBeInTheDocument/toBeVisible/toHaveTextContent/...)
+## Шестой чеклист - 17 июля
 
-            jest-environment-jsdom
-            # для создания среды тестирования
+### Задачи
 
-            @testing-library/react @testing-library/dom
-            # для использования инструменотов(render, screen, fireEvent,..) и поиска элементов (getBy.., findBy...)
+- ✅ -- Максимально использовать теги HTML вместо MUI.
 
-            jest
-            # фремворк тестирования
+- ✅ -- Создать unit test для Alert и Modal (Jest и React Testing Library).
+  Конфигурация тестирования:
 
-            babel-jest @babel/preset-env @babel/preset-react
-            # для перевода ES6/ES7/JSX на ES5
+            Зависимые (npm install --save-dev)
 
-            identity-obj-proxy
-            # для импорта модулей стиля
+                @testing-library/jest-dom
+                # для использования Matcher (toBeInTheDocument/toBeVisible/toHaveTextContent/...)
 
-        Ноывые файлы
-        
-            .babelrc # добавить presets
-            
-            jest.config.json #config (testEnvironment,moduleNameMapper,transform,setupFilesAfterEnv)
-            
-        Обновленный файл
-        
-            .eslintrc.cjs # env{jest:true}
+                jest-environment-jsdom
+                # для создания среды тестирования
 
-# Пятый чеклист - 16 июля
+                @testing-library/react @testing-library/dom
+                # для использования инструменотов(render, screen, fireEvent,..) и поиска элементов (getBy.., findBy...)
 
-## Замечание
+                jest
+                # фремворк тестирования
 
-### DONE -- Исправить стиль, переменные цвета включны в :root, nomarlize.css.
+                babel-jest @babel/preset-env @babel/preset-react
+                # для перевода ES6/ES7/JSX на ES5
 
-## Задачи
+                identity-obj-proxy
+                # для импорта модулей стиля
 
-### DONE -- Добавить darktheme.
+            Ноывые файлы
 
-### DONE -- Превращать стиль в модуль .
+                .babelrc # добавить presets
 
-# Четвертый чеклист - 04 июля
+                jest.config.json #config (testEnvironment,moduleNameMapper,transform,setupFilesAfterEnv)
 
-## Замечание
+            Обновленный файл
 
-### !DONE -- В карточках использовать gap:10px вместо margin отступов
+                .eslintrc.cjs # env{jest:true}
 
-### !DONE -- Использовать у дочернего элемента margin: auto, тогда он встанет по центру родителя.
+## Пятый чеклист - 16 июля
 
-### !DONE -- Все цвета проекта вынести в палитру src/styles/palette.scss.
+### Замечание
+
+- ✅ -- Исправить стиль, переменные цвета включны в :root, nomarlize.css.
+
+### Задачи
+
+- ✅ -- Добавить darktheme.
+- ✅ -- Превращать стиль в модуль.
+
+## Четвертый чеклист - 04 июля
+
+### Замечание
+
+- ⚠️ -- В карточках использовать gap:10px вместо margin отступов.
+- ⚠️ -- Использовать у дочернего элемента margin: auto, тогда он встанет по центру родителя.
+- ⚠️ -- Все цвета проекта вынести в палитру src/styles/palette.scss.
 
             "Я видел хороший пример пользования методом map-get в SCSS для глобальных переменных,
             так что я вывел все переменные в папку styles и достать их через метод map-get($var,"key").
             Могу перейдти на метод ":root", если он является лучше вариантом"
 
-### !DONE -- Добавить normalize.css
+- ⚠️ -- Добавить normalize.css
+- ✅ -- Стили вынести в файл Content.scss (+ для Header и Footer)
 
-### DONE -- Стили вынести в файл Content.scss (+ для Header и Footer)
+### Баг
 
-## Баги
-
-### DONE -- Возникает множество warnings в момент, когда переключаешь вид страницы.
+- ✅ -- Возникает множество warnings в момент, когда переключаешь вид страницы.
 
             Решить способом использавать "useSelector" с параметром "createSelector" вместо callback функции.
 
-### DONE -- Несколько раз вызывает запрос на catalog.json.
+- ✅ -- Несколько раз вызывает запрос на catalog.json.
 
             Решить способом вызывать API только один раз при "mounting" Content.jsx.
 
-### DONE -- После удаления карточки перекидывает на первую страницу.
+- ✅ -- После удаления карточки перекидывает на первую страницу.
 
             Решить способом исправить "reducer cards" и случаи использования "useDispatch"
 
-### DONE -- Внутренняя кнопка выходит за пределы карточки.
+- ✅ -- Внутренняя кнопка выходит за пределы карточки.
 
             Решить способом исправить стиль Card.scss.
 
-### DONE -- Когда в дереве раскрывается стрелочка она становится красной.
+- ✅ -- Когда в дереве раскрывается стрелочка она становится красной.
 
             Решить способом исправить стиль Branch.scss
 
-# Третий чеклист - 01 июля
+## Третий чеклист - 01 июля
 
-## Замечание
+### Замечание
 
-### DONE -- Переписать стиль App.scss
+- ✅ -- Переписать стиль App.scss
 
             https://sass-lang.com/documentation/style-rules/parent-selector/#adding-suffixes
 
-### DONE -- Модификаторы по БЭМ необходимо указывать через одно нижнее подчеркивание
+- ✅ -- Модификаторы по БЭМ необходимо указывать через одно нижнее подчеркивание
 
             https://ru.bem.info/methodology/css/
 
-### DONE -- При именовании css классов нужно использовать только Snake case.
+- ✅ -- При именовании css классов нужно использовать только Snake case.
+- ✅ -- Необходимо удалить из кода проекта лишние комментарии.
 
-### DONE -- Необходимо удалить из кода проекта лишние комментарии.
+### Баги
 
-## Баги
+- ✅ -- filesize - размер файла (должен выводиться в человекочитаемом формате).
+- ✅ -- Порядок сортировки не нужно подписывать в карточке.
+- ✅ -- Thumbnail необходимо отображать одинакового размера для всех картинок.
+- ✅ -- При отображении картинки в модальном окне прокрутка не блокируется.
 
-### DONE -- filesize - размер файла (должен выводиться в человекочитаемом формате).
+### Добавление
 
-### DONE -- Порядок сортировки не нужно подписывать в карточке.
+- ➕ Tree View: Кнопки скролла обратно к началу и определенным веткам дерева
+- ➕ Tree View: Анимация при открытии списка дерева
+- ➕ Card View: Анимация при event "hover" на карточку
 
-### DONE -- Thumbnail необходимо отображать одинакового размера для всех картинок.
+## Второй чеклист - 28 июня
 
-### DONE -- При отображении картинки в модальном окне прокрутка не блокируется.
+### Замечание
 
-## Добавление
+- ✅ -- Размещать scss стили рядом с компонентом к которому эти стили относятся.
+- ✅ -- Все файлы и папки относящиеся к redux размещаться в папке store
 
-### Tree View: Кнопки скролла обратно к началу и определенным веткам дерева
+### Баги
 
-### Tree View: Анимация при открытии списка дерева
+- ✅ -- Добавить сортировку радиобатонами (от меньшеного к большему)
+- ⚠️ -- В карточке отобразить все поля по которым выполняется сортировка.
+- ✅ -- Скрол бар не отображается при первой загрузки страницы.
+- ✅ -- После выполнения действия удаления карточки остаться на данной странице.
+- ✅ -- Крестик в модальном окне располагается в верхнем правом углу.
+- ✅ -- Вид дерева похож на пример.
 
-### Card View: Анимация при event "hover" на карточку
+## Первый чеклист
 
-# Второй чеклист - 28 июня
-
-## Замечание
-
-### DONE -- Размещать scss стили рядом с компонентом к которому эти стили относятся.
-
-### DONE -- Все файлы и папки относящиеся к redux размещаться в папке store
-
-## Баги
-
-### DONE -- Добавить сортировку радиобатонами (от меньшеного к большему)
-
-### !DONE -- В карточке отобразить все поля по которым выполняется сортировка.
-
-### DONE -- Скрол бар не отображается при первой загрузки страницы
-
-### DONE -- После выполнения действия удаления карточки остаться на данной странице
-
-### DONE -- Крестик в модальном окне располагается в верхнем правом углу
-
-### DONE -- Вид дерева похож на пример
-
-# Первый чеклист
-
-### DONE -- Header/Footer (fixed position)
-
-### DONE -- 2 view types of content: treeListView and cardListView
-
-### DONE -- Radiobutton for switching between views
-
-### DONE -- treeListView is not affected by state-updating action from cardListView
-
-### DONE -- cardListView: Each card(assumed to be component) is able to close with 'x' button
-
-### DONE -- cardListView: Closed cards are stored at localStorage
-
-### !DONE -- cardListView: Cards sort by timestamp/name/size
-
-### DONE -- cardListView: Cards filter by category
-
-### !DONE -- cardListView: Cards distribution to pages with navigation (nextpage/previouspage/firstpage/lastpage)
-
-### DONE -- cardListView: Notification at successful data fetching
-
-### !DONE -- cardListView: Card shows information of field, which is applied for sorting
-
-### DONE -- cardListView: Animation on DELETE action
-
-### !DONE -- treeListView: Nesting list (assumed nested by catergory)
-
-### DONE -- treeListView: List item's info: thumbnail, timestamp, size
-
-### DONE -- Timestamp in human-readable format
-
-### DONE -- Click event shows fullsize Image
-
-### DONE -- React
-
-### DONE -- Redux Toolkit
-
-### !DONE -- JS,HTML, SCSS
-
-### DONE -- Naming by BEM
-
-### DONE -- UI design (MUI)
-
-### DONE -- Minial request to server
+- ✅ -- Header/Footer (fixed position).
+- ✅ -- 2 view types of content: treeListView and cardListView.
+- ✅ -- Radiobutton for switching between views.
+- ✅ -- treeListView is not affected by state-updating action from cardListView.
+- ✅ -- cardListView: Each card(assumed to be component) is able to close with 'x' button.
+- ✅ -- cardListView: Closed cards are stored at localStorage.
+- ⚠️ -- cardListView: Cards sort by timestamp/name/size.
+- ✅ -- cardListView: Cards filter by category.
+- ⚠️ -- cardListView: Cards distribution to pages with navigation (nextpage/previouspage/firstpage/lastpage).
+- ✅ -- cardListView: Notification at successful data fetching.
+- ⚠️ -- cardListView: Card shows information of field, which is applied for sorting.
+- ✅ -- cardListView: Animation on DELETE action.
+- ⚠️ -- treeListView: Nesting list (assumed nested by catergory).
+- ✅ -- treeListView: List item's info: thumbnail, timestamp, size.
+- ✅ -- Timestamp in human-readable format.
+- ✅ -- Click event shows fullsize Image.
+- ✅ -- React.
+- ✅ -- Redux Toolkit.
+- ⚠️ -- JS,HTML, SCSS.
+- ✅ -- Naming by BEM.
+- ✅ -- UI design (MUI).
+- ✅ -- Minial request to server.
 
 ## Run with:
 
     npm install
     npm run dev
 
+## Test with:
+
+    npm test
+
 ## Run docker container
 
-    docker build -t imagename .
+    docker build -t imagename
 
     docker run -p port:8080 imagename
 
