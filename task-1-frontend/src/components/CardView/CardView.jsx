@@ -68,7 +68,7 @@ const CardView = ({ setView }) => {
     setPageCount(Math.round(cardsLength / imagePerPage));
   }, [currentPage, pageCount, imagePerPage, cardsLength]);
   return (
-    <div className={styles.card_view}>
+    <div data-testid='card-view' className={styles.card_view}>
       <div style={{ marginBottom: '10px' }}>
         {cardsLength > 0 && (
           <TaskBar

@@ -5,6 +5,7 @@ import * as reduxSpy from 'react-redux';
 import { deleteCard } from '../../../../store/cardSlice';
 import { act } from 'react';
 
+//mock store, redux, Modal Component
 jest.mock('../../../../store/cardSlice', () => ({ deleteCard: jest.fn() }));
 jest.mock('react-redux', () => ({ useDispatch: jest.fn() }));
 jest.mock('../../../Modal/Modal', () => {
@@ -62,7 +63,7 @@ describe('Card component', () => {
     // Expect animation while deleting
     expect(card.classList).toContain(styles.card_deleted);
     // Expect delete card at redux-store by card name
-    jest.advanceTimersByTime(1000);
+    jest.advanceTimersByTime(500);
     expect(mockDispatch).toHaveBeenCalledWith(deleteCard(cardInfo.name));
   });
   test('Click on suggestion to show Modal', () => {

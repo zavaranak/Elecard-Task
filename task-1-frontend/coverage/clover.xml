@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722161508055" clover="3.2.0">
-  <project timestamp="1722161508055" name="All files">
-    <metrics statements="66" coveredstatements="66" conditionals="38" coveredconditionals="38" methods="18" coveredmethods="17" elements="122" coveredelements="121" complexity="0" loc="66" ncloc="66" packages="5" files="6" classes="6"/>
+<coverage generated="1722195099002" clover="3.2.0">
+  <project timestamp="1722195099003" name="All files">
+    <metrics statements="92" coveredstatements="92" conditionals="64" coveredconditionals="62" methods="32" coveredmethods="30" elements="188" coveredelements="184" complexity="0" loc="92" ncloc="92" packages="6" files="9" classes="9"/>
     <package name="components.Alert">
       <metrics statements="10" coveredstatements="10" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
       <file name="Alert.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\Alert\Alert.jsx">
@@ -86,8 +86,34 @@
         <line num="23" count="9" type="stmt"/>
       </file>
     </package>
+    <package name="components.TaskBar">
+      <metrics statements="20" coveredstatements="20" conditionals="26" coveredconditionals="24" methods="12" coveredmethods="11"/>
+      <file name="TaskBar.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\TaskBar\TaskBar.jsx">
+        <metrics statements="20" coveredstatements="20" conditionals="26" coveredconditionals="24" methods="12" coveredmethods="11"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="20" count="11" type="stmt"/>
+        <line num="21" count="11" type="stmt"/>
+        <line num="24" count="11" type="stmt"/>
+        <line num="25" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="cond" truecount="0" falsecount="2"/>
+        <line num="31" count="11" type="stmt"/>
+        <line num="35" count="11" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="11" type="stmt"/>
+        <line num="42" count="11" type="stmt"/>
+        <line num="57" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="76" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="81" count="30" type="stmt"/>
+        <line num="97" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="148" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="158" count="2" type="cond" truecount="2" falsecount="0"/>
+      </file>
+    </package>
     <package name="icons">
-      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <file name="CloseIcon.svg" path="D:\MyRepository\Elecard\task-1-frontend\src\icons\CloseIcon.svg">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="2" type="stmt"/>
@@ -99,6 +125,18 @@
         <line num="2" count="2" type="stmt"/>
         <line num="4" count="14" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
+      </file>
+      <file name="Moon.svg" path="D:\MyRepository\Elecard\task-1-frontend\src\icons\Moon.svg">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+      <file name="Sun.svg" path="D:\MyRepository\Elecard\task-1-frontend\src\icons\Sun.svg">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
     </package>
   </project>
