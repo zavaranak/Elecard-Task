@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Modal from '../../../Modal/Modal';
+import ButtonDownload from '../../../ButtonDownload/ButtonDownload';
 import styles from './Leaf.module.scss';
 
 const Leaf = ({ item }) => {
@@ -17,7 +18,7 @@ const Leaf = ({ item }) => {
         <img
           className={styles.leaf__thumpnail}
           src={item.url}
-          alt={item.name}
+          alt={'loading'}
         />
       </div>
       <div className={styles.leaf__name}>
@@ -27,6 +28,9 @@ const Leaf = ({ item }) => {
       <div className={styles.leaf__info}>
         <p>Date: {date} </p>
         <p>Size: {size.toFixed(2)}MB</p>
+      </div>
+      <div className={styles.leaf__download_button}>
+        <ButtonDownload url={item.url} name={item.name} />
       </div>
       <div>
         {displayModal && <Modal url={item.url} setDisplay={setdisplayModal} />}

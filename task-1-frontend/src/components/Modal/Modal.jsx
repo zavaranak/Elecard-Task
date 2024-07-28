@@ -1,28 +1,40 @@
 import { useEffect } from 'react';
-import CloseIcon from '../SvgIcon/CloseIcon/CloseIcon';
+import CloseIcon from '../../icons/CloseIcon.svg';
 import styles from './Modal.module.scss';
 
 const Modal = ({ url, setDisplay }) => {
   useEffect(() => {
+    const keyDownHandler = (e) => {
+      if (e.key === 'Escape') {
+        if (setDisplay) setDisplay(false);
+      }
+    };
     document.body.style.overflow = 'hidden';
-
+    document.addEventListener('keydown', keyDownHandler);
     return () => {
       document.body.style.overflow = 'unset';
+      document.removeEventListener('keydown', keyDownHandler);
     };
-  }, []);
+  });
+  const closeHandler = (e) => {
+    if (setDisplay) setDisplay(false);
+    e.stopPropagation;
+  };
   return (
-    <div className={styles.modal}>
-      <div className={styles.modal__content_box}>
-        <img src={url} alt={url} />
+    <div
+      className={styles.modal}
+      data-testid={'modal'}
+      onKeyDown={closeHandler}
+    >
+      <div className={styles.modal__content_box} data-testid={'modal-content'}>
+        <img src={url} alt={url ? url : 'Invalid image source'} />
 
         <button
-          className={styles.modal__del_button}
-          onClick={(e) => {
-            setDisplay(false);
-            e.stopPropagation;
-          }}
+          data-testid={'modal-close-button'}
+          className={styles.modal__close_button}
+          onClick={closeHandler}
         >
-          <CloseIcon size={50} />
+          <CloseIcon />
         </button>
       </div>
     </div>

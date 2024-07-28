@@ -5,7 +5,7 @@ $medium-screen: 1024px;
 $large-screen: 1280px;
 
 .taskbar {
-  font-weight: 400;
+  font-weight: 300;
   color: var(--text-main-color);
   display: grid;
   grid-template-columns: 2fr 1fr 1.3fr 0.7fr;
@@ -60,7 +60,7 @@ $large-screen: 1280px;
 
   &_tree_view {
     margin-top: 8px;
-    font-weight: 400;
+    font-weight: 300;
     display: flex;
     justify-content: center;
   }
@@ -85,6 +85,7 @@ $large-screen: 1280px;
     cursor: pointer;
     background-color: transparent;
     border: 1px solid transparent;
+    color: var(--text-main-color);
     &_clicked {
       animation: rotate 0.5s normal linear;
     }

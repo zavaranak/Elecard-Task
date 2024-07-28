@@ -9,6 +9,8 @@ $small-screen: 768px;
   border: var(--border-color) solid 1px;
   border-radius: 2px;
   transition: 0.5s;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   &__thumpnail {
     height: 40px;
@@ -21,6 +23,7 @@ $small-screen: 768px;
     align-items: center;
     justify-content: center;
     width: 50%;
+    overflow: hidden;
   }
   &__info {
     width: 50%;
@@ -29,6 +32,13 @@ $small-screen: 768px;
     gap: 5%;
     @media screen and (max-width: $small-screen) {
       display: none;
+    }
+  }
+  &__download_button {
+    cursor: pointer;
+    margin-left: 5px;
+    &:hover {
+      color: var(--success-color);
     }
   }
 }

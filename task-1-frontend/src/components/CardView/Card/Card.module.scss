@@ -53,21 +53,48 @@
     grid-template-columns: 2fr 2fr 2fr;
     column-gap: 100px;
   }
-  &__del_button {
+
+  &__button {
+    //visibility: hidden;
     margin: 0;
     padding: 0;
-    background-color: var(--dark-color);
-    border-radius: 50%;
+    border-radius: 10%;
     height: 30px;
     width: 30px;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    cursor: pointer;
+    svg {
+      opacity: 0;
+    }
     &:hover {
-      background-color: var(--background-color);
+    }
+    &_delete {
+      right: 10px;
+      top: 10px;
+      &:hover {
+        color: var(--failed-color);
+      }
+    }
+    &_download {
+      right: 50px;
+      top: 10px;
+      &:hover {
+        color: var(--success-color);
+      }
     }
   }
   &_deleted {
     animation: fade_out 0.5s ease-in-out forwards;
+  }
+  &:hover &__button {
+    visibility: visible;
+    background-color: var(--background-color);
+    svg {
+      opacity: 1;
+    }
   }
 }

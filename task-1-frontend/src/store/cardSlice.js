@@ -1,11 +1,11 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const apiURL = import.meta.env.VITE_API_URL;
+//const apiURL = import.meta.env.VITE_API_URL;
 //Thunk action function
 export const fetchCardAction = () => async (dispatch) => {
   axios
-    .get(`${apiURL}/catalog.json`, {
+    .get(`/api/catalog.json`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -52,7 +52,7 @@ const cardSlice = createSlice({
           ...card,
           category: card.image.split('/')[0],
           name: card.image.split('/').pop().split('.jpg')[0],
-          url: `${apiURL + '/' + card.image}`,
+          url: `/api/${card.image}`,
         }));
         state.status = 'good';
         state.cardsData = cards;

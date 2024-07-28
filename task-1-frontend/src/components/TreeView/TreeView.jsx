@@ -8,7 +8,8 @@ import clsx from 'clsx';
 import Branch from './Branch/Branch';
 import TaskBar from '../TaskBar/TaskBar';
 import ButtonToTop from '../ButtonToTop/ButtonToTop';
-import ArrowIcon from '../SvgIcon/ArrowIcon/ArrowIcon';
+import ArrowUp from '../../icons/ArrowUp.svg';
+import ArrowDown from '../../icons/ArrowDown.svg';
 import { selectCardsData } from '../../store/cardSlice';
 import styles from './TreeView.module.scss';
 const TreeView = ({ setView }) => {
@@ -38,7 +39,7 @@ const TreeView = ({ setView }) => {
         >
           {!showBranches && (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <ArrowIcon />
+              <ArrowDown />
               <p>
                 <b>ROOT</b>
               </p>
@@ -46,7 +47,7 @@ const TreeView = ({ setView }) => {
           )}
           {showBranches && (
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <ArrowIcon up={true} />
+              <ArrowUp />
               <p>
                 <b>ROOT</b>
               </p>

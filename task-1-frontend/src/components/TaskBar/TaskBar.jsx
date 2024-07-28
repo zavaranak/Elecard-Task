@@ -1,7 +1,8 @@
 import { Slider, Switch } from '@mui/material';
 import { selectCategories } from '../../store/cardSlice';
 import { useSelector } from 'react-redux';
-import { DarkMode, LightMode } from '@mui/icons-material';
+import Moon from '../../icons/Moon.svg';
+import Sun from '../../icons/Sun.svg';
 import styles from './TaskBar.module.scss';
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -100,16 +101,8 @@ const Taskbar = (props) => {
           onClick={themeHandler}
         >
           {(darktheme && (
-            <LightMode
-              className={styles.taskbar__dark_mode_button_clicked}
-              style={{ color: 'var(--text-main-color)' }}
-            />
-          )) || (
-            <DarkMode
-              className={styles.taskbar__dark_mode_button_clicked}
-              style={{ color: 'var(--text-main-color)' }}
-            />
-          )}
+            <Sun className={styles.taskbar__dark_mode_button_clicked} />
+          )) || <Moon className={styles.taskbar__dark_mode_button_clicked} />}
         </button>
         <div className={styles.taskbar__switch}>
           <p>

@@ -13,7 +13,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  &__del_button {
+  &__close_button {
     color: var(--text-main-color);
     padding: 0;
     margin: 0;
@@ -29,6 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     &:hover {
       border: solid 5px var(--failed-color);
       color: var(--failed-color);

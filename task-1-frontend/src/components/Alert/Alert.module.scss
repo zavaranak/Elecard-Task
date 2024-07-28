@@ -7,10 +7,10 @@
   display: flex;
   flex-direction: row;
   background-color: var(--background-color);
-  animation: slide_in 3s forwards;
+  animation: slide_in 4s forwards;
   padding: 15px;
   opacity: 1;
-  z-index: 200;
+  // z-index: 200;
   border-radius: 0 5px 5px 0;
   &__message {
     @include uppercase;
@@ -25,5 +25,9 @@
       color: var(--failed-color);
       border-right: solid 5px;
     }
+  }
+  &_download {
+    top: 150px;
+    color: var(--text-main-color);
   }
 }
