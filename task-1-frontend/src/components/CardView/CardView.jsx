@@ -64,7 +64,9 @@ const CardView = ({ setView }) => {
   }, []);
   useEffect(() => {
     if (pageCount === 0) setCurrentPage(1);
-    else setCurrentPage(Math.min(currentPage, pageCount));
+    else {
+      setCurrentPage(Math.min(currentPage, pageCount));
+    }
     setPageCount(Math.round(cardsLength / imagePerPage));
   }, [currentPage, pageCount, imagePerPage, cardsLength]);
   return (
@@ -89,7 +91,6 @@ const CardView = ({ setView }) => {
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
         className={styles.card_view__pagination}
-        sx={{ button: { color: 'var(--text-main-color)' } }}
         count={Math.max(1, pageCount)}
         page={currentPage}
         onChange={(event, page) => {
