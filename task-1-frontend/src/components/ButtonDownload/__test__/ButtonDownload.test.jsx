@@ -1,7 +1,7 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import ButtonDownload from '../ButtonDownload';
 
-jest.mock('../../Alert/Alert', () => {
+jest.mock('@components/Alert/Alert', () => {
   return jest.fn(({ status }) => status); // Mock implementation
 });
 const url = '/api/health/covid-5905183__480.jpg';

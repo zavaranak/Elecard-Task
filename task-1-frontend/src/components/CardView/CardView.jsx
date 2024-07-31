@@ -4,12 +4,12 @@ import {
   sortOrderCard,
   sortAndFilterCard,
   restoreCards,
-} from '../../store/cardSlice';
+} from '@store/cardSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Pagination } from '@mui/material';
 import Skeleton from './Skeleton/Skeleton';
-import TaskBar from '../TaskBar/TaskBar';
+import TaskBar from '@components/TaskBar/TaskBar';
 import styles from './CardView.module.scss';
 
 const CardView = ({ setView }) => {
@@ -51,10 +51,9 @@ const CardView = ({ setView }) => {
       }, delay);
     };
   };
-  const debouncedImagePerPageChange = debounce(
-    (event, value) => setImagePerPage(value),
-    500
-  );
+  const debouncedImagePerPageChange = debounce((value) => {
+    setImagePerPage(value);
+  }, 500);
   useEffect(() => {
     const checkLocalStorage = localStorage.deletedCards ? true : false;
     setLocalStorageEmpty(!checkLocalStorage);
@@ -71,7 +70,7 @@ const CardView = ({ setView }) => {
   }, [currentPage, pageCount, imagePerPage, cardsLength]);
   return (
     <div data-testid='card-view' className={styles.card_view}>
-      <div style={{ marginBottom: '10px' }}>
+      <div>
         {cardsLength > 0 && (
           <TaskBar
             filterHandler={filterHandler}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DownloadIcon from '../../icons/DownloadIcon.svg';
-import Alert from '../Alert/Alert';
+import DownloadIcon from '@icons/DownloadIcon.svg';
+import Alert from '@components/Alert/Alert';
 
 const ButtonDownload = ({ url, name }) => {
   const [displayAlert, setDisplayAlert] = useState(false);

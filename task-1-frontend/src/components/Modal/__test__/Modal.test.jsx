@@ -13,18 +13,6 @@ describe('Modal Component', () => {
     const modal = screen.getByTestId('modal');
     expect(modal.className).toContain(styles.modal);
   });
-  // test('Render content and apply module SCSS', () => {
-  //   const setDisplay = jest.fn();
-  //   render(<Modal url={url} setDisplay={setDisplay} />);
-  //   const content = screen.getByTestId('modal-content');
-  //   expect(content.className).toContain(styles.modal__content_box);
-  // });
-  // test('Render close button and apply module SCSS', () => {
-  //   const setDisplay = jest.fn();
-  //   render(<Modal url={url} setDisplay={setDisplay} />);
-  //   const closeButton = screen.getByTestId('modal-close-button');
-  //   expect(closeButton.className).toContain(styles.modal__close_button);
-  // });
   test('Props "url===undefined"', () => {
     const setDisplay = jest.fn();
     render(<Modal url={undefined} setDisplay={setDisplay} />);

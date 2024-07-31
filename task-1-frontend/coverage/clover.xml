@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722195099002" clover="3.2.0">
-  <project timestamp="1722195099003" name="All files">
-    <metrics statements="92" coveredstatements="92" conditionals="64" coveredconditionals="62" methods="32" coveredmethods="30" elements="188" coveredelements="184" complexity="0" loc="92" ncloc="92" packages="6" files="9" classes="9"/>
+<coverage generated="1722416916771" clover="3.2.0">
+  <project timestamp="1722416916772" name="All files">
+    <metrics statements="101" coveredstatements="101" conditionals="60" coveredconditionals="58" methods="32" coveredmethods="30" elements="193" coveredelements="189" complexity="0" loc="101" ncloc="101" packages="6" files="9" classes="9"/>
     <package name="components.Alert">
-      <metrics statements="10" coveredstatements="10" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
+      <metrics statements="18" coveredstatements="18" conditionals="14" coveredconditionals="14" methods="1" coveredmethods="1"/>
       <file name="Alert.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\Alert\Alert.jsx">
-        <metrics statements="10" coveredstatements="10" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
+        <metrics statements="18" coveredstatements="18" conditionals="14" coveredconditionals="14" methods="1" coveredmethods="1"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="8" type="stmt"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="6" count="8" type="stmt"/>
-        <line num="7" count="8" type="stmt"/>
-        <line num="8" count="8" type="stmt"/>
-        <line num="9" count="8" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="8" type="stmt"/>
-        <line num="25" count="8" type="stmt"/>
-        <line num="29" count="8" type="stmt"/>
+        <line num="5" count="8" type="cond" truecount="6" falsecount="0"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="38" count="8" type="stmt"/>
+        <line num="43" count="8" type="stmt"/>
       </file>
     </package>
     <package name="components.ButtonDownload">
@@ -56,14 +64,14 @@
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
+        <line num="33" count="7" type="stmt"/>
         <line num="34" count="7" type="stmt"/>
-        <line num="35" count="7" type="stmt"/>
-        <line num="36" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="36" count="7" type="stmt"/>
         <line num="37" count="7" type="stmt"/>
-        <line num="38" count="7" type="stmt"/>
-        <line num="43" count="7" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
+        <line num="42" count="7" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
       </file>
     </package>
     <package name="components.Modal">
@@ -87,9 +95,9 @@
       </file>
     </package>
     <package name="components.TaskBar">
-      <metrics statements="20" coveredstatements="20" conditionals="26" coveredconditionals="24" methods="12" coveredmethods="11"/>
+      <metrics statements="21" coveredstatements="21" conditionals="26" coveredconditionals="24" methods="12" coveredmethods="11"/>
       <file name="TaskBar.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\TaskBar\TaskBar.jsx">
-        <metrics statements="20" coveredstatements="20" conditionals="26" coveredconditionals="24" methods="12" coveredmethods="11"/>
+        <metrics statements="21" coveredstatements="21" conditionals="26" coveredconditionals="24" methods="12" coveredmethods="11"/>
         <line num="10" count="1" type="stmt"/>
         <line num="20" count="11" type="stmt"/>
         <line num="21" count="11" type="stmt"/>
@@ -109,7 +117,8 @@
         <line num="81" count="30" type="stmt"/>
         <line num="97" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="148" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="158" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="159" count="2" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
     <package name="icons">

@@ -1,8 +1,8 @@
 import { Slider, Switch } from '@mui/material';
-import { selectCategories } from '../../store/cardSlice';
+import { selectCategories } from '@store/cardSlice';
 import { useSelector } from 'react-redux';
-import Moon from '../../icons/Moon.svg';
-import Sun from '../../icons/Sun.svg';
+import Moon from '@icons/Moon.svg';
+import Sun from '@icons/Sun.svg';
 import styles from './TaskBar.module.scss';
 import clsx from 'clsx';
 import { useState } from 'react';
@@ -144,8 +144,9 @@ const Taskbar = (props) => {
               valueLabelDisplay='auto'
               min={6}
               max={100}
-              onChange={() => {
-                if (debouncedImagePerPageChange) debouncedImagePerPageChange();
+              onChange={(e) => {
+                if (debouncedImagePerPageChange)
+                  debouncedImagePerPageChange(e.target.value);
               }}
             />
           </div>

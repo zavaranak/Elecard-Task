@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import CardView from '../CardView/CardView';
-import TreeView from '../TreeView/TreeView';
+import CardView from '@components/CardView/CardView';
+import TreeView from '@components/TreeView/TreeView';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCardAction, selectStatus } from '../../store/cardSlice';
-import Alert from '../Alert/Alert';
+import { fetchCardAction, selectStatus } from '@store/cardSlice';
+import Alert from '@components/Alert/Alert';
 import styles from './Content.module.scss';
 
 const Content = () => {

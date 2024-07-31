@@ -1,4 +1,4 @@
-@import '../../styles/animation.scss';
+@import '@styles/animation.scss';
 .tree_view {
   position: relative;
   box-sizing: border-box;
@@ -29,5 +29,9 @@
     width: 95%;
     cursor: pointer;
     padding: 20px;
+    div {
+      display: flex;
+      align-items: center;
+    }
   }
 }

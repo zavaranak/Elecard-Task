@@ -2,6 +2,28 @@
 
     API: http://contest.elecard.ru/frontend_data/
 
+## Восьмой чеклист - 31 июля
+
+### Замечания:
+
+- ✅ -- В компоненте Alert заменить конструкцию из тернарных операторов на switch case.
+- ✅ -- Исправить “Images per page”.
+
+  Проблема: debouncedImagePerPageChange(event,value) не принимает ожиданное значение "цифра количества картинок"
+  Решение: Испарвить параметр этой фукции на: debouncedImagePerPageChange(event.target.value)
+
+- ✅ -- Все стили в проекте передавать через классы.
+
+### Задачи:
+
+- ✅ -- Настроить alias в проекте (@styles, @components, @store, @icons)
+
+  Решение:
+  vite.config.js: Добавить resolve{ alias:{ aliasDir:path.resolve,...} }
+  jest.config.js: Добавить moduleNameMapper
+
+- -- Unit test для скачивания картинок и ещё двух компонентов на выбор:
+
 ## Седьмой чеклист - 25 июля
 
 ### Замечания:

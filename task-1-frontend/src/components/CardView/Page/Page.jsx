@@ -1,6 +1,6 @@
 import Card from '../Card/Card';
 import { useSelector } from 'react-redux';
-import { selectCardsInRange } from '../../../store/cardSlice';
+import { selectCardsInRange } from '@store/cardSlice';
 import styles from './Page.module.scss';
 
 const Page = ({ pageNumb, imagePerPage }) => {
@@ -12,7 +12,7 @@ const Page = ({ pageNumb, imagePerPage }) => {
     <div className={styles.page}>
       {cards.length > 0 &&
         cards.map((card, index) => (
-          <Card key={index + card.filesize} cardInfo={card} />
+          <Card key={index + card.timestamp} cardInfo={card} />
         ))}
     </div>
   );

@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectBranchItemsByBranchName } from '../../../store/treeSlice';
-import ButtonToTop from '../../ButtonToTop/ButtonToTop';
-import ArrowUp from '../../../icons/ArrowUp.svg';
-import ArrowDown from '../../../icons/ArrowDown.svg';
+import { selectBranchItemsByBranchName } from '@store/treeSlice';
+import ButtonToTop from '@components/ButtonToTop/ButtonToTop';
+import ArrowUp from '@icons/ArrowUp.svg';
+import ArrowDown from '@icons/ArrowDown.svg';
 import Leaf from './Leaf/Leaf';
 import styles from './Branch.module.scss';
 

@@ -1,5 +1,5 @@
-@import '../../styles/animation.scss';
-@import '../../styles/text.scss';
+@import '@styles/animation.scss';
+@import '@styles/text.scss';
 .alert {
   position: fixed;
   top: var(--header-height);
@@ -10,7 +10,7 @@
   animation: slide_in 4s forwards;
   padding: 15px;
   opacity: 1;
-  // z-index: 200;
+  z-index: 200;
   border-radius: 0 5px 5px 0;
   &__message {
     @include uppercase;

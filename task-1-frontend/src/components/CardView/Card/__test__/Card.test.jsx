@@ -2,13 +2,13 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import Card from '../Card';
 import styles from '../Card.module.scss';
 import * as reduxSpy from 'react-redux';
-import { deleteCard } from '../../../../store/cardSlice';
+import { deleteCard } from '@store/cardSlice';
 import { act } from 'react';
 
 //mock store, redux, Modal Component
-jest.mock('../../../../store/cardSlice', () => ({ deleteCard: jest.fn() }));
+jest.mock('@store/cardSlice', () => ({ deleteCard: jest.fn() }));
 jest.mock('react-redux', () => ({ useDispatch: jest.fn() }));
-jest.mock('../../../Modal/Modal', () => {
+jest.mock('@components/Modal/Modal', () => {
   function MockModal(props) {
     const { url, setDisplay } = props;
     return (

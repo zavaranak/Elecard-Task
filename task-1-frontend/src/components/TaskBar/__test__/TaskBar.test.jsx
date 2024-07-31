@@ -4,7 +4,7 @@ import styles from '../TaskBar.module.scss';
 import { useSelector } from 'react-redux';
 import { act } from 'react';
 
-jest.mock('../../../store/cardSlice', () => ({
+jest.mock('@store/cardSlice', () => ({
   selectCategories: jest.fn(),
 }));
 jest.mock('react-redux', () => ({

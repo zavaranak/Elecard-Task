@@ -1,10 +1,11 @@
-@import '../../styles/animation.scss';
-@import '../../styles/text.scss';
+@import '@styles/animation.scss';
+@import '@styles/text.scss';
 $small-screen: 768px;
 $medium-screen: 1024px;
 $large-screen: 1280px;
 
 .taskbar {
+  margin-bottom: 15px;
   font-weight: 300;
   color: var(--text-main-color);
   display: grid;
@@ -60,6 +61,7 @@ $large-screen: 1280px;
 
   &_tree_view {
     margin-top: 8px;
+    margin-bottom: 10px;
     font-weight: 300;
     display: flex;
     justify-content: center;

@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { deleteCard } from '../../../store/cardSlice';
+import { deleteCard } from '@store/cardSlice';
 import { useState, useRef } from 'react';
-import CloseIcon from '../../../icons/CloseIcon.svg';
-import ButtonDownload from '../../ButtonDownload/ButtonDownload';
-import Modal from '../../Modal/Modal';
+import CloseIcon from '@icons/CloseIcon.svg';
+import ButtonDownload from '@components/ButtonDownload/ButtonDownload';
+import Modal from '@components/Modal/Modal';
 import styles from './Card.module.scss';
 import clsx from 'clsx';
 
@@ -27,7 +27,6 @@ const Card = ({ cardInfo }) => {
     e.stopPropagation();
     setTimeout(() => {
       dispatch(deleteCard(name));
-      // setDisplayCard(true);
     }, 500);
   };
 

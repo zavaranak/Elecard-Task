@@ -1,6 +1,6 @@
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
-import Content from './components/Content/Content';
+import Header from '@components/Header/Header';
+import Footer from '@components/Footer/Footer';
+import Content from '@components/Content/Content';
 import './App.scss';
 import { useEffect } from 'react';
 

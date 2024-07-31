@@ -1,4 +1,4 @@
-@import '../../styles/text.scss';
+@import '@styles/text.scss';
 .footer {
   @include uppercase;
   background-color: var(--background-color);

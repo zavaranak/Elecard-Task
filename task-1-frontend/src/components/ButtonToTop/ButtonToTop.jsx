@@ -49,8 +49,8 @@ const ButtonToTop = ({ main, rootTag, order, name }) => {
 
   return (
     <button
-      style={{ bottom: `${order + 7}%` }}
       className={buttonClass}
+      style={{ bottom: `${order + 7}%` }}
       onClick={ScrollTop}
     >
       {rootTag ? `To ${name}` : 'Back to top'}

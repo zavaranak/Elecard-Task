@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Modal from '../../../Modal/Modal';
-import ButtonDownload from '../../../ButtonDownload/ButtonDownload';
+import Modal from '@components/Modal/Modal';
+import ButtonDownload from '@components/ButtonDownload/ButtonDownload';
 import styles from './Leaf.module.scss';
 
 const Leaf = ({ item }) => {
