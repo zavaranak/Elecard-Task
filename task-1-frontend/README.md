@@ -18,9 +18,14 @@
 
 - ✅ -- Настроить alias в проекте (@styles, @components, @store, @icons)
 
-  Решение:
-  vite.config.js: Добавить resolve{ alias:{ aliasDir:path.resolve,...} }
-  jest.config.js: Добавить moduleNameMapper
+        Решение:
+            vite.config.js:
+            Добавить resolve{
+            alias:{
+            aliasDir:path.resolve,...
+            }
+            }
+            jest.config.js: Добавить moduleNameMapper
 
 - ✅ -- Unit test для скачивания картинок и ещё двух компонентов на выбор:
 
