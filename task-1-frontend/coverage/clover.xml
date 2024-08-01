@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1722416916771" clover="3.2.0">
-  <project timestamp="1722416916772" name="All files">
-    <metrics statements="101" coveredstatements="101" conditionals="60" coveredconditionals="58" methods="32" coveredmethods="30" elements="193" coveredelements="189" complexity="0" loc="101" ncloc="101" packages="6" files="9" classes="9"/>
+<coverage generated="1722497247252" clover="3.2.0">
+  <project timestamp="1722497247253" name="All files">
+    <metrics statements="149" coveredstatements="149" conditionals="71" coveredconditionals="69" methods="47" coveredmethods="45" elements="267" coveredelements="263" complexity="0" loc="149" ncloc="149" packages="8" files="11" classes="11"/>
     <package name="components.Alert">
       <metrics statements="18" coveredstatements="18" conditionals="14" coveredconditionals="14" methods="1" coveredmethods="1"/>
       <file name="Alert.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\Alert\Alert.jsx">
@@ -49,6 +49,53 @@
         <line num="26" count="14" type="stmt"/>
       </file>
     </package>
+    <package name="components.CardView">
+      <metrics statements="41" coveredstatements="41" conditionals="9" coveredconditionals="9" methods="13" coveredmethods="13"/>
+      <file name="CardView.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\CardView\CardView.jsx">
+        <metrics statements="41" coveredstatements="41" conditionals="9" coveredconditionals="9" methods="13" coveredmethods="13"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="15" type="stmt"/>
+        <line num="17" count="15" type="stmt"/>
+        <line num="18" count="15" type="stmt"/>
+        <line num="19" count="15" type="stmt"/>
+        <line num="20" count="15" type="stmt"/>
+        <line num="23" count="15" type="stmt"/>
+        <line num="24" count="15" type="stmt"/>
+        <line num="25" count="15" type="stmt"/>
+        <line num="26" count="15" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="30" count="15" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="34" count="15" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="36" count="2" type="stmt"/>
+        <line num="38" count="15" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="45" count="15" type="stmt"/>
+        <line num="47" count="15" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="54" count="15" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="57" count="15" type="stmt"/>
+        <line num="58" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="61" count="6" type="stmt"/>
+        <line num="63" count="15" type="stmt"/>
+        <line num="64" count="6" type="stmt"/>
+        <line num="66" count="15" type="stmt"/>
+        <line num="67" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="69" count="9" type="stmt"/>
+        <line num="71" count="10" type="stmt"/>
+        <line num="73" count="15" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+      </file>
+    </package>
     <package name="components.CardView.Card">
       <metrics statements="19" coveredstatements="19" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
       <file name="Card.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\CardView\Card\Card.jsx">
@@ -72,6 +119,19 @@
         <line num="42" count="7" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.CardView.Page">
+      <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="Page.jsx" path="D:\MyRepository\Elecard\task-1-frontend\src\components\CardView\Page\Page.jsx">
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
       </file>
     </package>
     <package name="components.Modal">

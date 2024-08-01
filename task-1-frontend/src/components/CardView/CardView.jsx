@@ -36,7 +36,7 @@ const CardView = ({ setView }) => {
     dispatch(sortAndFilterCard([sortOption, filterOption]));
   };
   const cardRecover = () => {
-    localStorage.deletedCards = [];
+    localStorage.setItem('deletedCards', []);
     setLocalStorageEmpty(true);
     dispatch(restoreCards());
     dispatch(sortAndFilterCard([sortOption, filterOption]));
@@ -55,7 +55,9 @@ const CardView = ({ setView }) => {
     setImagePerPage(value);
   }, 500);
   useEffect(() => {
-    const checkLocalStorage = localStorage.deletedCards ? true : false;
+    const checkLocalStorage = localStorage.getItem('deletedCards')
+      ? true
+      : false;
     setLocalStorageEmpty(!checkLocalStorage);
   }, [cardsLength]);
   useEffect(() => {
@@ -71,7 +73,7 @@ const CardView = ({ setView }) => {
   return (
     <div data-testid='card-view' className={styles.card_view}>
       <div>
-        {cardsLength > 0 && (
+        {cardsLength > 0 && setView && (
           <TaskBar
             filterHandler={filterHandler}
             currentView='cards'
@@ -89,6 +91,7 @@ const CardView = ({ setView }) => {
 
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
+        data-testid='pagination'
         className={styles.card_view__pagination}
         count={Math.max(1, pageCount)}
         page={currentPage}

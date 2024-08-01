@@ -9,7 +9,7 @@ const Page = ({ pageNumb, imagePerPage }) => {
   const cardSelector = selectCardsInRange(startIndex, endIndex);
   const cards = useSelector(cardSelector);
   return (
-    <div className={styles.page}>
+    <div data-testid='page' className={styles.page}>
       {cards.length > 0 &&
         cards.map((card, index) => (
           <Card key={index + card.timestamp} cardInfo={card} />

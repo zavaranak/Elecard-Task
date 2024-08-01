@@ -50,11 +50,7 @@ describe('Modal Component', () => {
   test('Keydown(Escape) event at "setDisplay===undefined"', async () => {
     const setDisplay = undefined;
     render(<Modal url={url} setDisplay={setDisplay} />);
-    try {
-      await userEvent.keyboard('{Escape}');
-    } catch (error) {
-      expect(error).toBeUndefined();
-    }
+    await userEvent.keyboard('{Escape}');
   });
   test('On mounting check "overflow===hidden"', () => {
     const setDisplay = jest.fn();

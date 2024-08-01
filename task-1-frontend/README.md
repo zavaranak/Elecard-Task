@@ -22,7 +22,11 @@
   vite.config.js: Добавить resolve{ alias:{ aliasDir:path.resolve,...} }
   jest.config.js: Добавить moduleNameMapper
 
-- -- Unit test для скачивания картинок и ещё двух компонентов на выбор:
+- ✅ -- Unit test для скачивания картинок и ещё двух компонентов на выбор:
+
+        [CardView, Page]:
+          ./src/components/CardView/**test**/CardView.test.jsx
+          ./src/components/CardView/Page/**test**/Page.test.jsx
 
 ## Седьмой чеклист - 25 июля
 
@@ -40,7 +44,7 @@
 - ✅ -- Реализация скачивание картинок (ButtonDownload(url,name)).
 - ✅ -- Unit test для скачивания картинок и ещё двух компонентов на выбор:
 
-      [ButtonDownload, TaskBar, Card]:
+        [ButtonDownload, TaskBar, Card]:
           ./src/components/ButtonDownload/**test**/ButtonDownload.test.jsx
           ./src/components/TaskBar/**test**/TaskBar.test.jsx
           ./src/components/CardView/Card/**test**/Card.test.jsx
