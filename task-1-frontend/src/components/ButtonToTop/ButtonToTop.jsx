@@ -17,7 +17,7 @@ const ButtonToTop = ({ main, rootTag, order, name }) => {
       setButtonDisplay(window.scrollY > 100);
     }
   }, [rootTag]);
-
+  const buttonOrder = order === undefined ? -1 : order;
   useEffect(() => {
     window.addEventListener('scroll', updateButtonVisibility);
     window.addEventListener('resize', updateButtonVisibility);
@@ -49,9 +49,10 @@ const ButtonToTop = ({ main, rootTag, order, name }) => {
 
   return (
     <button
+      data-testid={'button-to-top'}
       className={buttonClass}
-      style={{ bottom: `${order + 7}%` }}
       onClick={ScrollTop}
+      data-order={buttonOrder}
     >
       {rootTag ? `To ${name}` : 'Back to top'}
     </button>

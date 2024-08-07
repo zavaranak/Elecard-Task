@@ -9,14 +9,13 @@ import styles from './Branch.module.scss';
 
 const Branch = ({ branchName, order }) => {
   const [listDisplay, setListDisplay] = useState(false);
-
   const selectItems = selectBranchItemsByBranchName(branchName);
   const leaves = useSelector(selectItems);
-
   const branchRef = useRef();
   return (
-    <div ref={branchRef} className={styles.branch}>
+    <div data-testid='branch' ref={branchRef} className={styles.branch}>
       <div
+        data-testid='branch-label'
         className={styles.branch__label}
         onClick={() => setListDisplay((prev) => !prev)}
       >
@@ -33,7 +32,7 @@ const Branch = ({ branchName, order }) => {
           )}
         </div>
         <p>
-          <b> {branchName}</b>{' '}
+          <b> {branchName ? branchName : 'Unknown branch'}</b>{' '}
         </p>
       </div>
 
@@ -44,7 +43,7 @@ const Branch = ({ branchName, order }) => {
           ))}
         </div>
       )}
-      <ButtonToTop order={order * 7} rootTag={branchRef} name={branchName} />
+      <ButtonToTop order={order} rootTag={branchRef} name={branchName} />
     </div>
   );
 };

@@ -20,7 +20,7 @@ const Content = () => {
   }, [dispatch]);
 
   return (
-    <div className={styles.content}>
+    <div data-testid='content' className={styles.content}>
       {showAlert && <Alert status={status} />}
       {view === 'cards' && <CardView setView={setView} />}
       {view === 'tree' && <TreeView setView={setView} />}

@@ -8,9 +8,10 @@ const Leaf = ({ item }) => {
   const date = new Date(item.timestamp).toLocaleDateString();
   const size = item.filesize / (1024 * 1024);
   return (
-    <div className={styles.leaf}>
+    <div data-testid='leaf' className={styles.leaf}>
       <div
         className={styles.leaf__image}
+        data-testid='leaf-image'
         onClick={() => {
           setdisplayModal(true);
         }}
@@ -22,12 +23,12 @@ const Leaf = ({ item }) => {
         />
       </div>
       <div className={styles.leaf__name}>
-        <p>{item.name}</p>
+        <p>{item.name ? item.name : 'Unknown'}</p>
       </div>
 
       <div className={styles.leaf__info}>
         <p>Date: {date} </p>
-        <p>Size: {size.toFixed(2)}MB</p>
+        <p>Size: {size ? size.toFixed(2) + 'MB' : ''}</p>
       </div>
       <div className={styles.leaf__download_button}>
         <ButtonDownload url={item.url} name={item.name} />

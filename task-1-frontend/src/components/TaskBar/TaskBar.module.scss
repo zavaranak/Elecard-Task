@@ -5,6 +5,7 @@ $medium-screen: 1024px;
 $large-screen: 1280px;
 
 .taskbar {
+  @include uppercase;
   margin-bottom: 15px;
   font-weight: 300;
   color: var(--text-main-color);
@@ -24,15 +25,21 @@ $large-screen: 1280px;
     display: flex;
     align-items: center;
     justify-content: center;
-    @include uppercase;
   }
   &__item {
+    margin: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     padding: 10px;
-    padding-top: 20px;
+    padding-top: 15px;
+    &_slider {
+      width: 70%;
+    }
+    span {
+      color: var(--text-main-color) !important;
+    }
   }
   &__selectors {
     display: flex;
@@ -50,17 +57,21 @@ $large-screen: 1280px;
     flex-direction: column;
     margin-top: 5px;
     select {
+      @include uppercase;
+      font-size: 0.9em;
+      font-family: Arial, Helvetica, sans-serif;
       color: var(--text-main-color);
-      border: 1px solid;
+      padding: 8px 16px;
+      border: 1px solid (--background-color);
+      border-color: transparent transparent var(--border-color) transparent;
+      cursor: pointer;
+      user-select: none;
       background-color: var(--background-color);
-      border-radius: 2px;
-      padding: 5px;
-      padding-top: 10px;
     }
   }
-
   &_tree_view {
-    margin-top: 8px;
+    @include uppercase;
+    margin-top: 28px;
     margin-bottom: 10px;
     font-weight: 300;
     display: flex;
@@ -82,28 +93,25 @@ $large-screen: 1280px;
       grid-column: 2;
     }
   }
-  &__dark_mode_button {
-    padding-top: 10px;
-    cursor: pointer;
-    background-color: transparent;
-    border: 1px solid transparent;
-    color: var(--text-main-color);
-    &_clicked {
-      animation: rotate 0.5s normal linear;
-    }
-  }
   &__recover_button {
+    @include uppercase;
+    font-size: 0.9em;
+    font-weight: 500;
     background: var(--background-color);
     color: var(--text-main-color);
-    padding: 15px;
-    border-radius: 5px;
-    border: 1px solid;
+    border: 2px solid;
+    padding-block: 15px;
     cursor: pointer;
+    border-color: transparent transparent var(--border-color) transparent;
     &:disabled {
-      opacity: 1;
       color: var(--disabled-color);
-      background-color: var(--content-color);
       cursor: not-allowed;
+      &:hover {
+        text-shadow: none;
+      }
+    }
+    &:hover {
+      text-shadow: 1px 1px 2px;
     }
   }
 }

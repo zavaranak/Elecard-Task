@@ -1,6 +1,6 @@
 import Header from '@components/Header/Header';
 import Footer from '@components/Footer/Footer';
-import Content from '@components/Content/Content';
+import ProtectedContent from '@components/ProtectedContent/ProtectedContent';
 import './App.scss';
 import { useEffect } from 'react';
 
@@ -14,7 +14,7 @@ const App = () => {
   return (
     <div className='app'>
       <Header />
-      <Content />
+      <ProtectedContent />
       <Footer />
     </div>
   );

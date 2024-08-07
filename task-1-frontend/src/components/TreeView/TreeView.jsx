@@ -25,31 +25,21 @@ const TreeView = ({ setView }) => {
   ]);
 
   return (
-    <div className={styles.tree_view}>
+    <div data-testid='tree-view' className={styles.tree_view}>
       <TaskBar setView={setView} currentView='tree' />
 
-      <div className={classRoot}>
+      <div data-testid='root' className={classRoot}>
         <div
+          data-testid={'root-label'}
           ref={rootTag}
-          className={styles.tree_view__lable}
+          className={styles.tree_view__label}
           onClick={() => setShowBranches((prev) => !prev)}
         >
-          {!showBranches && (
-            <div>
-              <ArrowDown />
-              <p>
-                <b>ROOT</b>
-              </p>
-            </div>
-          )}
-          {showBranches && (
-            <div>
-              <ArrowUp />
-              <p>
-                <b>ROOT</b>
-              </p>
-            </div>
-          )}
+          {!showBranches && <ArrowDown />}
+          {showBranches && <ArrowUp />}
+          <p>
+            <b>ROOT</b>
+          </p>
         </div>
 
         {nestBranches.length > 0

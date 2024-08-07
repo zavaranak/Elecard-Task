@@ -1,0 +1,23 @@
+.user_profile {
+  display: inherit;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  p {
+    font-weight: 300;
+    font-size: 0.9em;
+    color: var(--border-color);
+  }
+  &__dropdown_menu {
+    background-color: var(--background-color) !important;
+    position: absolute;
+    top: 100%;
+    right: 30%;
+    list-style-type: none;
+    li {
+      padding: 5px;
+
+      border: 1px solid;
+    }
+  }
+}

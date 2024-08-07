@@ -29,22 +29,17 @@ const Alert = ({ status }) => {
     }
   }
 
-  const messageClass = clsx(
-    styles.alert__message,
-    status === 'good' && styles.alert__message_good,
-    (status === 'bad' || status === 'errorDownload') &&
-      styles.alert__message_bad
-  );
   const alertClass = clsx(
     styles.alert,
+    status === 'good' && styles.alert__message_good,
+    (status === 'bad' || status === 'errorDownload') &&
+      styles.alert__message_bad,
     (status === 'download' || status === 'errorDownload') &&
       styles.alert_download
   );
   return (
     <div className={alertClass} data-testid={'alert'}>
-      <p data-testid={'alert-message'} className={messageClass}>
-        {message}
-      </p>
+      <p data-testid={'alert-message'}>{message}</p>
     </div>
   );
 };

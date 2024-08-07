@@ -1,11 +1,8 @@
 import { Slider, Switch } from '@mui/material';
 import { selectCategories } from '@store/cardSlice';
 import { useSelector } from 'react-redux';
-import Moon from '@icons/Moon.svg';
-import Sun from '@icons/Sun.svg';
 import styles from './TaskBar.module.scss';
 import clsx from 'clsx';
-import { useState } from 'react';
 
 const Taskbar = (props) => {
   const {
@@ -18,9 +15,6 @@ const Taskbar = (props) => {
     setView,
     currentView,
   } = props;
-  const [darktheme, setDarktheme] = useState(
-    localStorage.darktheme ? JSON.parse(localStorage.darktheme) : false
-  );
   const ViewChangeHandler = () => {
     if (setView)
       setTimeout(
@@ -31,12 +25,6 @@ const Taskbar = (props) => {
   const classByView = clsx(
     (currentView === 'tree' && styles.taskbar_tree_view) || styles.taskbar
   );
-
-  const themeHandler = () => {
-    document.documentElement.classList.toggle('dark-theme');
-    localStorage.setItem('darktheme', !darktheme);
-    setDarktheme((prev) => !prev);
-  };
 
   const categories = useSelector(selectCategories);
   return (
@@ -106,18 +94,6 @@ const Taskbar = (props) => {
       )}
       {/* Switch View */}
       <div className={styles.taskbar__center_item}>
-        <button
-          data-testid='taskbar-darkmode'
-          className={styles.taskbar__dark_mode_button}
-          onClick={themeHandler}
-        >
-          {(darktheme && (
-            <Sun
-              data-testid='taskbar-sun'
-              className={styles.taskbar__dark_mode_button_clicked}
-            />
-          )) || <Moon className={styles.taskbar__dark_mode_button_clicked} />}
-        </button>
         <div className={styles.taskbar__switch}>
           <p>
             <b>tree view</b>
@@ -132,14 +108,15 @@ const Taskbar = (props) => {
       {/* Recover Images and Images per page */}
       {currentView === 'cards' && (
         <>
-          <div className={styles.taskbar__item}>
+          <div
+            className={clsx(styles.taskbar__item, styles.taskbar__item_slider)}
+          >
             <p>
               <b>Images per page</b>
             </p>
             <Slider
               data-testid='taskbar-slider'
-              aria-label='ImagePerPage'
-              color='var(--text-main-color)'
+              // color='var(--text-main-color)'
               defaultValue={6}
               valueLabelDisplay='auto'
               min={6}

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -113,8 +113,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,18 +123,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,7 +153,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,25 +165,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { selectBranchItemsByBranchName } from '../../../store/treeSlice';
-import ButtonToTop from '../../ButtonToTop/ButtonToTop';
-import ArrowUp from '../../../icons/ArrowUp.svg';
-import ArrowDown from '../../../icons/ArrowDown.svg';
+import { selectBranchItemsByBranchName } from '@store/treeSlice';
+import ButtonToTop from '@components/ButtonToTop/ButtonToTop';
+import ArrowUp from '@icons/ArrowUp.svg';
+import ArrowDown from '@icons/ArrowDown.svg';
 import Leaf from './Leaf/Leaf';
 import styles from './Branch.module.scss';
 &nbsp;
-const Branch = <span class="fstat-no" title="function not covered" >({</span> branchName, order }) =&gt; {
-  const [listDisplay, setListDisplay] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-&nbsp;
-  const selectItems = <span class="cstat-no" title="statement not covered" >selectBranchItemsByBranchName(branchName);</span>
-  const leaves = <span class="cstat-no" title="statement not covered" >useSelector(selectItems);</span>
-&nbsp;
-  const branchRef = <span class="cstat-no" title="statement not covered" >useRef();</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;div ref={branchRef} className={styles.branch}&gt;
+const Branch = ({ branchName, order }) =&gt; {
+  const [listDisplay, setListDisplay] = useState(false);
+  const selectItems = selectBranchItemsByBranchName(branchName);
+  const leaves = useSelector(selectItems);
+  const branchRef = useRef();
+  return (
+    &lt;div data-testid='branch' ref={branchRef} className={styles.branch}&gt;
       &lt;div
+        data-testid='branch-label'
         className={styles.branch__label}
-        onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setListDisplay(<span class="fstat-no" title="function not covered" >(p</span>rev) =&gt; <span class="cstat-no" title="statement not covered" >!prev)</span>}</span>
+        onClick={() =&gt; setListDisplay((prev) =&gt; !prev)}
       &gt;
         &lt;div&gt;
           {!listDisplay &amp;&amp; (
@@ -200,18 +197,18 @@ const Branch = <span class="fstat-no" title="function not covered" >({</span> br
           )}
         &lt;/div&gt;
         &lt;p&gt;
-          &lt;b&gt; {branchName}&lt;/b&gt;{' '}
+          &lt;b&gt; {branchName ? branchName : 'Unknown branch'}&lt;/b&gt;{' '}
         &lt;/p&gt;
       &lt;/div&gt;
 &nbsp;
       {listDisplay &amp;&amp; (
         &lt;div className={styles.branch__list}&gt;
-          {leaves.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;Leaf key={index} item={item} /&gt;</span>
+          {leaves.map((item, index) =&gt; (
+            &lt;Leaf key={index} item={item} /&gt;
           ))}
         &lt;/div&gt;
       )}
-      &lt;ButtonToTop order={order * 7} rootTag={branchRef} name={branchName} /&gt;
+      &lt;ButtonToTop order={order} rootTag={branchRef} name={branchName} /&gt;
     &lt;/div&gt;
   );
 };
@@ -223,7 +220,7 @@ export default Branch;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-07-28T04:00:24.216Z
+                at 2024-08-04T03:35:41.933Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

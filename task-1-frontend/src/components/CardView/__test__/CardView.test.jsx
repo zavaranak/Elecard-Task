@@ -60,13 +60,6 @@ jest.mock('@components/TaskBar/TaskBar', () => {
   }
   return TaskBar;
 });
-jest.mock('../Skeleton/Skeleton', () => {
-  const Skeleton = () => {
-    return <div data-testid='skeleton'>Skeleton</div>;
-  };
-  return Skeleton;
-});
-
 describe('CardView Component', () => {
   beforeEach(() => {
     jest.useFakeTimers();
@@ -108,7 +101,7 @@ describe('CardView Component', () => {
     const buttonPage = within(pagination).getByText('1');
     fireEvent.click(buttonPage);
   });
-  test('Render Skeleton at "useSelector(selectCard())=== 0"', () => {
+  test('Render skeleton at "useSelector(selectCard())=== 0"', () => {
     const mockSelector = jest.fn((selector) => {
       if (selector === 'selectCard') return 0;
     });

@@ -1,22 +1,21 @@
 @import '@styles/animation.scss';
 @import '@styles/text.scss';
 .alert {
+  @include uppercase;
   position: fixed;
-  top: var(--header-height);
+  top: 30px;
   left: 0;
   display: flex;
   flex-direction: row;
   background-color: var(--background-color);
-  animation: slide_in 4s forwards;
-  padding: 15px;
+  animation: slide_in 2s forwards;
+  padding: 5px;
   opacity: 1;
   z-index: 200;
   border-radius: 0 5px 5px 0;
+  border-right: solid 5px;
+  padding-left: 20px;
   &__message {
-    @include uppercase;
-    font-weight: 1000;
-    margin: 0;
-    padding-right: 20px;
     &_good {
       color: var(--success-color);
       border-right: solid 5px;
@@ -27,7 +26,7 @@
     }
   }
   &_download {
-    top: 150px;
     color: var(--text-main-color);
+    border-right: solid 5px;
   }
 }

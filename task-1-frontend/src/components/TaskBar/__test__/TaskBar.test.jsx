@@ -1,8 +1,13 @@
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  cleanup,
+  act,
+} from '@testing-library/react';
+import { useSelector } from 'react-redux';
 import TaskBar from '../TaskBar';
 import styles from '../TaskBar.module.scss';
-import { useSelector } from 'react-redux';
-import { act } from 'react';
 
 jest.mock('@store/cardSlice', () => ({
   selectCategories: jest.fn(),

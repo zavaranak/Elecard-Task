@@ -1,0 +1,12 @@
+.protected_content {
+  background-color: var(--content-color);
+  color: var(--text-main-color);
+  padding-top: calc(var(--header-height) + 15px);
+  padding-bottom: calc(var(--footer-height) + 10px);
+  margin-inline: auto;
+  width: 100%;
+  position: relative;
+  transition: 0.5s ease;
+  min-height: 80vh;
+  min-width: 380px;
+}

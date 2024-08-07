@@ -28,4 +28,9 @@
     color: var(--background-color);
     background-color: var(--text-main-color);
   }
+  @for $i from 0 through 100 {
+    &[data-order='#{$i}'] {
+      bottom: calc(#{$i * 7%} + 7%);
+    }
+  }
 }

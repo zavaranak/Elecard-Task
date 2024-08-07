@@ -1,9 +1,14 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  act,
+} from '@testing-library/react';
+import { deleteCard } from '@store/cardSlice';
+import * as reduxSpy from 'react-redux';
 import Card from '../Card';
 import styles from '../Card.module.scss';
-import * as reduxSpy from 'react-redux';
-import { deleteCard } from '@store/cardSlice';
-import { act } from 'react';
 
 //mock store, redux, Modal Component
 jest.mock('@store/cardSlice', () => ({ deleteCard: jest.fn() }));

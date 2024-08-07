@@ -1,11 +1,16 @@
 import styles from './Header.module.scss';
+import Buttons from './Buttons/Buttons';
+
 const Header = () => {
   return (
-    <div className={styles.header}>
+    <div data-testid='header' className={styles.header}>
       <div className={styles.header__title}>
         <p>
-          <b>Challenge CW 2023 (frontend)</b>
+          <b>Intern Task Summer 2024 - Elecard</b>
         </p>
+      </div>
+      <div className={styles.header__button}>
+        <Buttons />
       </div>
     </div>
   );

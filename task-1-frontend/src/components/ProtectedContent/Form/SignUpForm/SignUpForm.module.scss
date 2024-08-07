@@ -1,0 +1,17 @@
+.sign_up_form {
+  &__patronym {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    label {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    gap: 15px;
+  }
+}

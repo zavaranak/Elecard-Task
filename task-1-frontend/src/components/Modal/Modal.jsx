@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import CloseIcon from '@icons/CloseIcon.svg';
 import styles from './Modal.module.scss';
-
 const Modal = ({ url, setDisplay }) => {
   useEffect(() => {
     const keyDownHandler = (e) => {

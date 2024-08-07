@@ -7,10 +7,18 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 100;
+  min-width: 400px;
+  z-index: 1;
   height: var(--header-height);
   display: flex;
+  position: fixed;
+  justify-content: space-around;
+  align-items: center;
   &__title {
-    margin: auto;
+  }
+  &__button {
+  }
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
   }
 }

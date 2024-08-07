@@ -10,6 +10,7 @@ export default defineConfig({
       '@components': path.resolve(__dirname, 'src/components'),
       '@icons': path.resolve(__dirname, 'src/icons'),
       '@store': path.resolve(__dirname, 'src/store'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
     },
   },
   plugins: [react(), svgr({ include: '**/*.svg' })],

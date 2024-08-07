@@ -8,7 +8,6 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Pagination } from '@mui/material';
-import Skeleton from './Skeleton/Skeleton';
 import TaskBar from '@components/TaskBar/TaskBar';
 import styles from './CardView.module.scss';
 
@@ -87,11 +86,18 @@ const CardView = ({ setView }) => {
         )}
         <></>
       </div>
-      {!(cardsLength > 0) && <Skeleton />}
+      {!(cardsLength > 0) && (
+        <div data-testid='skeleton' className={styles.card_view__skeleton}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
 
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
-        data-testid='pagination'
+        data-testid=' '
         className={styles.card_view__pagination}
         count={Math.max(1, pageCount)}
         page={currentPage}
