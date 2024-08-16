@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, signOutHandler } from '@utils/firebase';
 import Sun from '@icons/Sun.svg';
@@ -6,8 +6,10 @@ import Moon from '@icons/Moon.svg';
 import SignOut from '@icons/SignOut.svg';
 import UserProfile from './UserProfile/UserProfile';
 import styles from './Buttons.module.scss';
+import { languageText, LanguageContext } from '@utils/textContext';
 
-const ButtonDarkMode = () => {
+const Buttons = () => {
+  const languageContextValue = useContext(LanguageContext);
   const [darktheme, setDarktheme] = useState(
     localStorage.darktheme ? JSON.parse(localStorage.darktheme) : false
   );
@@ -17,42 +19,62 @@ const ButtonDarkMode = () => {
     setDarktheme((prev) => !prev);
   };
   const [userState, setUserState] = useState();
+  const customSignOut = () => {
+    signOutHandler();
+  };
+
+  const languageSwitchingHandler = () => {
+    if (languageContextValue.text.value === 'en') {
+      languageContextValue.setText(languageText.ru);
+      localStorage.setItem('lang', 'ru');
+    } else if (languageContextValue.text.value === 'ru') {
+      languageContextValue.setText(languageText.en);
+      localStorage.setItem('lang', 'en');
+    }
+  };
 
   useEffect(() => {
-    setTimeout(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) setUserState(true);
-        else setUserState(false);
-      });
-    }, 500);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserState(true);
+      } else setUserState(false);
+    });
   });
   return (
-    <div className={styles.buttons}>
+    <div className={styles.buttons} data-testid='buttons-header'>
       {userState && (
         <>
           <UserProfile />
           <button
-            data-testid='taskbar-darkmode'
+            data-testid='button-sign-out'
+            onClick={customSignOut}
             className={styles.buttons__item}
           >
-            <SignOut onClick={signOutHandler} />
+            <SignOut />
           </button>
         </>
       )}
       <button
-        data-testid='taskbar-darkmode'
+        data-testid='button-darkmode'
         className={styles.buttons__item}
         onClick={themeHandler}
       >
         {(darktheme && (
           <Sun
-            data-testid='taskbar-sun'
+            data-testid='button-sun'
             className={styles.buttons__item_clicked}
           />
         )) || <Moon className={styles.buttons__item_clicked} />}
       </button>
+      <div
+        className={styles.buttons__lang_button}
+        onClick={languageSwitchingHandler}
+        data-testid='button-language'
+      >
+        {languageContextValue.text.value}
+      </div>
     </div>
   );
 };
 
-export default ButtonDarkMode;
+export default Buttons;

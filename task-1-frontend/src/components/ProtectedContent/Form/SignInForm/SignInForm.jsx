@@ -1,48 +1,60 @@
 import { useForm } from 'react-hook-form';
 import styles from './SignInForm.module.scss';
 import { signInHandler } from '@utils/firebase.js';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { LanguageContext } from '@utils/textContext';
 
 const SignUpForm = () => {
+  const languageContextTextForm = useContext(LanguageContext).text.form;
   const [signInMessage, setSignInMessage] = useState('');
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, setFocus } = useForm();
   const { errors } = formState;
   return (
     <form
-      onSubmit={handleSubmit((data) => {
-        signInHandler(data, setSignInMessage);
+      data-testid='sign-in-form'
+      onSubmit={handleSubmit(async (data) => {
+        await signInHandler(data).then((error) => {
+          if (error === 'error')
+            setSignInMessage(languageContextTextForm.errors.signIn.default);
+          else console.log(error);
+          setFocus('email');
+        });
       })}
     >
       <label className={styles.sign_in_form__label_sign_in}>
-        <p>email</p>
+        <p>{languageContextTextForm.email.text}</p>
         <input
           {...register('email', {
-            required: { value: true, message: 'please enter your email' },
+            required: {
+              value: true,
+              message: languageContextTextForm.email.validationRequire,
+            },
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: 'invalid email',
+              message: languageContextTextForm.email.validationPattern,
             },
           })}
-          placeholder='Email'
+          placeholder={languageContextTextForm.email.text}
         />
         <p type='error'>{errors?.email?.message}</p>
       </label>
       <label className={styles.sign_in_form__label_sign_in}>
-        <p>password</p>
+        <p>{languageContextTextForm.password.text}</p>
         <input
+          data-testid='sign-in-input-password'
           {...register('password', {
             required: {
               value: true,
-              message: 'please enter your password',
+              message: languageContextTextForm.password.validationRequire,
             },
           })}
           type='password'
-          placeholder='Password'
+          placeholder={languageContextTextForm.password.text}
         />
         <p type='error'>{errors?.password?.message}</p>
       </label>
       <p type='main-error'>{signInMessage}</p>
-      <input type='submit' value={'Sign up'} />
+      <input type='submit' value={languageContextTextForm.buttons.signIn} />
     </form>
   );
 };

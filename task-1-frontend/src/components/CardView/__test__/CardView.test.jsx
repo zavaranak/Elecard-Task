@@ -95,7 +95,7 @@ describe('CardView Component', () => {
     });
     expect(setView).toHaveBeenCalledTimes(1);
   });
-  test('Functions are passed down to TaskBar and called correctly', () => {
+  test('Functions are passed down to Pagination and called correctly', () => {
     render(<CardView setView={setView} />);
     const pagination = screen.queryByTestId('pagination');
     const buttonPage = within(pagination).getByText('1');

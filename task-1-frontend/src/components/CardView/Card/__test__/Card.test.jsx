@@ -9,6 +9,15 @@ import { deleteCard } from '@store/cardSlice';
 import * as reduxSpy from 'react-redux';
 import Card from '../Card';
 import styles from '../Card.module.scss';
+import { LanguageContext, languageText } from '@utils/textContext';
+
+const Wrapper = (props) => {
+  return (
+    <LanguageContext.Provider value={{ text: languageText.en }}>
+      <Card cardInfo={props.cardInfo} />
+    </LanguageContext.Provider>
+  );
+};
 
 //mock store, redux, Modal Component
 jest.mock('@store/cardSlice', () => ({ deleteCard: jest.fn() }));
@@ -41,17 +50,17 @@ describe('Card component', () => {
     jest.clearAllMocks();
   });
   test('Render card with module scss', () => {
-    render(<Card cardInfo={cardInfo} />);
+    render(<Wrapper cardInfo={cardInfo} />);
     const card = screen.getByTestId('card');
     expect(card.classList).toContain(styles.card);
   });
   test('Render card at "cardInfo===undefined"', () => {
-    render(<Card cardInfo={undefined} />);
+    render(<Wrapper cardInfo={undefined} />);
     const error = screen.getByText(/unable to load image/i);
     expect(error).toBeInTheDocument();
   });
   test('Image load with correct url', () => {
-    render(<Card cardInfo={cardInfo} />);
+    render(<Wrapper cardInfo={cardInfo} />);
     const cardImg = screen.getByTestId('card-img');
     const image = cardImg.querySelector('img');
     expect(image.src).toContain(cardInfo.url);
@@ -59,7 +68,7 @@ describe('Card component', () => {
   test('Delete card', () => {
     const mockDispatch = jest.fn();
     jest.spyOn(reduxSpy, 'useDispatch').mockImplementation(() => mockDispatch);
-    render(<Card cardInfo={cardInfo} />);
+    render(<Wrapper cardInfo={cardInfo} />);
     const deleteButton = screen.getByTestId('card-delete');
     const card = screen.getByTestId('card');
     act(() => {
@@ -72,7 +81,7 @@ describe('Card component', () => {
     expect(mockDispatch).toHaveBeenCalledWith(deleteCard(cardInfo.name));
   });
   test('Click on suggestion to show Modal', () => {
-    render(<Card cardInfo={cardInfo} />);
+    render(<Wrapper cardInfo={cardInfo} />);
     const suggestion = screen.getByTestId('card-suggestion');
     fireEvent.click(suggestion);
     expect(screen.getByTestId('modal')).toBeInTheDocument();

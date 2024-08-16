@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { useSelector, useDispatch } from 'react-redux';
 import TreeView from '../TreeView';
 import styles from '../TreeView.module.scss';
+import { LanguageContext, languageText } from '@utils/textContext';
 
 jest.mock('@components/TaskBar/TaskBar', () => {
   const TaskBar = (props) => {
@@ -41,6 +42,14 @@ jest.mock('react-redux', () => ({
 
 let setView;
 
+const Wrapper = (props) => {
+  return (
+    <LanguageContext.Provider value={{ text: languageText.en }}>
+      <TreeView setView={props.setView} />
+    </LanguageContext.Provider>
+  );
+};
+
 describe('TreeView Component', () => {
   beforeEach(() => {
     setView = jest.fn();
@@ -60,14 +69,14 @@ describe('TreeView Component', () => {
   });
 
   test('Render TreeView with module scss', () => {
-    render(<TreeView setView={setView} />);
+    render(<Wrapper setView={setView} />);
     fireEvent.click(screen.queryByTestId('taskbar'));
     expect(screen.queryByTestId('tree-view').classList).toContain(
       styles.tree_view
     );
   });
   test('Render TreeView with undefined props', () => {
-    render(<TreeView setView={undefined} />);
+    render(<Wrapper setView={undefined} />);
     expect(screen.queryByTestId('taskbar')).toBeInTheDocument();
   });
 
@@ -79,12 +88,12 @@ describe('TreeView Component', () => {
       return true;
     });
     useSelector.mockImplementation(mockUseSelector);
-    render(<TreeView setView={setView} />);
+    render(<Wrapper setView={setView} />);
     const root = screen.queryByTestId('root');
     expect(root.childElementCount).toEqual(1);
   });
   test('Close branches', () => {
-    render(<TreeView setView={setView} />);
+    render(<Wrapper setView={setView} />);
     const root = screen.queryByTestId('root');
     fireEvent.click(screen.queryByTestId('root-label'));
     expect(root.childElementCount).toEqual(1);

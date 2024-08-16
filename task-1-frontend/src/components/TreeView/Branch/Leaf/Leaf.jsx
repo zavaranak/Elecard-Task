@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Modal from '@components/Modal/Modal';
 import ButtonDownload from '@components/ButtonDownload/ButtonDownload';
 import styles from './Leaf.module.scss';
+import { LanguageContext } from '@utils/textContext';
 
 const Leaf = ({ item }) => {
   const [displayModal, setdisplayModal] = useState(false);
   const date = new Date(item.timestamp).toLocaleDateString();
   const size = item.filesize / (1024 * 1024);
+  const languageContextTextLeaf = useContext(LanguageContext).text.tree.leaf;
   return (
     <div data-testid='leaf' className={styles.leaf}>
       <div
@@ -27,8 +29,12 @@ const Leaf = ({ item }) => {
       </div>
 
       <div className={styles.leaf__info}>
-        <p>Date: {date} </p>
-        <p>Size: {size ? size.toFixed(2) + 'MB' : ''}</p>
+        <p>
+          {languageContextTextLeaf.date}: {date}{' '}
+        </p>
+        <p>
+          {languageContextTextLeaf.size}: {size ? size.toFixed(2) + 'MB' : ''}
+        </p>
       </div>
       <div className={styles.leaf__download_button}>
         <ButtonDownload url={item.url} name={item.name} />

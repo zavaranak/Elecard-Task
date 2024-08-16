@@ -97,7 +97,7 @@ const CardView = ({ setView }) => {
 
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
-        data-testid=' '
+        data-testid='pagination'
         className={styles.card_view__pagination}
         count={Math.max(1, pageCount)}
         page={currentPage}

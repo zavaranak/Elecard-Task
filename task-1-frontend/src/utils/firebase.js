@@ -11,6 +11,7 @@ import {
   setDoc,
   doc,
   getDoc,
+  updateDoc,
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -38,8 +39,8 @@ const createUserRecord = async (email, firstName, lastName, patronym) => {
   setDoc(doc(userCollection, email), userProfile);
 };
 
-export const signUpHandler = (data, setMessage) => {
-  createUserWithEmailAndPassword(auth, data.email, data.password)
+export const signUpHandler = (data) => {
+  return createUserWithEmailAndPassword(auth, data.email, data.password)
     .then(() => {
       console.log('Sign up!');
       createUserRecord(
@@ -47,33 +48,38 @@ export const signUpHandler = (data, setMessage) => {
         data.firstName,
         data.lastName,
         data.patronym
-      ).then(() => console.log('User is successfully created'));
+      ).then(() => '');
     })
     .catch((error) => {
-      if (error.code === 'auth/email-already-in-use')
-        setMessage('Email is already used');
-      else setMessage('Error: Unable to sign up');
+      if (error.code === 'auth/email-already-in-use') return 'erroremail';
+      else return 'error';
     });
 };
 export const signOutHandler = () => {
-  signOut(auth).then(() => {
-    console.log('Sign out!');
-  });
+  signOut(auth);
 };
 
-export const signInHandler = (data, setMessage) => {
-  signInWithEmailAndPassword(auth, data.email, data.password)
+export const signInHandler = async (data) => {
+  return signInWithEmailAndPassword(auth, data.email, data.password)
     .then(() => {
-      console.log('Sign In!');
+      return '';
     })
     .catch(() => {
-      setMessage('email or password is incorrect');
+      return 'error';
     });
 };
 
 export const selectUserData = async () => {
-  return await getDoc(doc(db, 'user', auth.currentUser.email)).then((data) =>
-    data.data()
+  const user = await getDoc(doc(db, 'user', auth.currentUser.email)).then(
+    (data) => data.data()
   );
+  user.email = auth.currentUser.email;
+  return user;
+};
+export const updateUserData = async (data, patronymChange) => {
+  console.log(data);
+  if (patronymChange && !data.patronym) data.patronym = '';
+  await updateDoc(doc(db, 'user', auth.currentUser.email), data);
+  console.log('Updated user');
 };
 export default app;

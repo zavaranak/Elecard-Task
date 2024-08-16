@@ -19,6 +19,14 @@
       }
     }
   }
+  &__lang_button {
+    margin-top: 5px;
+    &:hover {
+      cursor: pointer;
+      // text-shadow: 0.1px 1px;
+      color: var(--border-color);
+    }
+  }
   &__item {
     &_clicked {
       animation: rotate 0.5s normal linear;

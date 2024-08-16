@@ -8,17 +8,23 @@
   top: 0;
   width: 100%;
   min-width: 400px;
-  z-index: 1;
+  z-index: 100;
   height: var(--header-height);
   display: flex;
   position: fixed;
   justify-content: space-around;
   align-items: center;
   &__title {
+    width: 40%;
   }
   &__button {
+    width: 20%;
   }
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 670px) {
     flex-direction: column;
+    &__title,
+    &__button {
+      width: auto;
+    }
   }
 }

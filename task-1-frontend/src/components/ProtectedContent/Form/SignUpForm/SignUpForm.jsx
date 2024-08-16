@@ -1,48 +1,65 @@
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { LanguageContext } from '@utils/textContext';
 import styles from './SignUpForm.module.scss';
 import { signUpHandler } from '@utils/firebase.js';
 
 const SignUpForm = () => {
-  const { register, handleSubmit, watch, formState } = useForm();
+  const { register, handleSubmit, watch, formState, reset } = useForm();
   const { errors } = formState;
   const [patronymToggle, setPatronymToggle] = useState(true);
   const [signUpMessage, setSignUpMessage] = useState('');
+  const languageContextTextForm = useContext(LanguageContext).text.form;
   const checkPassword = (confirmedPassword) => {
     if (watch('password') !== confirmedPassword)
-      return 'Passwords do not match';
+      return languageContextTextForm.passwordConfirm.validationMatch;
   };
+  useEffect(() => {
+    reset();
+  }, [languageContextTextForm, reset]);
   return (
     <form
+      data-testid='sign-up-form'
       onSubmit={handleSubmit((data) => {
-        signUpHandler(data, setSignUpMessage);
+        const error = signUpHandler(data);
+        if (error)
+          if (error === 'erroremail')
+            setSignUpMessage(languageContextTextForm.errors.signUp.errorEmail);
+          else if (error == 'error')
+            setSignUpMessage(languageContextTextForm.errors.signUp.default);
       })}
     >
       <label>
-        <p>first name</p>
+        <p>{languageContextTextForm.firstName.text}</p>
         <input
           {...register('firstName', {
-            required: { value: true, message: 'First name is required' },
+            required: {
+              value: true,
+              message: languageContextTextForm.firstName.validationRequire,
+            },
             pattern: {
               value: /[A-Za-zЁёА-я]+$/g,
-              message: 'First name can not include special characters',
+              message: languageContextTextForm.firstName.validationPattern,
             },
           })}
-          placeholder='First name'
+          placeholder={languageContextTextForm.firstName.text}
         />
         <p type='error'>{errors?.firstName?.message}</p>
       </label>
       <label>
-        <p>last name</p>
+        <p>{languageContextTextForm.lastName.text}</p>
         <input
           {...register('lastName', {
-            required: { value: true, message: 'Last name is required' },
+            required: {
+              value: true,
+              message: languageContextTextForm.lastName.validationRequire,
+            },
             pattern: {
               value: /[A-Za-zЁёА-я]+$/g,
-              message: 'Last name can not include special characters',
+              message: languageContextTextForm.lastName.validationPattern,
             },
           })}
-          placeholder='Last Name'
+          placeholder={languageContextTextForm.lastName.text}
         />
         <p type='error'>{errors?.lastName?.message}</p>
       </label>
@@ -53,70 +70,79 @@ const SignUpForm = () => {
           checked={patronymToggle}
         />
         <label>
-          <p>Patronym</p>
+          <p>{languageContextTextForm.patronym.text}</p>
           <input
             {...register('patronym', {
               disabled: !patronymToggle,
               required: {
                 value: patronymToggle,
-                message: 'Patronym is required',
+                message: languageContextTextForm.patronym.validationRequire,
               },
               pattern: {
                 value: /[A-Za-zЁёА-я]+$/g,
-                message: 'Patronym can not include special characters',
+                message: languageContextTextForm.patronym.validationPattern,
               },
             })}
-            placeholder='Patronym'
+            placeholder={languageContextTextForm.patronym.text}
           />
           {patronymToggle && <p type='error'>{errors?.patronym?.message}</p>}
         </label>
       </div>
       <label>
-        <p>email</p>
+        <p>{languageContextTextForm.email.text}</p>
         <input
           {...register('email', {
-            required: { value: true, message: 'please enter your email' },
+            required: {
+              value: true,
+              message: languageContextTextForm.email.validationRequire,
+            },
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: 'invalid email',
+              message: languageContextTextForm.email.validationPattern,
             },
           })}
-          placeholder='Email'
+          placeholder={languageContextTextForm.email.text}
         />
         <p type='error'>{errors?.email?.message}</p>
       </label>
       <label>
-        <p>password</p>
+        <p>{languageContextTextForm.password.text}</p>
         <input
+          data-testid='sign-up-input-password'
           {...register('password', {
-            required: { value: true, message: 'Password is required' },
+            required: {
+              value: true,
+              message: languageContextTextForm.password.validationRequire,
+            },
             minLength: {
               value: 6,
-              message: 'Password can not be less than 6 characters',
+              message: languageContextTextForm.password.validationLength,
             },
           })}
           type='password'
-          placeholder='password'
+          placeholder={languageContextTextForm.password.text}
         />
         <p type='error'>{errors?.password?.message}</p>
       </label>
       <label>
-        <p>confirm password </p>
+        <p>{languageContextTextForm.passwordConfirm.text}</p>
         <input
+          data-testid='sign-up-input-password-confirm'
           {...register('passwordConfirm', {
             required: {
               value: true,
-              message: 'please confirm your password',
+              message:
+                languageContextTextForm.passwordConfirm.validationRequire,
             },
             validate: checkPassword,
           })}
           type='password'
-          placeholder='Confirm password'
+          placeholder={languageContextTextForm.passwordConfirm.text}
         />
         <p type='error'>{errors?.passwordConfirm?.message}</p>
       </label>
       <p type='main-error'>{signUpMessage}</p>
-      <input type='submit' value={'Sign up'} />
+      <input type='submit' value={languageContextTextForm.buttons.signUp} />
     </form>
   );
 };

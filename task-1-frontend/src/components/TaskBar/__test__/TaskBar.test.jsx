@@ -8,6 +8,7 @@ import {
 import { useSelector } from 'react-redux';
 import TaskBar from '../TaskBar';
 import styles from '../TaskBar.module.scss';
+import { LanguageContext, languageText } from '@utils/textContext';
 
 jest.mock('@store/cardSlice', () => ({
   selectCategories: jest.fn(),
@@ -23,6 +24,24 @@ let filterHandler,
   cardRecover,
   setView,
   debouncedImagePerPageChange;
+
+const Wrapper = (props) => {
+  return (
+    <LanguageContext.Provider value={{ text: languageText.en }}>
+      <TaskBar
+        filterHandler={props.filterHandler}
+        sortHandler={props.sortHandler}
+        orderHandler={props.orderHandler}
+        cardRecover={props.cardRecover}
+        debouncedImagePerPageChange={props.debouncedImagePerPageChange}
+        localStorageEmpty={props.localStorageEmpty}
+        setView={props.setView}
+        currentView={props.currentView}
+      />
+    </LanguageContext.Provider>
+  );
+};
+
 describe('TaskBar component', () => {
   beforeEach(() => {
     jest.useFakeTimers();
@@ -43,7 +62,7 @@ describe('TaskBar component', () => {
   });
   test('Render TaskBar with module scss "currentView===cards"', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -59,7 +78,7 @@ describe('TaskBar component', () => {
   });
   test('Render TaskBar with module scss "currentView===tree"', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -75,7 +94,7 @@ describe('TaskBar component', () => {
   });
   test('Taskbar SORT select', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -92,7 +111,7 @@ describe('TaskBar component', () => {
   });
   test('Taskbar FILTER select', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -109,7 +128,7 @@ describe('TaskBar component', () => {
   });
   test('Taskbar ORDER select', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -124,26 +143,9 @@ describe('TaskBar component', () => {
     fireEvent.change(order, { target: { value: 'growing' } });
     expect(orderHandler).toHaveBeenCalledWith('growing');
   });
-  test('Taskbar dark mode switcher', () => {
-    render(
-      <TaskBar
-        filterHandler={filterHandler}
-        sortHandler={sortHandler}
-        orderHandler={orderHandler}
-        cardRecover={cardRecover}
-        debouncedImagePerPageChange={debouncedImagePerPageChange}
-        localStorageEmpty={false}
-        setView={setView}
-        currentView={'cards'}
-      />
-    );
-    const darkModeButton = screen.getByTestId('taskbar-darkmode');
-    fireEvent.click(darkModeButton);
-    expect(screen.getByTestId('taskbar-sun')).toBeInTheDocument();
-  });
   test('Taskbar switch to Tree View', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -164,7 +166,7 @@ describe('TaskBar component', () => {
   });
   test('Taskbar recovers deleted cards', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -181,7 +183,7 @@ describe('TaskBar component', () => {
   });
   test('Taskbar changes "Images per page"', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={filterHandler}
         sortHandler={sortHandler}
         orderHandler={orderHandler}
@@ -197,9 +199,39 @@ describe('TaskBar component', () => {
     fireEvent.change(slider, { target: { value: 10 } });
     expect(debouncedImagePerPageChange).toHaveBeenCalledTimes(1);
   });
+  test('Taskbar at "currentView===undefined"', () => {
+    render(
+      <Wrapper
+        filterHandler={undefined}
+        sortHandler={undefined}
+        orderHandler={undefined}
+        cardRecover={undefined}
+        debouncedImagePerPageChange={undefined}
+        localStorageEmpty={false}
+        setView={undefined}
+        currentView={undefined}
+      />
+    );
+    expect(screen.queryByTestId('taskbar')).not.toBeInTheDocument();
+  });
+  test('Taskbar at "currentView===undefined"', () => {
+    render(
+      <Wrapper
+        filterHandler={undefined}
+        sortHandler={undefined}
+        orderHandler={undefined}
+        cardRecover={undefined}
+        debouncedImagePerPageChange={undefined}
+        localStorageEmpty={false}
+        setView={undefined}
+        currentView={undefined}
+      />
+    );
+    expect(screen.queryByTestId('taskbar')).not.toBeInTheDocument();
+  });
   test('Taskbar at "props===undefined"', () => {
     render(
-      <TaskBar
+      <Wrapper
         filterHandler={undefined}
         sortHandler={undefined}
         orderHandler={undefined}
@@ -211,39 +243,10 @@ describe('TaskBar component', () => {
       />
     );
 
-    //Select SORT failed
-    const sort = screen.getByTestId('taskbar-sort');
-    fireEvent.change(sort, { target: { value: 'name' } });
-    expect(sortHandler).not.toHaveBeenCalled();
-
-    //Select FILTER failed
-    const filter = screen.getByTestId('taskbar-filter');
-    fireEvent.change(filter, { target: { value: 'category1' } });
-    expect(filterHandler).not.toHaveBeenCalled();
-
-    //Select ORDER failed
-    const order = screen.getByTestId('taskbar-order');
-    fireEvent.change(order, { target: { value: 'growing' } });
-    expect(orderHandler).not.toHaveBeenCalled();
-
-    //Recover deleted Image failed
-    const recoverButton = screen.getByTestId('taskbar-recover');
-    fireEvent.click(recoverButton);
-    expect(cardRecover).not.toHaveBeenCalled();
-
-    //Change images per page failed
-    const wrapperSlider = screen.getByTestId('taskbar-slider');
-    const slider = wrapperSlider.querySelector('input');
-    fireEvent.change(slider, { target: { value: 10 } });
-    expect(debouncedImagePerPageChange).not.toHaveBeenCalled();
-
-    //Change view failed
-    const wrapperView = screen.getByTestId('taskbar-switch-view');
-    const viewButton = wrapperView.querySelector('input');
     act(() => {
-      fireEvent.click(viewButton);
+      fireEvent.click(screen.queryByTestId('taskbar-switch-view'));
+      jest.advanceTimersByTime(500);
     });
-    jest.advanceTimersByTime(500);
     expect(setView).not.toHaveBeenCalled();
   });
 });

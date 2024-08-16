@@ -1,6 +1,7 @@
 @import '@styles/text.scss';
 .footer {
   @include uppercase;
+  overflow: hidden;
   background-color: var(--background-color);
   color: var(--text-main-color);
   text-align: center;

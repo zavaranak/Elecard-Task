@@ -1,13 +1,17 @@
 import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import ButtonToTop from '../ButtonToTop';
 import styles from '../ButtonToTop.module.scss';
+import { LanguageContext, languageText } from '@utils/textContext';
 
 const TestWrapper = (props) => {
   const react = require('react');
   const tag = react.useRef();
   const rootTag = props.rootTag ? tag : undefined;
   return (
-    <div data-testid={'wrapper'}>
+    <LanguageContext.Provider
+      data-testid={'wrapper'}
+      value={{ text: languageText.en }}
+    >
       <div data-testid={'target-tag'} ref={tag}>
         Target tag
       </div>
@@ -17,7 +21,7 @@ const TestWrapper = (props) => {
         rootTag={rootTag}
         order={props.order}
       />
-    </div>
+    </LanguageContext.Provider>
   );
 };
 

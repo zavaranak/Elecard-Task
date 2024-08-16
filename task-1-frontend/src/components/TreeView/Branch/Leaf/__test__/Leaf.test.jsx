@@ -1,6 +1,7 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import Leaf from '../Leaf';
 import styles from '../Leaf.module.scss';
+import { LanguageContext, languageText } from '@utils/textContext';
 
 const validItem = {
   name: 'item test',
@@ -26,18 +27,26 @@ jest.mock('@components/Modal/Modal', () => {
   return Modal;
 });
 
+const Wrapper = (props) => {
+  return (
+    <LanguageContext.Provider value={{ text: languageText.en }}>
+      <Leaf item={props.item} />
+    </LanguageContext.Provider>
+  );
+};
+
 describe('Leaf Component', () => {
   afterEach(cleanup);
   test('Render Leaf component with module scss', () => {
-    render(<Leaf item={validItem} />);
+    render(<Wrapper item={validItem} />);
     expect(screen.queryByTestId('leaf').classList).toContain(styles.leaf);
   });
   test('Render Leaf at "props===undefined"', () => {
-    render(<Leaf item={invalidItem} />);
+    render(<Wrapper item={invalidItem} />);
     expect(screen.queryByText(/Unknown/i)).toBeInTheDocument();
   });
   test('Open Modal by event click on leaf-image', () => {
-    render(<Leaf item={validItem} />);
+    render(<Wrapper item={validItem} />);
     expect(screen.getByTestId('leaf-image')).toBeInTheDocument();
     const image = screen.getByTestId('leaf-image');
     fireEvent.click(image);

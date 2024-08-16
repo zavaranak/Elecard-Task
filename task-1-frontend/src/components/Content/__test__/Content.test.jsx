@@ -1,13 +1,17 @@
-// import { useState, useEffect } from 'react';
-// import CardView from '@components/CardView/CardView';
-// import TreeView from '@components/TreeView/TreeView';
 import { useDispatch, useSelector } from 'react-redux';
-// import { fetchCardAction, selectStatus } from '@store/cardSlice';
-// import Alert from '@components/Alert/Alert';
 import Content from '../Content';
 import styles from '../Content.module.scss';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { act } from 'react';
+import { LanguageContext, languageText } from '@utils/textContext';
+
+const Wrapper = () => {
+  return (
+    <LanguageContext.Provider value={{ text: languageText.en }}>
+      <Content />
+    </LanguageContext.Provider>
+  );
+};
 
 jest.mock('@components/CardView/CardView', () => {
   const CardView = ({ setView }) => {
@@ -51,17 +55,17 @@ describe('Content Component', () => {
     useSelector.mockImplementation(mockUseSelector);
   });
   test('Render Content Component with module scss', () => {
-    render(<Content />);
+    render(<Wrapper />);
     expect(screen.queryByTestId('content').classList).toContain(styles.content);
   });
   test('Switch from card-view to tree-view', () => {
-    render(<Content />);
+    render(<Wrapper />);
     fireEvent.click(screen.queryByTestId('card-view'));
     expect(screen.queryByTestId('tree-view')).toBeInTheDocument();
   });
   test('Alert disappear after 3s', () => {
     jest.useFakeTimers();
-    render(<Content />);
+    render(<Wrapper />);
     act(() => {
       jest.advanceTimersByTime(3000);
     });

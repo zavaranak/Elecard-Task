@@ -1,9 +1,12 @@
+import { useContext } from 'react';
 import styles from './Footer.module.scss';
+import { LanguageContext } from '../../utils/textContext';
 const Footer = () => {
+  const languageContextTextFooter = useContext(LanguageContext).text.footer;
   return (
     <div data-testid='footer' className={styles.footer}>
       <p>
-        <b>&copy; 2024 Frontend with React by Dang</b>
+        <b>{languageContextTextFooter.text}</b>
       </p>
     </div>
   );

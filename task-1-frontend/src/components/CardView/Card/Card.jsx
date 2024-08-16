@@ -1,16 +1,18 @@
 import { useDispatch } from 'react-redux';
 import { deleteCard } from '@store/cardSlice';
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 import CloseIcon from '@icons/CloseIcon.svg';
 import ButtonDownload from '@components/ButtonDownload/ButtonDownload';
 import Modal from '@components/Modal/Modal';
 import styles from './Card.module.scss';
 import clsx from 'clsx';
+import { LanguageContext } from '@utils/textContext';
 
 const Card = ({ cardInfo }) => {
   const [displayCard, setDisplayCard] = useState(true);
   const [displayModal, setdisplayModal] = useState(false);
   const dispatch = useDispatch();
+  const languageContextTextCard = useContext(LanguageContext).text.card;
   const { url, name, filesize, category, timestamp } = cardInfo
     ? cardInfo
     : {
@@ -48,7 +50,7 @@ const Card = ({ cardInfo }) => {
           onClick={() => setdisplayModal((prev) => !prev)}
           className={styles.card__image_suggested}
         >
-          See full image
+          {languageContextTextCard.suggestion}
         </p>
       </div>
       <div data-testid='card-info' className={styles.card__info}>
@@ -63,9 +65,9 @@ const Card = ({ cardInfo }) => {
         <div>
           <p>{size} MB</p>
         </div>
-      </div>
-      <div data-testid='card-name' className={styles.card__name}>
-        <p>{name}</p>
+        <div data-testid='card-name' className={styles.card__name}>
+          <p>{name}</p>
+        </div>
       </div>
       <div
         data-testid='card-delete'

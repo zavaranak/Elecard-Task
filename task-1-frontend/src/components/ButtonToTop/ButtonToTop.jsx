@@ -1,6 +1,7 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 import styles from './ButtonToTop.module.scss';
 import clsx from 'clsx';
+import { LanguageContext } from '@utils/textContext';
 
 const ButtonToTop = ({ main, rootTag, order, name }) => {
   const [buttonDisplay, setButtonDisplay] = useState(false);
@@ -10,6 +11,8 @@ const ButtonToTop = ({ main, rootTag, order, name }) => {
       styles.button_to_top_unactive,
     main && styles.button_to_top_main
   );
+  const languageContextTextButtonToTop =
+    useContext(LanguageContext).text.tree.buttonToTop;
   const updateButtonVisibility = useCallback(() => {
     if (rootTag && rootTag.current) {
       setButtonDisplay(window.scrollY > rootTag.current.offsetTop);
@@ -54,7 +57,9 @@ const ButtonToTop = ({ main, rootTag, order, name }) => {
       onClick={ScrollTop}
       data-order={buttonOrder}
     >
-      {rootTag ? `To ${name}` : 'Back to top'}
+      {rootTag
+        ? languageContextTextButtonToTop.element + ' ' + name
+        : languageContextTextButtonToTop.root}
     </button>
   );
 };

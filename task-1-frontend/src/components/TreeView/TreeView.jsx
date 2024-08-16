@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTreeItemAction, selectNestedBranches } from '@store/treeSlice';
 import clsx from 'clsx';
@@ -9,12 +9,14 @@ import ArrowUp from '@icons/ArrowUp.svg';
 import ArrowDown from '@icons/ArrowDown.svg';
 import { selectCardsData } from '@store/cardSlice';
 import styles from './TreeView.module.scss';
+import { LanguageContext } from '@utils/textContext';
 const TreeView = ({ setView }) => {
   const [showBranches, setShowBranches] = useState(true);
   const dispatch = useDispatch();
   const nestBranches = useSelector(selectNestedBranches);
   const data = useSelector(selectCardsData);
   const rootTag = useRef();
+  const languageContextTextTree = useContext(LanguageContext).text.tree;
   useEffect(() => {
     dispatch(fetchTreeItemAction(data));
   }, [dispatch, data]);
@@ -38,7 +40,7 @@ const TreeView = ({ setView }) => {
           {!showBranches && <ArrowDown />}
           {showBranches && <ArrowUp />}
           <p>
-            <b>ROOT</b>
+            <b>{languageContextTextTree.root}</b>
           </p>
         </div>
 

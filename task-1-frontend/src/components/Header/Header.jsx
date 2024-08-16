@@ -1,12 +1,15 @@
 import styles from './Header.module.scss';
 import Buttons from './Buttons/Buttons';
+import { useContext } from 'react';
+import { LanguageContext } from '@utils/textContext';
 
 const Header = () => {
+  const languageContextTextHeader = useContext(LanguageContext).text.header;
   return (
     <div data-testid='header' className={styles.header}>
       <div className={styles.header__title}>
         <p>
-          <b>Intern Task Summer 2024 - Elecard</b>
+          <b>{languageContextTextHeader.text}</b>
         </p>
       </div>
       <div className={styles.header__button}>

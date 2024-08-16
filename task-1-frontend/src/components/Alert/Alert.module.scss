@@ -2,31 +2,27 @@
 @import '@styles/text.scss';
 .alert {
   @include uppercase;
+  font-weight: 300 !important;
   position: fixed;
-  top: 30px;
-  left: 0;
-  display: flex;
-  flex-direction: row;
+  top: 15px;
+  left: 50%;
   background-color: var(--background-color);
-  animation: slide_in 2s forwards;
-  padding: 5px;
-  opacity: 1;
+  padding: 15px;
+  border-radius: 15px;
   z-index: 200;
-  border-radius: 0 5px 5px 0;
-  border-right: solid 5px;
-  padding-left: 20px;
+  border: 2px dashed;
+  animation: slide_in 2s forwards;
+  text-shadow: 1px 1px;
+  color: var(--border-color);
   &__message {
     &_good {
       color: var(--success-color);
-      border-right: solid 5px;
     }
     &_bad {
       color: var(--failed-color);
-      border-right: solid 5px;
     }
   }
   &_download {
-    color: var(--text-main-color);
-    border-right: solid 5px;
+    color: var(--border-color);
   }
 }

@@ -3,21 +3,53 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  p {
+  &__label {
+    max-width: 100px;
+    overflow: hidden;
     font-weight: 300;
-    font-size: 0.9em;
+    font-size: 0.8em;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: var(--border-color);
   }
-  &__dropdown_menu {
-    background-color: var(--background-color) !important;
+  &__dropdown {
+    width: 200px;
     position: absolute;
     top: 100%;
-    right: 30%;
-    list-style-type: none;
-    li {
-      padding: 5px;
-
-      border: 1px solid;
+    right: 50%;
+    ul {
+      margin: 0;
+      padding: 0;
+      background-color: var(--border-color) !important;
+      color: var(--background-color);
+      transform: translateX(50%);
+      list-style-type: none;
+      li {
+        padding: 0;
+        margin: 0;
+        padding: 5px;
+        border: 1px solid var(--text-background-color);
+        &:hover {
+          background-color: var(--text-main-color);
+        }
+      }
+      div {
+        background-color: var(--background-color);
+        border: 1px solid var(--border-color);
+        p {
+          width: 80%;
+          color: var(--text-main-color);
+          margin: auto;
+          box-sizing: content-box;
+          word-wrap: break-word;
+          &:first-child {
+            padding: 10px;
+          }
+          &:last-child {
+            padding-bottom: 10px;
+          }
+        }
+      }
     }
   }
 }

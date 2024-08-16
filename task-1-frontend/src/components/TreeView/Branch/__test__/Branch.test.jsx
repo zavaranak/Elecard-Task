@@ -2,6 +2,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { useSelector } from 'react-redux';
 import Branch from '../Branch';
 import styles from '../Branch.module.scss';
+import { LanguageContext, languageText } from '@utils/textContext';
 
 jest.mock('react-redux', () => ({
   ...jest.requireActual('react-redux'),
@@ -17,6 +18,14 @@ jest.mock('@components/TreeView/Branch/Leaf/Leaf', () => {
   return Leaf;
 });
 
+const Wrapper = (props) => {
+  return (
+    <LanguageContext.Provider value={{ text: languageText.en }}>
+      <Branch branchName={props.branchName} order={props.order} />
+    </LanguageContext.Provider>
+  );
+};
+
 describe('Branch component', () => {
   beforeEach(() => {
     useSelector.mockReturnValue([]);
@@ -27,11 +36,11 @@ describe('Branch component', () => {
   });
 
   test('Render Branch with module scss', () => {
-    render(<Branch branchName='branch test' order={1} />);
+    render(<Wrapper branchName='branch test' order={1} />);
     expect(screen.queryByTestId('branch').classList).toContain(styles.branch);
   });
   test('Render Branch at "props===undefined"', () => {
-    render(<Branch branchName={undefined} order={undefined} />);
+    render(<Wrapper branchName={undefined} order={undefined} />);
     expect(screen.queryByText(/unknown branch/i)).toBeInTheDocument();
   });
   test('Open Branch with items', () => {
@@ -42,13 +51,13 @@ describe('Branch component', () => {
       { name: 'item4', url: 'item4.example.com' },
       { name: 'item5', url: 'item5.example.com' },
     ]);
-    render(<Branch branchName={'branch test'} order={1} />);
+    render(<Wrapper branchName={'branch test'} order={1} />);
     fireEvent.click(screen.queryByTestId('branch-label'));
     const leaves = screen.queryAllByTestId('leaf');
     expect(leaves.length).toEqual(5);
   });
   test('Open empty Branch', () => {
-    render(<Branch branchName={'branch test'} order={1} />);
+    render(<Wrapper branchName={'branch test'} order={1} />);
     fireEvent.click(screen.queryByTestId('branch-label'));
     expect(screen.queryByTestId('leaf')).not.toBeInTheDocument();
   });
