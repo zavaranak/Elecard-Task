@@ -50,6 +50,60 @@ describe('UserProfile in Header Component', () => {
       styles.profile_edit_form
     );
   });
+  test('Test fields validation "required"', async () => {
+    render(
+      <Wrapper user={user} handleUpdate={handleUpdate} closeForm={closeForm} />
+    );
+    const firstName = screen.getByRole('textbox', { name: /first name/i });
+    const lastName = screen.getByRole('textbox', { name: /last name/i });
+    const patronym = screen.getByTestId('input-patronym');
+    fireEvent.change(firstName, {
+      target: { value: '' },
+    });
+    fireEvent.change(lastName, {
+      target: { value: '' },
+    });
+    // fireEvent.click(patronymCheck);
+    fireEvent.change(patronym, {
+      target: { value: '' },
+    });
+    await act(async () => {
+      fireEvent.click(screen.queryByTestId('button-submit-edit-form'));
+    });
+    expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/last name is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/patronym is required/i)).toBeInTheDocument();
+  });
+  test('Test fields validation "required"', async () => {
+    render(
+      <Wrapper user={user} handleUpdate={handleUpdate} closeForm={closeForm} />
+    );
+    const firstName = screen.getByRole('textbox', { name: /first name/i });
+    const lastName = screen.getByRole('textbox', { name: /last name/i });
+    const patronym = screen.getByTestId('input-patronym');
+    fireEvent.change(firstName, {
+      target: { value: '123' },
+    });
+    fireEvent.change(lastName, {
+      target: { value: '@^&*' },
+    });
+    // fireEvent.click(patronymCheck);
+    fireEvent.change(patronym, {
+      target: { value: '###' },
+    });
+    await act(async () => {
+      fireEvent.click(screen.queryByTestId('button-submit-edit-form'));
+    });
+    expect(
+      screen.getByText(/first name can not include special characters/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/last name can not include special characters/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/patronym can not include special characters/i)
+    ).toBeInTheDocument();
+  });
   test('Close form by clicking button CLOSE', () => {
     render(
       <Wrapper user={user} handleUpdate={handleUpdate} closeForm={closeForm} />

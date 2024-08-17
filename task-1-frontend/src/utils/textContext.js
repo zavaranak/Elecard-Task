@@ -40,7 +40,7 @@ export const languageText = {
       },
     },
     card: {
-      suggestion: 'Открыть большой размер',
+      suggestion: 'Открыть полностью',
     },
     alert: {
       success: {

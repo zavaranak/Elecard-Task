@@ -8,7 +8,7 @@ jest.mock('firebase/auth', () => ({
 jest.mock('@utils/firebase', () => ({
   auth: undefined,
 }));
-jest.mock('@components/Content/Content', () => {
+jest.mock('@content/Content', () => {
   const Content = () => {
     return <div data-testid='content'></div>;
   };

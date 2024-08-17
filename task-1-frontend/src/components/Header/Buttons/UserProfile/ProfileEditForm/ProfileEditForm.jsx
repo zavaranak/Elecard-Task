@@ -84,7 +84,6 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
             <p>
               {' '}
               <input
-                data-testid='input-patronym'
                 type='checkbox'
                 onChange={() => setPatronymToggle((prev) => !prev)}
                 checked={patronymToggle}
@@ -92,6 +91,7 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
               {languageContextTextForm.patronym.text}
             </p>
             <input
+              data-testid='input-patronym'
               {...register('patronym', {
                 disabled: !patronymToggle,
                 required: {

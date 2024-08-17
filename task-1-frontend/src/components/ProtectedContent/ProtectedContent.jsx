@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { auth } from '@utils/firebase';
-import Content from '@components/Content/Content';
+import Content from '@components/ProtectedContent/Content/Content';
 import Form from './Form/Form';
 import styles from './ProtectedContent.module.scss';
 import { onAuthStateChanged } from 'firebase/auth';

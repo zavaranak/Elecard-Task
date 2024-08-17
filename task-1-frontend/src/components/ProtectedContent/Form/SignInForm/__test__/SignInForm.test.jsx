@@ -34,6 +34,33 @@ describe('SignInForm component', () => {
     render(<Wrapper />);
     expect(screen.queryByTestId('sign-in-form')).toBeInTheDocument();
   });
+  test('Test feilds validation "required"', async () => {
+    render(<Wrapper />);
+    const email = screen.getByRole('textbox', { name: /email/i });
+    const password = screen.getByTestId('sign-in-input-password');
+    fireEvent.change(email, {
+      target: { value: '' },
+    });
+    fireEvent.change(password, {
+      target: { value: '' },
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/sign in/i));
+    });
+    expect(screen.getByText(/please enter your email/i)).toBeInTheDocument();
+    expect(screen.getByText(/please enter your password/i)).toBeInTheDocument();
+  });
+  test('Test feilds validation "pattern"', async () => {
+    render(<Wrapper />);
+    const email = screen.getByRole('textbox', { name: /email/i });
+    fireEvent.change(email, {
+      target: { value: 'invalid email' },
+    });
+    await act(async () => {
+      fireEvent.click(screen.getByText(/sign in/i));
+    });
+    expect(screen.getByText(/your email is incorrect/i)).toBeInTheDocument();
+  });
   test('Fill SignInForm and submit with input error ', async () => {
     signInHandler.mockResolvedValue('error');
     render(<Wrapper />);

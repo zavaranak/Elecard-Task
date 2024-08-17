@@ -28,9 +28,86 @@ describe('SignUpForm component', () => {
     jest.restoreAllMocks();
     cleanup();
   });
-  test('Render SignUpForm', () => {
+  test('Test field validation "required"', async () => {
     render(<Wrapper />);
-    expect(screen.queryByTestId('sign-up-form')).toBeInTheDocument();
+    const firstName = screen.getByRole('textbox', { name: /first name/i });
+    const lastName = screen.getByRole('textbox', { name: /last name/i });
+    const patronym = screen.getByRole('checkbox');
+    const email = screen.getByRole('textbox', { name: /email/i });
+    const password = screen.getByTestId('sign-up-input-password');
+    const passwordConfirm = screen.getByTestId(
+      'sign-up-input-password-confirm'
+    );
+    fireEvent.change(firstName, {
+      target: { value: '' },
+    });
+    fireEvent.change(lastName, {
+      target: { value: '' },
+    });
+    fireEvent.change(email, {
+      target: { value: '' },
+    });
+    fireEvent.change(password, {
+      target: { value: '' },
+    });
+    fireEvent.change(passwordConfirm, {
+      target: { value: '' },
+    });
+    fireEvent.click(patronym);
+    await act(async () => {
+      fireEvent.click(screen.getByText(/sign up/i));
+    });
+
+    expect(screen.getByText(/first name is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/last name is required/i)).toBeInTheDocument();
+    expect(screen.getByText(/please enter your email/i)).toBeInTheDocument();
+    expect(screen.getByText(/please enter your password/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/please confirm your password/i)
+    ).toBeInTheDocument();
+  });
+  test('Test field validation "pattern"', async () => {
+    render(<Wrapper />);
+    const firstName = screen.getByRole('textbox', { name: /first name/i });
+    const lastName = screen.getByRole('textbox', { name: /last name/i });
+    const patronym = screen.getByRole('checkbox');
+    const email = screen.getByRole('textbox', { name: /email/i });
+    const password = screen.getByTestId('sign-up-input-password');
+    const passwordConfirm = screen.getByTestId(
+      'sign-up-input-password-confirm'
+    );
+    fireEvent.change(firstName, {
+      target: { value: '123' },
+    });
+    fireEvent.change(lastName, {
+      target: { value: '@##' },
+    });
+    fireEvent.change(email, {
+      target: { value: '!@#' },
+    });
+    fireEvent.change(password, {
+      target: { value: '12345' },
+    });
+    fireEvent.change(passwordConfirm, {
+      target: { value: '!@#$#$###' },
+    });
+    fireEvent.click(patronym);
+    await act(async () => {
+      fireEvent.click(screen.getByText(/sign up/i));
+    });
+    expect(
+      screen.getByText(/first name can not include special characters/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/last name can not include special characters/i)
+    ).toBeInTheDocument();
+    expect(screen.getByText(/your email is incorrect/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/password cannot be less than 6 characters/i)
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/your passwords do not match/i)
+    ).toBeInTheDocument();
   });
   test('Fill SignUpForm and submit with error ', async () => {
     signUpHandler.mockReturnValue('error');
