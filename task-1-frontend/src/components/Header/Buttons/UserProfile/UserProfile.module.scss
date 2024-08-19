@@ -32,6 +32,9 @@
         &:hover {
           background-color: var(--text-main-color);
         }
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
       div {
         background-color: var(--background-color);

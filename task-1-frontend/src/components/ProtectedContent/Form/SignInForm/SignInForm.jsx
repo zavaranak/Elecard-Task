@@ -14,9 +14,8 @@ const SignUpForm = () => {
       data-testid='sign-in-form'
       onSubmit={handleSubmit(async (data) => {
         await signInHandler(data).then((error) => {
-          if (error === 'error')
+          if (error)
             setSignInMessage(languageContextTextForm.errors.signIn.default);
-          else console.log(error);
           setFocus('email');
         });
       })}

@@ -76,8 +76,13 @@ export const selectUserData = async () => {
   user.email = auth.currentUser.email;
   return user;
 };
+export const selectUserDataFirebase = async () => {
+  const user = await getDoc(doc(db, 'user', auth.currentUser.email)).then(
+    (data) => data.data()
+  );
+  return user;
+};
 export const updateUserData = async (data, patronymChange) => {
-  console.log(data);
   if (patronymChange && !data.patronym) data.patronym = '';
   await updateDoc(doc(db, 'user', auth.currentUser.email), data);
   console.log('Updated user');

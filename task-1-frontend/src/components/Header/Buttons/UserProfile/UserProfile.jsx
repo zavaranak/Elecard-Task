@@ -1,14 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
-import { selectUserData } from '@utils/firebase';
+import { useContext, useState, useEffect } from 'react';
+import { signOutHandler } from '@utils/firebase';
 import Alert from '@components/Alert/Alert';
 import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
 import User from '@icons/User.svg';
+import SignOut from '@icons/SignOut.svg';
 import styles from './UserProfile.module.scss';
 import { LanguageContext } from '@utils/textContext';
-
+import { Edit } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { selectUserData } from '@store/userSlice';
+selectUserData;
 const UserProfile = () => {
-  const editProfileText = useContext(LanguageContext).text.header.editButton;
-  const [user, setUser] = useState();
+  const editProfileText = useContext(LanguageContext).text.header;
+
   const [alertStatus, setAlertStatus] = useState();
   const [showMenu, setShowMenu] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -17,7 +21,6 @@ const UserProfile = () => {
 
   const handleUpdateUser = (data, checkData) => {
     if (checkData) {
-      setUser((prev) => ({ email: prev.email, ...data }));
       setAlertStatus('updateUser');
       setShowAlert(true);
       setShowEditForm(false);
@@ -38,31 +41,24 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const userData = await selectUserData();
-        setUser(userData);
-      } catch (error) {
-        console.log('Error fetching user data');
-      }
-    };
     document.addEventListener('click', () => {
       setShowMenu(false);
     });
-    fetchUser();
     return () => {
       document.removeEventListener('click', () => {
         setShowMenu(false);
       });
     };
   }, []);
-  if (!user) {
+  const userData = useSelector(selectUserData);
+
+  if (!userData) {
     return <div>...</div>;
   }
   return (
     <div data-testid='user-profile' className={styles.user_profile}>
       {showAlert && <Alert status={alertStatus} />}
-      <p className={styles.user_profile__label}>{user.lastName}</p>
+      <p className={styles.user_profile__label}>{userData.lastName}</p>
       <button
         data-testid='button-dropdown-menu'
         onClick={(e) => {
@@ -79,9 +75,9 @@ const UserProfile = () => {
             <ul>
               <div>
                 <p>
-                  {user.firstName} {user?.patronym} {user.lastName}
+                  {userData.firstName} {userData?.patronym} {userData.lastName}
                 </p>
-                <p>{user.email}</p>
+                <p>{userData.email}</p>
               </div>
               <li
                 data-testid='button-open-update-form'
@@ -91,7 +87,12 @@ const UserProfile = () => {
                   e.stopPropagation();
                 }}
               >
-                {editProfileText}
+                <Edit></Edit>
+                {editProfileText.editButton}
+              </li>
+              <li onClick={signOutHandler}>
+                <SignOut />
+                {editProfileText.signOut}
               </li>
             </ul>
           </div>
@@ -99,7 +100,7 @@ const UserProfile = () => {
       </button>
       {showEditForm && (
         <ProfileEditForm
-          user={user}
+          user={userData}
           handleUpdate={handleUpdateUser}
           closeForm={setShowEditForm}
         />

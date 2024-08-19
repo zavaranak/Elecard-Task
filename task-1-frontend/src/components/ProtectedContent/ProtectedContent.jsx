@@ -1,29 +1,21 @@
-import { useEffect, useState } from 'react';
-import { auth } from '@utils/firebase';
+import { useEffect } from 'react';
 import Content from '@components/ProtectedContent/Content/Content';
 import Form from './Form/Form';
 import styles from './ProtectedContent.module.scss';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectUserAuthState } from '@store/userSlice';
+import { listenToAuthState } from '@store/userSlice';
 
 const ProtectedContent = () => {
-  const [showForm, setShowForm] = useState();
-  const [showContent, setShowContent] = useState();
+  const authState = useSelector(selectUserAuthState);
+  const dispatch = useDispatch();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log('Authorization passed');
-        setShowForm(false);
-        setShowContent(true);
-      } else {
-        setShowForm(true);
-        setShowContent(false);
-      }
-    });
+    dispatch(listenToAuthState());
   });
   return (
     <div className={styles.protected_content}>
-      {showForm && <Form />}
-      {showContent && <Content />}
+      {authState === 'notPassed' && <Form />}
+      {authState === 'passed' && <Content />}
     </div>
   );
 };

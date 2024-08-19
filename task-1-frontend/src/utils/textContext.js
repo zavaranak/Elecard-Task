@@ -8,6 +8,7 @@ export const languageText = {
     header: {
       text: 'задание для стажировки летом 2024 - elecard',
       editButton: 'Изменить данные',
+      signOut: 'Выйти',
     },
     footer: {
       text: '© 2024 фронтенд на react - данг',
@@ -109,6 +110,7 @@ export const languageText = {
     header: {
       text: 'intern task summer 2024 - elecard',
       editButton: 'Edit profile',
+      signOut: 'Sign out',
     },
     footer: { text: '© 2024 frontend by react - dang' },
     taskbar: {
