@@ -32,11 +32,11 @@
 			
 	user(COLLECTION):{
 			metadata:{
-					firstName:string,
-					lastName:string,
-					patronym:string,
-					email:string(email),
-					password:string(hashed) (пока ещё не применяется хеширование)
+				firstName:string,
+				lastName:string,
+				patronym:string,
+				email:string(email),
+				password:string(hashed) (пока ещё не применяется хеширование)
 			},
 			chatBoxId: array 
 			([{email:chatStoreId}] - список друзей(email), и ID документ, где сохранятеся сообщений)
