@@ -30,7 +30,7 @@
 
 ### Структура данных:
 			
-	user(collection):{
+	user(COLLECTION):{
 			metadata:{
 					firstName:string,
 					lastName:string,
@@ -50,12 +50,12 @@
 							uniqueID:MESSAGE
 			}
 	}
-	type MESSAGE:{
-							sender:string(email),
-							content:string,
-							timestamp:number(timestamp),
-							type:string
-					}
+	MESSAGE(TYPE):{
+			sender:string(email),
+			content:string,
+			timestamp:number(timestamp),
+			type:string
+	}
 
 
 ## Девятый чеклист - 16 августа
