@@ -86,15 +86,6 @@ const CardView = ({ setView }) => {
         )}
         <></>
       </div>
-      {!(cardsLength > 0) && (
-        <div data-testid='skeleton' className={styles.card_view__skeleton}>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      )}
-
       <Page pageNumb={currentPage} imagePerPage={imagePerPage} />
       <Pagination
         data-testid='pagination'

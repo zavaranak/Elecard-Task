@@ -9,4 +9,9 @@
   transition: 0.5s ease;
   min-height: 80vh;
   min-width: 380px;
+  &__loading {
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+  }
 }

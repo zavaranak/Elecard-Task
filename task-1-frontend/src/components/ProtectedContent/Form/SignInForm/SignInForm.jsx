@@ -3,23 +3,34 @@ import styles from './SignInForm.module.scss';
 import { signInHandler } from '@utils/firebase.js';
 import { useState, useContext } from 'react';
 import { LanguageContext } from '@utils/textContext';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const SignUpForm = () => {
   const languageContextTextForm = useContext(LanguageContext).text.form;
   const [signInMessage, setSignInMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [displayPassword, setDisplayPassword] = useState(false);
   const { register, handleSubmit, formState, setFocus } = useForm();
   const { errors } = formState;
+  const handleVisibilityPassword = (e) => {
+    e.stopPropagation();
+    setDisplayPassword((prev) => !prev);
+  };
+  const customHandleSubmit = async (data) => {
+    setLoading(true);
+    await signInHandler(data).then((error) => {
+      setLoading(false);
+      if (error) {
+        setSignInMessage(languageContextTextForm.errors.signIn.default);
+        setFocus('email');
+      }
+    });
+  };
+
   return (
     <form
       data-testid='sign-in-form'
-      onSubmit={handleSubmit(async (data) => {
-        await signInHandler(data).then((error) => {
-          if (error === 'error')
-            setSignInMessage(languageContextTextForm.errors.signIn.default);
-          else console.log(error);
-          setFocus('email');
-        });
-      })}
+      onSubmit={handleSubmit(customHandleSubmit)}
     >
       <label className={styles.sign_in_form__label_sign_in}>
         <p>{languageContextTextForm.email.text}</p>
@@ -40,21 +51,33 @@ const SignUpForm = () => {
       </label>
       <label className={styles.sign_in_form__label_sign_in}>
         <p>{languageContextTextForm.password.text}</p>
-        <input
-          data-testid='sign-in-input-password'
-          {...register('password', {
-            required: {
-              value: true,
-              message: languageContextTextForm.password.validationRequire,
-            },
-          })}
-          type='password'
-          placeholder={languageContextTextForm.password.text}
-        />
+        <div className={styles.sign_in_form__password}>
+          <input
+            data-testid='sign-in-input-password'
+            {...register('password', {
+              required: {
+                value: true,
+                message: languageContextTextForm.password.validationRequire,
+              },
+            })}
+            type={displayPassword ? 'text' : 'password'}
+            placeholder={languageContextTextForm.password.text}
+          />
+          <div
+            className={styles.sign_in_form__visibility_icon}
+            onClick={handleVisibilityPassword}
+          >
+            {(displayPassword && <Visibility />) || <VisibilityOff />}
+          </div>
+        </div>
         <p type='error'>{errors?.password?.message}</p>
       </label>
       <p type='main-error'>{signInMessage}</p>
-      <input type='submit' value={languageContextTextForm.buttons.signIn} />
+      <input
+        disabled={loading}
+        type='submit'
+        value={languageContextTextForm.buttons.signIn}
+      />
     </form>
   );
 };

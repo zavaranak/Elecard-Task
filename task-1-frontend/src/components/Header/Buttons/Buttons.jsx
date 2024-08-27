@@ -1,14 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth, signOutHandler } from '@utils/firebase';
+import { useState, useContext } from 'react';
 import Sun from '@icons/Sun.svg';
 import Moon from '@icons/Moon.svg';
-import SignOut from '@icons/SignOut.svg';
 import UserProfile from './UserProfile/UserProfile';
 import styles from './Buttons.module.scss';
 import { languageText, LanguageContext } from '@utils/textContext';
+import { useSelector } from 'react-redux';
+import { selectUserAuthState } from '@store/userSlice';
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 
-const Buttons = () => {
+const Buttons = ({ toggleChat }) => {
+  const authState = useSelector(selectUserAuthState);
   const languageContextValue = useContext(LanguageContext);
   const [darktheme, setDarktheme] = useState(
     localStorage.darktheme ? JSON.parse(localStorage.darktheme) : false
@@ -18,11 +19,6 @@ const Buttons = () => {
     localStorage.setItem('darktheme', !darktheme);
     setDarktheme((prev) => !prev);
   };
-  const [userState, setUserState] = useState();
-  const customSignOut = () => {
-    signOutHandler();
-  };
-
   const languageSwitchingHandler = () => {
     if (languageContextValue.text.value === 'en') {
       languageContextValue.setText(languageText.ru);
@@ -32,25 +28,17 @@ const Buttons = () => {
       localStorage.setItem('lang', 'en');
     }
   };
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setUserState(true);
-      } else setUserState(false);
-    });
-  });
+  const openChatHandler = () => {
+    toggleChat((prev) => !prev);
+  };
   return (
     <div className={styles.buttons} data-testid='buttons-header'>
-      {userState && (
+      {authState === 'passed' && (
         <>
           <UserProfile />
-          <button
-            data-testid='button-sign-out'
-            onClick={customSignOut}
-            className={styles.buttons__item}
-          >
-            <SignOut />
+
+          <button onClick={openChatHandler}>
+            <ChatBubbleOutlineRoundedIcon />
           </button>
         </>
       )}

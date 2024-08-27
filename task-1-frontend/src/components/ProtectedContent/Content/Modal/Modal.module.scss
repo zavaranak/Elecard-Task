@@ -17,20 +17,20 @@
     color: var(--text-main-color);
     padding: 0;
     margin: 0;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     background-color: var(--dark-color);
     position: absolute;
-    right: -50px;
-    top: -50px;
+    right: -40px;
+    top: -40px;
     border: 2px transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     &:hover {
-      border: 2px dashed var(--failed-color);
+      border: 1px solid var(--failed-color);
       color: var(--failed-color);
     }
     @media screen and (max-width: 800px) {
@@ -39,6 +39,6 @@
     }
   }
   img {
-    border: 5px var(--background-color) solid;
+    border: 1px var(--border-color) solid;
   }
 }
