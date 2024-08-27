@@ -1,32 +1,25 @@
-import { useState } from 'react';
 import DownloadIcon from '@icons/DownloadIcon.svg';
-import Alert from '@components/Alert/Alert';
+import { useDispatch } from 'react-redux';
+import { setAlertStatus } from '@store/appSlice';
 
 const ButtonDownload = ({ url, name }) => {
-  const [displayAlert, setDisplayAlert] = useState(false);
-  const [status, setStatus] = useState('');
+  const dispatch = useDispatch();
 
-  const alertHandler = (message) => {
-    setStatus(message);
-    setDisplayAlert(true);
-    setTimeout(() => setDisplayAlert(false), 3000);
-  };
   const downloadHandler = () => {
     if (!url) {
-      alertHandler('errorDownload');
-      return;
+      dispatch(setAlertStatus('errorDownload'));
+    } else {
+      dispatch(setAlertStatus('download'));
+      const anchor = document.createElement('a');
+      anchor.href = url;
+      anchor.download = name ? name : 'unnamed_image';
+      anchor.click();
     }
-    alertHandler('download');
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = name ? name : 'unnamed_image';
-    anchor.click();
   };
 
   return (
     <div>
       <DownloadIcon onClick={downloadHandler} data-testid={'button-download'} />
-      {displayAlert && <Alert status={status} />}
     </div>
   );
 };

@@ -6,16 +6,25 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectUserAuthState } from '@store/userSlice';
 import { listenToAuthState } from '@store/userSlice';
 
-const ProtectedContent = () => {
+const ProtectedContent = ({ displayChat }) => {
   const authState = useSelector(selectUserAuthState);
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(listenToAuthState());
-  });
+  }, []);
+
+  if (!authState)
+    return (
+      <div className={styles.protected_content}>
+        <div className={styles.protected_content__loading}>Loading...</div>
+      </div>
+    );
   return (
     <div className={styles.protected_content}>
       {authState === 'notPassed' && <Form />}
-      {authState === 'passed' && <Content />}
+      {authState === 'passed' && <Content displayChat={displayChat} />}
     </div>
   );
 };

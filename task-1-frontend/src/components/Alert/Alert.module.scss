@@ -4,16 +4,14 @@
   @include uppercase;
   font-weight: 300 !important;
   position: fixed;
-  top: 15px;
-  left: 50%;
   background-color: var(--background-color);
-  padding: 15px;
-  border-radius: 15px;
+  padding: 10px;
+  border-radius: 5px;
   z-index: 200;
-  border: 2px dashed;
-  animation: slide_in 2s forwards;
-  text-shadow: 1px 1px;
+  border: 2px solid;
+  // text-shadow: 1px 1px;
   color: var(--border-color);
+  opacity: 0;
   &__message {
     &_good {
       color: var(--success-color);
@@ -24,5 +22,10 @@
   }
   &_download {
     color: var(--border-color);
+  }
+  &_slide_in {
+    top: 15px;
+    left: 50%;
+    animation: slide_in 2s forwards;
   }
 }

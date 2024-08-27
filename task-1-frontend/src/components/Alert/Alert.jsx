@@ -44,6 +44,7 @@ const Alert = ({ status }) => {
 
   const alertClass = clsx(
     styles.alert,
+    styles.alert_slide_in,
     successfulStatus.includes(status) && styles.alert__message_good,
     failedStatus.includes(status) && styles.alert__message_bad,
     (status === 'download' || status === 'errorDownload') &&

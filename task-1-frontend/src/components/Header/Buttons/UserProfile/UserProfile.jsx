@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
 import { signOutHandler } from '@utils/firebase';
-import Alert from '@components/Alert/Alert';
 import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
 import User from '@icons/User.svg';
 import SignOut from '@icons/SignOut.svg';
@@ -9,36 +8,13 @@ import { LanguageContext } from '@utils/textContext';
 import { Edit } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@store/userSlice';
-selectUserData;
+import {} from '@store/appSlice';
+
 const UserProfile = () => {
   const editProfileText = useContext(LanguageContext).text.header;
 
-  const [alertStatus, setAlertStatus] = useState();
   const [showMenu, setShowMenu] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [alertTimeout, setAlertTimeout] = useState(null);
-
-  const handleUpdateUser = (data, checkData) => {
-    if (checkData) {
-      setAlertStatus('updateUser');
-      setShowAlert(true);
-      setShowEditForm(false);
-    } else {
-      setAlertStatus('notUpdateUser');
-      setShowAlert(true);
-    }
-
-    if (alertTimeout) {
-      clearTimeout(alertTimeout);
-    }
-    const newTimeout = setTimeout(() => {
-      setShowAlert(false);
-      setAlertTimeout(null);
-    }, 1000);
-
-    setAlertTimeout(newTimeout);
-  };
 
   useEffect(() => {
     document.addEventListener('click', () => {
@@ -57,7 +33,6 @@ const UserProfile = () => {
   }
   return (
     <div data-testid='user-profile' className={styles.user_profile}>
-      {showAlert && <Alert status={alertStatus} />}
       <p className={styles.user_profile__label}>{userData.lastName}</p>
       <button
         data-testid='button-dropdown-menu'
@@ -98,13 +73,7 @@ const UserProfile = () => {
           </div>
         )}
       </button>
-      {showEditForm && (
-        <ProfileEditForm
-          user={userData}
-          handleUpdate={handleUpdateUser}
-          closeForm={setShowEditForm}
-        />
-      )}
+      {showEditForm && <ProfileEditForm closeForm={setShowEditForm} />}
     </div>
   );
 };

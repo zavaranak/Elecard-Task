@@ -1,6 +1,11 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth, selectUserDataFirebase } from '@utils/firebase';
+import {
+  auth,
+  selectUserDataFirebase,
+  fetchChatListFireBase,
+} from '@utils/firebase';
+import { initWebSocket, closeWebSocket } from '@utils/websocketService';
 const userSlice = createSlice({
   name: 'user',
   initialState: {
@@ -11,31 +16,59 @@ const userSlice = createSlice({
       lastName: '',
       patronym: '',
     },
+    chatBoxId: [],
+    chatList: [],
   },
   reducers: {
-    setUser: (state, action) => {
+    setUserState: (state, action) => {
       state.authState = action.payload.state;
-      state.email = action.payload.email;
-      if (action.payload.userData) {
-        Object.assign(state.data, action.payload.userData);
-      }
+    },
+    setUserData: (state, action) => {
+      Object.assign(state.data, action.payload.data.metadata);
+      state.chatBoxId = action.payload.data.chatBoxId;
+    },
+    updateUser: (state, action) => {
+      Object.assign(state.data, action.payload);
+    },
+    updateUserChatBoxId: (state, action) => {
+      state.chatBoxId = action.payload;
+    },
+    updateUserChatList: (state, action) => {
+      state.chatList = action.payload;
     },
   },
 });
+export const {
+  setUserData,
+  setUserState,
+  updateUser,
+  updateUserChatBoxId,
+  updateUserChatList,
+} = userSlice.actions;
 
-export const { setUser } = userSlice.actions;
-
-const fetchUserData = (user) => async (dispatch) => {
+const fetchUserDataOnSignIn = () => async (dispatch) => {
   const userData = await selectUserDataFirebase();
-  userData.email = user.email;
-  dispatch(setUser({ state: 'passed', userData: userData }));
+  dispatch(setUserState({ state: 'passed' }));
+  dispatch(setUserData({ data: userData }));
+};
+export const fetchChatBoxId = () => async (dispatch) => {
+  const userData = await selectUserDataFirebase();
+  dispatch(updateUserChatBoxId(userData.chatBoxId));
+};
+export const fetchChatList = (chatIdArray) => async (dispatch) => {
+  const newChatList = await fetchChatListFireBase(chatIdArray);
+  dispatch(updateUserChatList(newChatList));
 };
 
 export const listenToAuthState = () => (dispatch) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      dispatch(fetchUserData(user));
-    } else dispatch(setUser({ state: 'notPassed' }));
+      dispatch(fetchUserDataOnSignIn());
+      initWebSocket('ws://localhost:3000', user.email);
+    } else {
+      dispatch(setUserState({ state: 'notPassed' }));
+      closeWebSocket();
+    }
   });
 };
 
@@ -48,6 +81,14 @@ export const selectUserData = createSelector(
 export const selectUserAuthState = createSelector(
   [selectUser],
   (userState) => userState.authState
+);
+export const selectUserChatBoxId = createSelector(
+  [selectUser],
+  (userState) => userState.chatBoxId
+);
+export const selectUserChatList = createSelector(
+  [selectUser],
+  (userState) => userState.chatList
 );
 
 export default userSlice.reducer;

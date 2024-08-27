@@ -3,27 +3,26 @@ import CardView from '@content/CardView/CardView';
 import TreeView from '@content/TreeView/TreeView';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCardAction, selectStatus } from '@store/cardSlice';
-import Alert from '@components/Alert/Alert';
+import { setAlertStatus } from '@store/appSlice';
 import styles from './Content.module.scss';
+import ChatPanel from '@content/ChatPanel/ChatPanel';
 
-const Content = () => {
+const Content = ({ displayChat }) => {
   const [view, setView] = useState('cards');
-  const [showAlert, setShowAlert] = useState(false);
   const dispatch = useDispatch();
   const status = useSelector(selectStatus);
   useEffect(() => {
-    setShowAlert(true);
-    setTimeout(() => setShowAlert(false), 3000);
-  }, [status]);
+    dispatch(setAlertStatus(status));
+  }, [status, dispatch]);
   useEffect(() => {
     dispatch(fetchCardAction());
   }, [dispatch]);
 
   return (
     <div data-testid='content' className={styles.content}>
-      {showAlert && <Alert status={status} />}
       {view === 'cards' && <CardView setView={setView} />}
       {view === 'tree' && <TreeView setView={setView} />}
+      <ChatPanel displayChat={displayChat} />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import SignUpForm from './SignUpForm/SignUpForm';
 import SignInForm from './SignInForm/SignInForm';
 import { LanguageContext } from '@utils/textContext';
 const Form = () => {
-  const [signinForm, setsigninForm] = useState(true);
+  const [signInForm, setSignInForm] = useState(true);
   const languageContextTextFormButtons =
     useContext(LanguageContext).text.form.buttons;
   return (
@@ -13,22 +13,22 @@ const Form = () => {
       <div className={styles.form__header}>
         <button
           data-testid='open-sign-in-form'
-          className={clsx(signinForm && styles.form__button_active)}
+          className={clsx(signInForm && styles.form__button_active)}
           type='button'
-          onClick={() => setsigninForm(true)}
+          onClick={() => setSignInForm(true)}
         >
           <h2>{languageContextTextFormButtons.signIn}</h2>
         </button>
         <button
           data-testid='open-sign-up-form'
-          className={clsx(signinForm || styles.form__button_active)}
+          className={clsx(signInForm || styles.form__button_active)}
           type='button'
-          onClick={() => setsigninForm(false)}
+          onClick={() => setSignInForm(false)}
         >
           <h2>{languageContextTextFormButtons.signUpShort}</h2>
         </button>
       </div>
-      {(signinForm && <SignInForm />) || <SignUpForm />}
+      {(signInForm && <SignInForm />) || <SignUpForm />}
     </div>
   );
 };

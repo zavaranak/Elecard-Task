@@ -1,14 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { useState, useContext, useEffect } from 'react';
 import { updateUserData } from '@utils/firebase';
+import { selectUserData, updateUser } from '@store/userSlice';
 import styles from './ProfileEditForm.module.scss';
 import { LanguageContext } from '@utils/textContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAlertStatus } from '@store/appSlice';
 
-const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
+const ProfileEditForm = ({ closeForm }) => {
+  const dispatch = useDispatch();
+  const userData = useSelector(selectUserData);
   const { register, handleSubmit, formState } = useForm();
-  const [patronymToggle, setPatronymToggle] = useState(
-    user.patronym ? true : false
-  );
+  const [patronymToggle, setPatronymToggle] = useState(!!userData.patronym);
   const { errors } = formState;
   const languageContextTextForm = useContext(LanguageContext).text.form;
   useEffect(() => {
@@ -17,6 +20,33 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
       document.body.style.overflow = 'unset';
     };
   });
+  const submitHandler = (data) => {
+    const processedData = {};
+    let checkData = false;
+    let patronymChange = false;
+    Object.keys(data).forEach((key) => {
+      (data[key] && (processedData[key] = data[key])) ||
+        (processedData[key] = '');
+    });
+
+    if (processedData.firstName !== userData.firstName) checkData = true;
+    else if (processedData.lastName !== userData.lastName) checkData = true;
+    else if (
+      processedData.patronym !== userData.patronym &&
+      userData.patronym !== ''
+    ) {
+      checkData = true;
+      patronymChange = true;
+    }
+    if (checkData) {
+      dispatch(setAlertStatus('updateUser'));
+      dispatch(updateUser(processedData));
+      updateUserData(processedData, patronymChange);
+      closeForm(false);
+    } else {
+      dispatch(setAlertStatus('notUpdateUser'));
+    }
+  };
   return (
     <div data-testid='edit-form' className={styles.profile_edit_form}>
       <div className={styles.profile_edit_form__form_box}>
@@ -25,24 +55,7 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
         </p>
         <form
           onSubmit={handleSubmit((data) => {
-            const processedData = {};
-            let checkData = false;
-            let patronymChange = false;
-            Object.keys(data).forEach((key) => {
-              if (data[key]) processedData[key] = data[key];
-            });
-
-            if (processedData.firstName !== user.firstName) checkData = true;
-            else if (processedData.lastName !== user.lastName) checkData = true;
-            else if (processedData.patronym !== user.patronym) {
-              (checkData = true), (patronymChange = true);
-            }
-            if (checkData) {
-              updateUserData(processedData, patronymChange);
-              handleUpdate(data, true);
-            } else {
-              handleUpdate({}, false);
-            }
+            submitHandler(data);
           })}
         >
           <label>
@@ -58,7 +71,7 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
                   message: languageContextTextForm.firstName.validationPattern,
                 },
               })}
-              defaultValue={user.firstName}
+              defaultValue={userData.firstName}
             />
             <p type='error'>{errors?.firstName?.message}</p>
           </label>
@@ -75,7 +88,7 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
                   message: languageContextTextForm.lastName.validationPattern,
                 },
               })}
-              defaultValue={user.lastName}
+              defaultValue={userData.lastName}
             />
             <p type='error'>{errors?.lastName?.message}</p>
           </label>
@@ -103,7 +116,7 @@ const ProfileEditForm = ({ user, handleUpdate, closeForm }) => {
                   message: languageContextTextForm.patronym.validationPattern,
                 },
               })}
-              defaultValue={user.patronym}
+              defaultValue={userData.patronym}
             />
             {patronymToggle && <p type='error'>{errors?.patronym?.message}</p>}
           </label>

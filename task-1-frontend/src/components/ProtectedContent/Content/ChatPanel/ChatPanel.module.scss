@@ -1,0 +1,105 @@
+@import '@styles/text.scss';
+.chat_panel {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 0;
+  top: calc(var(--header-height));
+  bottom: calc(var(--footer-height) + 2px);
+  width: 0;
+  z-index: 90;
+  background-color: var(--content-color);
+  transition: 0.5s;
+  opacity: 0;
+  &_open {
+    opacity: 1;
+    border-left: 1px solid var(--border-color);
+    width: 600px;
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+  }
+  &__label {
+    @include uppercase;
+    padding: 20px;
+    width: 100%;
+    border-block-end: 1px solid var(--border-color);
+  }
+  &__task_bar {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+  }
+  &__search_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    input {
+      color: var(--border-color);
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      padding-inline: 15px;
+      padding-block: 5px;
+      background-color: transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  svg {
+    &:hover {
+      color: var(--border-color);
+      cursor: pointer;
+    }
+  }
+  &__search_result {
+    color: white;
+    font-size: 0.9em;
+    cursor: pointer;
+    width: 93%;
+    margin-inline: auto;
+    background-color: var(--border-color);
+    height: 30px;
+    padding: 5px;
+    border-radius: 15px;
+    text-align: center;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+    width: 100%;
+    &_item {
+      font-size: 1.2em;
+      cursor: pointer;
+      width: 95%;
+      background-color: var(--background-color);
+      height: 50px;
+      margin: auto;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+  }
+  &__text {
+    &_name {
+      padding: 5px 0 5px 10px;
+      overflow: hidden;
+      font-weight: 400;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    &_email {
+      font-weight: 200;
+      font-size: 0.8em;
+      padding-left: 10px;
+    }
+    &_target_chat {
+      font-size: 1.2em;
+      color: var(--border-color);
+      overflow: hidden;
+      font-weight: 400;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

@@ -25,6 +25,16 @@ form {
     }
   }
 
+  input[type='submit'] {
+    &:disabled {
+      color: var(--dark2-color) !important;
+      background-color: var(--border-color);
+    }
+    &:hover {
+      text-shadow: none;
+    }
+  }
+
   input[type='submit'],
   input[type='button'],
   button {

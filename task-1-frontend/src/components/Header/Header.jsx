@@ -3,7 +3,7 @@ import Buttons from './Buttons/Buttons';
 import { useContext } from 'react';
 import { LanguageContext } from '@utils/textContext';
 
-const Header = () => {
+const Header = ({ toggleChat }) => {
   const languageContextTextHeader = useContext(LanguageContext).text.header;
   return (
     <div data-testid='header' className={styles.header}>
@@ -13,7 +13,7 @@ const Header = () => {
         </p>
       </div>
       <div className={styles.header__button}>
-        <Buttons />
+        <Buttons toggleChat={toggleChat} />
       </div>
     </div>
   );

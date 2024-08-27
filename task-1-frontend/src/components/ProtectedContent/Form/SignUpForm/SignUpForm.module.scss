@@ -14,4 +14,16 @@
     }
     gap: 15px;
   }
+  &__password {
+    position: relative;
+  }
+  &__visibility_icon {
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    transform: 'translateY(-50%)';
+    cursor: pointer;
+    width: max-content;
+    height: 100%;
+  }
 }

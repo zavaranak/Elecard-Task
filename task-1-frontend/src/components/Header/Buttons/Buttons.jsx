@@ -6,8 +6,9 @@ import styles from './Buttons.module.scss';
 import { languageText, LanguageContext } from '@utils/textContext';
 import { useSelector } from 'react-redux';
 import { selectUserAuthState } from '@store/userSlice';
+import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 
-const Buttons = () => {
+const Buttons = ({ toggleChat }) => {
   const authState = useSelector(selectUserAuthState);
   const languageContextValue = useContext(LanguageContext);
   const [darktheme, setDarktheme] = useState(
@@ -27,10 +28,20 @@ const Buttons = () => {
       localStorage.setItem('lang', 'en');
     }
   };
-
+  const openChatHandler = () => {
+    toggleChat((prev) => !prev);
+  };
   return (
     <div className={styles.buttons} data-testid='buttons-header'>
-      {authState === 'passed' && <UserProfile />}
+      {authState === 'passed' && (
+        <>
+          <UserProfile />
+
+          <button onClick={openChatHandler}>
+            <ChatBubbleOutlineRoundedIcon />
+          </button>
+        </>
+      )}
       <button
         data-testid='button-darkmode'
         className={styles.buttons__item}

@@ -1,0 +1,22 @@
+{
+  "name": "websocket-nodejs",
+  "version": "1.0.0",
+  "description": "websocket server for frontend project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zavaranak/Elecard-Task.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zavaranak/Elecard-Task/issues"
+  },
+  "homepage": "https://github.com/zavaranak/Elecard-Task#readme",
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
