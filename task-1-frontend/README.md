@@ -29,18 +29,39 @@
 
 
 ### Структура данных:
-user(collection):{
-metadata:{
-firstName,lastName,patronym,email,hashedPassword(пока ещё не применяется хеширование)},
+user(collection):
+{
+
+metadata:
+{
+firstName,
+lastName,
+patronym,
+email,
+hashedPassword(пока ещё не применяется хеширование)
+},
+
 chatBoxId: [] 
+
 (type Array[{email:chatStoreId}] - список друзей(email), и ID документ, где сохранятеся сообщений)
+
 }
 
-chatStore(collection):{
+chatStore(collection):
+{
+
 createsAt:
+
 participants:[]
-lastMessage:{}
-messages(subcollection):{}
+
+lastMessage:{MESSAGE}
+
+messages(subcollection):
+{
+
+uniqueID:{MESSAGE}
+
+}
 }
 
 
