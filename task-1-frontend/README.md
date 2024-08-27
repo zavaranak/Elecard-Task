@@ -40,18 +40,16 @@
 			},
 			chatBoxId: array 
 			([{email:chatStoreId}] - список друзей(email), и ID 	документ, где сохранятеся сообщений)
-}
-
+	}
 chatStore(COLLECTION):{
-		createsAt: number(timestamp)
-		participants:array([email]).
-		lastMessage:MESSAGE
+			createsAt: number(timestamp)
+			participants:array([email]).
+			lastMessage:MESSAGE
 
-		messages(COLLECTION):{
-					uniqueID:MESSAGE
-		}
-}
-
+			messages(COLLECTION):{
+							uniqueID:MESSAGE
+			}
+	}
 type MESSAGE:{
 							sender:string(email),
 							content:string,
