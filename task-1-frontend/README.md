@@ -47,7 +47,7 @@
 			lastMessage:MESSAGE
 
 			messages(COLLECTION):{
-							uniqueID:MESSAGE
+				uniqueID:MESSAGE
 			}
 	}
 	MESSAGE(TYPE):{
