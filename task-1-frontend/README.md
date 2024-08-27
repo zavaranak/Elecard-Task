@@ -39,8 +39,8 @@
 					password:string(hashed) (пока ещё не применяется хеширование)
 			},
 			chatBoxId: array 
-			([{email:chatStoreId}] - список друзей(email), и ID 	документ, где сохранятеся сообщений)
-}
+			([{email:chatStoreId}] - список друзей(email), и ID документ, где сохранятеся сообщений)
+	}
 	chatStore(COLLECTION):{
 			createsAt: number(timestamp)
 			participants:array([email]).
