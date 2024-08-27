@@ -1,4 +1,4 @@
-# ЧЕКЛИСТ
+	Q# ЧЕКЛИСТ
 
     API: http://contest.elecard.ru/frontend_data/
 
@@ -29,40 +29,35 @@
 
 
 ### Структура данных:
-user(collection):
-{
-
-metadata:
-{
-firstName,
-lastName,
-patronym,
-email,
-hashedPassword(пока ещё не применяется хеширование)
-},
-
-chatBoxId: [] 
-
-(type Array[{email:chatStoreId}] - список друзей(email), и ID документ, где сохранятеся сообщений)
-
+			
+	user(collection):{
+			metadata:{
+					firstName:string,
+					lastName:string,
+					patronym:string,
+					email:string(email),
+					password:string(hashed) (пока ещё не применяется хеширование)
+			},
+			chatBoxId: array 
+			([{email:chatStoreId}] - список друзей(email), и ID 	документ, где сохранятеся сообщений)
 }
 
-chatStore(collection):
-{
+chatStore(COLLECTION):{
+		createsAt: number(timestamp)
+		participants:array([email]).
+		lastMessage:MESSAGE
 
-createsAt:
-
-participants:[]
-
-lastMessage:{MESSAGE}
-
-messages(subcollection):
-{
-
-uniqueID:{MESSAGE}
-
+		messages(COLLECTION):{
+					uniqueID:MESSAGE
+		}
 }
-}
+
+type MESSAGE:{
+							sender:string(email),
+							content:string,
+							timestamp:number(timestamp),
+							type:string
+					}
 
 
 ## Девятый чеклист - 16 августа
