@@ -27,6 +27,23 @@
 
 - ✅ -- Возможность найти других использователей (пока только через 'email')
 
+
+### Структура данных:
+user(collection):{
+metadata:{
+firstName,lastName,patronym,email,hashedPassword(пока ещё не применяется хеширование)},
+chatBoxId: [] 
+(type Array[{email:chatStoreId}] - список друзей(email), и ID документ, где сохранятеся сообщений)
+}
+
+chatStore(collection):{
+createsAt:
+participants:[]
+lastMessage:{}
+messages(subcollection):{}
+}
+
+
 ## Девятый чеклист - 16 августа
 
 ### Задачи:
