@@ -40,8 +40,8 @@
 			},
 			chatBoxId: array 
 			([{email:chatStoreId}] - список друзей(email), и ID 	документ, где сохранятеся сообщений)
-	}
-chatStore(COLLECTION):{
+}
+	chatStore(COLLECTION):{
 			createsAt: number(timestamp)
 			participants:array([email]).
 			lastMessage:MESSAGE
@@ -50,7 +50,7 @@ chatStore(COLLECTION):{
 							uniqueID:MESSAGE
 			}
 	}
-type MESSAGE:{
+	type MESSAGE:{
 							sender:string(email),
 							content:string,
 							timestamp:number(timestamp),
