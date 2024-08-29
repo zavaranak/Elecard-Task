@@ -1,4 +1,4 @@
-# ЧЕКЛИСТ
+	Q# ЧЕКЛИСТ
 
     API: http://contest.elecard.ru/frontend_data/
 
@@ -26,6 +26,37 @@
         Сообщения между пользовательей сохранятся в firebase/firestore
 
 - ✅ -- Возможность найти других использователей (пока только через 'email')
+
+
+### Структура данных:
+			
+	user(COLLECTION):{
+			metadata:{
+				firstName:string,
+				lastName:string,
+				patronym:string,
+				email:string(email),
+				password:string(hashed) (пока ещё не применяется хеширование)
+			},
+			chatBoxId: array 
+			([{email:chatStoreId}] - список друзей(email), и ID документ, где сохранятеся сообщений)
+	}
+	chatStore(COLLECTION):{
+			createsAt: number(timestamp)
+			participants:array([email]).
+			lastMessage:MESSAGE
+
+			messages(COLLECTION):{
+				uniqueID:MESSAGE
+			}
+	}
+	MESSAGE(TYPE):{
+			sender:string(email),
+			content:string,
+			timestamp:number(timestamp),
+			type:string
+	}
+
 
 ## Девятый чеклист - 16 августа
 
