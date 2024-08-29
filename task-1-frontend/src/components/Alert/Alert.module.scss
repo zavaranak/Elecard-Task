@@ -23,6 +23,9 @@
   &_download {
     color: var(--border-color);
   }
+  &__new_message {
+    color: var(--message-color);
+  }
   &_slide_in {
     top: 15px;
     left: 50%;

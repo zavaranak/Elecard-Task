@@ -12,6 +12,7 @@ import {
 } from '@store/userSlice';
 import ChatBox from './ChatBox/ChatBox';
 import { getSocket } from '@utils/websocketService';
+import { setAlertStatus } from '@store/appSlice';
 
 const ChatPanel = ({ displayChat }) => {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ const ChatPanel = ({ displayChat }) => {
           message.sender !== setDisplayChatBoxData.email
         ) {
           dispatch(fetchChatBoxId());
+          dispatch(setAlertStatus('newMessage'));
         }
       };
       if (event.data instanceof Blob) {

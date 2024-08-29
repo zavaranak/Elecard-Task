@@ -54,6 +54,9 @@ export const languageText = {
         download: 'нельзя скачать',
         updateProfile: 'нет изменения',
       },
+      message: {
+        new: 'новое сообщение',
+      },
       loading: 'идёт загрузка',
     },
     form: {
@@ -153,6 +156,9 @@ export const languageText = {
         load: 'images loading failed',
         download: 'unable to download',
         updateProfile: 'no change to update',
+      },
+      message: {
+        new: 'new message',
       },
       loading: 'loading',
     },

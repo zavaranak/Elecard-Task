@@ -7,20 +7,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData, fetchChatBoxId } from '@store/userSlice';
 import { getSocket } from '@utils/websocketService';
 
+const NOT_READY = 'notReady';
+const READY = 'ready';
+const STARTING = 'starting';
 const ChatBox = ({ targetUser, setTargetUser }) => {
   const dispatch = useDispatch();
   const user = useSelector(selectUserData).email;
   const [messages, setMessages] = useState();
-  const [chatStarted, setChatStarted] = useState(false);
+  const [chatStatus, setChatStatus] = useState(NOT_READY);
+  const [queue, setQueue] = useState([]);
   const messageEndRef = useRef(null);
   const inputRef = useRef(null);
   const scrollToBottom = () => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
   const updateChatBox = (id) => {
-    setChatStarted(true);
     const newTarget = { ...targetUser, chatBoxId: id };
     setTargetUser(newTarget);
+    setChatStatus(READY);
     dispatch(fetchChatBoxId());
   };
 
@@ -36,17 +40,32 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
       return [...prev, messagePackageCustom];
     });
     inputRef.current.value = '';
-    if (chatStarted) {
-      handleMessage(
-        messagePackageCustom,
-        targetUser.chatBoxId,
-        targetUser.email
-      );
-    } else {
-      const newId = timestamp.toString() + targetUser.email + user;
-      createNewChatBox(targetUser.email, messagePackageCustom).then(() => {
-        updateChatBox(newId);
-      });
+    switch (chatStatus) {
+      case READY: {
+        handleMessage(
+          messagePackageCustom,
+          targetUser.chatBoxId,
+          targetUser.email
+        );
+        break;
+      }
+      case NOT_READY: {
+        setChatStatus(STARTING);
+        const newId = timestamp.toString() + targetUser.email + user;
+        createNewChatBox(targetUser.email, messagePackageCustom).then(() => {
+          updateChatBox(newId);
+        });
+        break;
+      }
+      case STARTING: {
+        setQueue((prev) => {
+          if (prev.length > 0) {
+            return [...prev, messagePackageCustom];
+          }
+          return [messagePackageCustom];
+        });
+        break;
+      }
     }
   };
   const sendedMessageClass = clsx(
@@ -59,7 +78,6 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
   );
   useEffect(() => {
     const socket = getSocket();
-
     const handleNewComingMessage = (event) => {
       const handleParsedMessages = (message) => {
         if (
@@ -82,7 +100,7 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
     const fetchMessages = async () => {
       const messageFetched = await fetchChatBox(targetUser.chatBoxId);
       setMessages(messageFetched);
-      setChatStarted(true);
+      setChatStatus(READY);
     };
 
     (!!targetUser.chatBoxId && fetchMessages()) || setMessages([]);
@@ -92,10 +110,18 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
         socket.removeEventListener('message', handleNewComingMessage);
       }
     };
-  }, [targetUser]);
+  }, []);
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  useEffect(() => {
+    if (chatStatus === READY && queue.length > 0) {
+      queue.forEach((mes) => {
+        handleMessage(mes, targetUser.chatBoxId, targetUser.email);
+      });
+      setQueue([]);
+    }
+  }, [chatStatus]);
   return (
     <div className={styles.chat_box}>
       <div className={styles.chat_box__wrapper}>

@@ -7,6 +7,7 @@ const Alert = ({ status }) => {
   let message = '';
   let successfulStatus = ['good', 'download', 'updateUser'];
   let failedStatus = ['bad', 'errorDownload'];
+  let newMesStatus = 'newMessage';
   switch (status) {
     case 'good': {
       message = languageContextTextAlert.success.load;
@@ -36,6 +37,10 @@ const Alert = ({ status }) => {
       message = languageContextTextAlert.failure.updateProfile;
       break;
     }
+    case 'newMessage': {
+      message = languageContextTextAlert.message.new;
+      break;
+    }
     default: {
       message = languageContextTextAlert.loading;
       break;
@@ -48,7 +53,8 @@ const Alert = ({ status }) => {
     successfulStatus.includes(status) && styles.alert__message_good,
     failedStatus.includes(status) && styles.alert__message_bad,
     (status === 'download' || status === 'errorDownload') &&
-      styles.alert_download
+      styles.alert_download,
+    status === 'newMessage' && styles.alert__new_message
   );
   return (
     <div className={alertClass} data-testid={'alert'}>

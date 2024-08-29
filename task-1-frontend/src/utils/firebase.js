@@ -52,7 +52,6 @@ const createUserRecord = async (data) => {
 export const signUpHandler = (data) => {
   return createUserWithEmailAndPassword(auth, data.email, data.password)
     .then(() => {
-      console.log('Sign up!');
       createUserRecord(data);
     })
     .catch((error) => {
@@ -86,7 +85,6 @@ export const updateUserData = async (data, patronymChange) => {
   data.email = email;
   if (patronymChange && !data.patronym) data.patronym = '';
   await updateDoc(doc(userRef, email), { metadata: data });
-  console.log('Updated user');
 };
 
 export const searchPeople = async (email) => {
