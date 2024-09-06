@@ -19,7 +19,10 @@ wss.on('connection', (ws) => {
         clients.set(email, [ws]);
       }
     }
-    if (parsedMessage.type === 'new_message') {
+    if (
+      parsedMessage.type === 'new_message' ||
+      parsedMessage.type === 'new_chat_request'
+    ) {
       console.log('Forwarded message');
       const recipientClients = clients.get(parsedMessage.target);
       recipientClients &&

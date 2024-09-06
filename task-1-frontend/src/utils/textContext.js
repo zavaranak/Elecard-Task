@@ -107,6 +107,12 @@ export const languageText = {
         validationPattern: 'отчество не может включить специальные символы',
       },
     },
+    chat: {
+      label: 'мессенджер',
+      find: 'поиск людей',
+      pronoun: 'Вы:',
+      notFound: 'Человек не найден',
+    },
   },
   en: {
     value: 'en',
@@ -209,6 +215,12 @@ export const languageText = {
         validationRequire: 'patronym is required',
         validationPattern: 'patronym can not include special characters',
       },
+    },
+    chat: {
+      label: 'messenger',
+      find: 'find people',
+      pronoun: 'You:',
+      notFound: 'Not found',
     },
   },
 };

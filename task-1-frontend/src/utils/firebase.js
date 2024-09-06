@@ -96,13 +96,13 @@ export const searchPeople = async (email) => {
   // });
   return getDoc(doc(userRef, email))
     .then((data) => {
-      if (!data) return 'not found';
+      if (!data) return NOT_FOUND;
       const metadata = data.data().metadata;
-      if (metadata.email === auth.currentUser.email) return 'Not Found';
+      if (metadata.email === auth.currentUser.email) return NOT_FOUND;
       else return metadata;
     })
     .catch(() => {
-      return 'Not Found';
+      return NOT_FOUND;
     });
 };
 export const fetchChatBox = async (chatBoxId) => {
@@ -123,7 +123,6 @@ export const fetchChatBox = async (chatBoxId) => {
 };
 export const fetchChatListFireBase = async (chatBoxIdArray) => {
   const chatList = [];
-
   if (Array.isArray(chatBoxIdArray) && chatBoxIdArray.length > 0) {
     const promises = chatBoxIdArray.map(async (item) => {
       const email = Object.keys(item)[0];
@@ -131,11 +130,18 @@ export const fetchChatListFireBase = async (chatBoxIdArray) => {
       const data = await getDoc(docRef);
       const metadata = data.data().metadata;
       metadata.chatBoxId = item[email];
+      // const lastMessage = await getDoc(doc(chatStoreRef, item[email]));
+      // // console.log(lastMessage.data().lastMessage);
+      // metadata.lastMessage = lastMessage.data().lastMessage;
       chatList.push(metadata);
     });
     await Promise.all(promises);
   }
   return chatList;
+};
+export const getLastMessage = async (chatBoxId) => {
+  const messageDoc = await getDoc(doc(chatStoreRef, chatBoxId));
+  return messageDoc.data().lastMessage;
 };
 export const createNewChatBox = async (target, packageMessage) => {
   const timestamp = new Date().getTime();
@@ -147,7 +153,10 @@ export const createNewChatBox = async (target, packageMessage) => {
   const newChatId = timestamp.toString() + target + packageMessage.sender;
   await setDoc(doc(chatStoreRef, newChatId), newChatBox);
   await setDoc(
-    doc(collection(doc(chatStoreRef, newChatId), 'messages')),
+    doc(
+      collection(doc(chatStoreRef, newChatId), 'messages'),
+      packageMessage.timestamp.toString() + packageMessage.sender
+    ),
     packageMessage
   );
   await updateDoc(doc(userRef, target), {

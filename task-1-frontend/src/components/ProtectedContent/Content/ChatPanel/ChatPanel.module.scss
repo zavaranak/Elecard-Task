@@ -13,7 +13,6 @@
   opacity: 0;
   &_open {
     opacity: 1;
-    border-left: 1px solid var(--border-color);
     width: 600px;
     @media screen and (max-width: 600px) {
       width: 100%;
@@ -34,6 +33,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 10px;
     input {
       color: var(--border-color);
       border-radius: 10px;
@@ -56,11 +56,12 @@
     color: white;
     font-size: 0.9em;
     cursor: pointer;
-    width: 93%;
+    width: 92%;
     margin-inline: auto;
     background-color: var(--border-color);
     height: 30px;
     padding: 5px;
+    margin-bottom: 10px;
     border-radius: 15px;
     text-align: center;
   }
@@ -69,30 +70,8 @@
     flex-direction: column;
     overflow: scroll;
     width: 100%;
-    &_item {
-      font-size: 1.2em;
-      cursor: pointer;
-      width: 95%;
-      background-color: var(--background-color);
-      height: 50px;
-      margin: auto;
-      border-radius: 15px;
-      margin-bottom: 20px;
-    }
   }
   &__text {
-    &_name {
-      padding: 5px 0 5px 10px;
-      overflow: hidden;
-      font-weight: 400;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    &_email {
-      font-weight: 200;
-      font-size: 0.8em;
-      padding-left: 10px;
-    }
     &_target_chat {
       font-size: 1.2em;
       color: var(--border-color);

@@ -1,20 +1,23 @@
 import clsx from 'clsx';
 import styles from './ChatBox.module.scss';
-import { Send } from '@mui/icons-material';
+import { ArrowBack, Send } from '@mui/icons-material';
 import { useEffect, useRef, useState } from 'react';
 import { fetchChatBox, handleMessage, createNewChatBox } from '@utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData, fetchChatBoxId } from '@store/userSlice';
 import { getSocket } from '@utils/websocketService';
+// import { LanguageContext } from '@utils/textContext';
 
 const NOT_READY = 'notReady';
 const READY = 'ready';
 const STARTING = 'starting';
-const ChatBox = ({ targetUser, setTargetUser }) => {
+const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
+  // const languageContextTextChat = useContext(LanguageContext).text.chat;
   const dispatch = useDispatch();
   const user = useSelector(selectUserData).email;
   const [messages, setMessages] = useState();
   const [chatStatus, setChatStatus] = useState(NOT_READY);
+  const [targetUser, setTargetUser] = useState(targetUserData);
   const [queue, setQueue] = useState([]);
   const messageEndRef = useRef(null);
   const inputRef = useRef(null);
@@ -23,8 +26,8 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
   };
   const updateChatBox = (id) => {
     const newTarget = { ...targetUser, chatBoxId: id };
-    setTargetUser(newTarget);
     setChatStatus(READY);
+    setTargetUser(newTarget);
     dispatch(fetchChatBoxId());
   };
 
@@ -34,7 +37,7 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
       sender: user,
       timestamp: timestamp,
       content: inputRef.current.value,
-      type: 'new_message',
+      type: chatStatus === NOT_READY ? 'new_chat_request' : 'new_message',
     };
     setMessages((prev) => {
       return [...prev, messagePackageCustom];
@@ -124,6 +127,18 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
   }, [chatStatus]);
   return (
     <div className={styles.chat_box}>
+      <div className={styles.chat_box__taskbar}>
+        <ArrowBack onClick={handleDisplayChatBox} />
+        <div>
+          <p>
+            {targetUser.firstName +
+              ' ' +
+              targetUser.patronym +
+              ' ' +
+              targetUser.lastName}
+          </p>
+        </div>
+      </div>
       <div className={styles.chat_box__wrapper}>
         <div className={styles.chat_box__content}>
           {Array.isArray(messages) &&
@@ -133,9 +148,15 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
                   <div key={message.timestamp} className={sendedMessageClass}>
                     <p>{message.content}</p>
                     <p type='date'>
-                      {new Date(message.timestamp).getHours() +
+                      {new Date(message.timestamp)
+                        .getHours()
+                        .toString()
+                        .padStart(2, '0') +
                         ':' +
-                        new Date(message.timestamp).getMinutes()}
+                        new Date(message.timestamp)
+                          .getMinutes()
+                          .toString()
+                          .padStart(2, '0')}
                     </p>
                   </div>
                 );
@@ -145,9 +166,15 @@ const ChatBox = ({ targetUser, setTargetUser }) => {
                   <div key={message.timestamp} className={receivedMessageClass}>
                     <p>{message.content}</p>
                     <p type='date'>
-                      {new Date(message.timestamp).getHours() +
+                      {new Date(message.timestamp)
+                        .getHours()
+                        .toString()
+                        .padStart(2, '0') +
                         ':' +
-                        new Date(message.timestamp).getMinutes()}
+                        new Date(message.timestamp)
+                          .getMinutes()
+                          .toString()
+                          .padStart(2, '0')}
                     </p>
                   </div>
                 );

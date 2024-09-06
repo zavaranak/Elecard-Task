@@ -7,7 +7,6 @@ const Alert = ({ status }) => {
   let message = '';
   let successfulStatus = ['good', 'download', 'updateUser'];
   let failedStatus = ['bad', 'errorDownload'];
-  let newMesStatus = 'newMessage';
   switch (status) {
     case 'good': {
       message = languageContextTextAlert.success.load;
