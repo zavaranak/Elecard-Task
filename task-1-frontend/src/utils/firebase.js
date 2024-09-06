@@ -16,6 +16,7 @@ import {
   arrayUnion,
   query,
   orderBy,
+  where,
 } from 'firebase/firestore';
 import { sendMessage } from './websocketService';
 
@@ -88,12 +89,6 @@ export const updateUserData = async (data, patronymChange) => {
 };
 
 export const searchPeople = async (email) => {
-  // const searchResult = query(userRef, where('metadata.email', '==', email));
-  // getDocs(searchResult).then((querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-  //     console.log(doc.id, ' => ', doc.data());
-  //   });
-  // });
   return getDoc(doc(userRef, email))
     .then((data) => {
       if (!data) return NOT_FOUND;
@@ -130,9 +125,6 @@ export const fetchChatListFireBase = async (chatBoxIdArray) => {
       const data = await getDoc(docRef);
       const metadata = data.data().metadata;
       metadata.chatBoxId = item[email];
-      // const lastMessage = await getDoc(doc(chatStoreRef, item[email]));
-      // // console.log(lastMessage.data().lastMessage);
-      // metadata.lastMessage = lastMessage.data().lastMessage;
       chatList.push(metadata);
     });
     await Promise.all(promises);
@@ -167,6 +159,22 @@ export const createNewChatBox = async (target, packageMessage) => {
   });
   sendMessage({ ...packageMessage, target: target });
 };
+
+export const findMessagesFireBase = async (keyWord, chatBoxId) => {
+  const messageQuery = query(
+    collection(doc(chatStoreRef, chatBoxId), 'messages'),
+    where('content', '>=', keyWord),
+    where('content', '<=', keyWord + '\uf8ff')
+  );
+  const querySnapshot = await getDocs(messageQuery);
+  let result = [];
+  querySnapshot.forEach((doc) => {
+    result.push(doc.data());
+  });
+  result.sort((a, b) => a.timestamp > b.timestamp);
+  return result;
+};
+
 export const handleMessage = async (packageMessage, chatBoxId, target) => {
   try {
     const id = packageMessage.timestamp.toString() + packageMessage.sender;

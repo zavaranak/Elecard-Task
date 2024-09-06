@@ -1,3 +1,4 @@
+@import '@styles/animation.scss';
 .protected_content {
   background-color: var(--content-color);
   color: var(--text-main-color);
@@ -10,8 +11,27 @@
   min-height: 80vh;
   min-width: 380px;
   &__loading {
-    width: 100%;
-    text-align: center;
-    text-transform: uppercase;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    &_spin {
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      border: 5px solid;
+      border-color: var(--border-color) transparent var(--border-color)
+        transparent;
+      animation: rotate 1s ease infinite;
+    }
+    &_text {
+      text-transform: uppercase;
+      color: var(--border-color);
+    }
   }
 }

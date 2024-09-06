@@ -1,0 +1,57 @@
+@import '@styles/animation.scss';
+.buttons_chat_box {
+  display: flex;
+  gap: 10px;
+  position: relative;
+  flex-grow: 1;
+  &__more_vert {
+    padding-right: 20px;
+    position: absolute;
+    right: 5px;
+  }
+  &__arrows {
+    display: flex;
+    gap: 5px;
+    border: solid 1px (var(--border-color));
+    border-radius: 5px;
+    background-color: var(--content-color);
+    svg {
+      color: var(--text-main-color);
+      border-radius: 5px;
+    }
+    top: 40px;
+    font-size: 0.9em;
+    position: absolute;
+    right: 340px;
+    z-index: 100;
+    padding-inline: 5px;
+    &_text {
+      min-width: max-content;
+      max-width: 100px;
+      padding-top: 3px;
+      font-size: 0.9em;
+      padding: 5px;
+    }
+  }
+  &__search_box {
+    position: absolute;
+    top: 40px;
+    z-index: 100;
+    right: 20px;
+    color: var(--text-main-color);
+    display: flex;
+    width: 0;
+    transition: 0.5s;
+    border: 1px transparent solid;
+    outline: none;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 0.8em;
+    padding: 5px;
+    background-color: var(--content-color);
+    &_open {
+      width: 300px;
+      border-color: var(--border-color);
+    }
+  }
+}

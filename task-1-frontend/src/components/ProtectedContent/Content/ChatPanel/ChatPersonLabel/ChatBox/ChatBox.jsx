@@ -6,6 +6,7 @@ import { fetchChatBox, handleMessage, createNewChatBox } from '@utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData, fetchChatBoxId } from '@store/userSlice';
 import { getSocket } from '@utils/websocketService';
+import ButtonsChatBox from './ButtonsChatBox/ButtonsChatBox';
 // import { LanguageContext } from '@utils/textContext';
 
 const NOT_READY = 'notReady';
@@ -129,7 +130,7 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
     <div className={styles.chat_box}>
       <div className={styles.chat_box__taskbar}>
         <ArrowBack onClick={handleDisplayChatBox} />
-        <div>
+        <div className={styles.chat_box__name}>
           <p>
             {targetUser.firstName +
               ' ' +
@@ -138,14 +139,19 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
               targetUser.lastName}
           </p>
         </div>
+        <ButtonsChatBox chatBoxId={targetUser.chatBoxId} />
       </div>
       <div className={styles.chat_box__wrapper}>
-        <div className={styles.chat_box__content}>
+        <div id='messages_box' className={styles.chat_box__content}>
           {Array.isArray(messages) &&
             messages.map((message) => {
               if (message.sender === user) {
                 return (
-                  <div key={message.timestamp} className={sendedMessageClass}>
+                  <div
+                    key={message.timestamp}
+                    id={message.timestamp.toString() + message.sender}
+                    className={sendedMessageClass}
+                  >
                     <p>{message.content}</p>
                     <p type='date'>
                       {new Date(message.timestamp)
@@ -163,7 +169,11 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
               }
               if (message.sender !== user) {
                 return (
-                  <div key={message.timestamp} className={receivedMessageClass}>
+                  <div
+                    key={message.timestamp}
+                    id={message.timestamp.toString() + message.sender}
+                    className={receivedMessageClass}
+                  >
                     <p>{message.content}</p>
                     <p type='date'>
                       {new Date(message.timestamp)

@@ -26,6 +26,13 @@ const ChatPanel = ({ displayChat }) => {
   const searchAsync = async (data) => {
     if (data !== '') {
       const result = await searchPeople(data);
+      if (result.email) {
+        chatIdArray.map((item) => {
+          if (Object.keys(item)[0] === result.email) {
+            result.chatBoxId = Object.values(item)[0];
+          }
+        });
+      }
       setSearchResult(result);
     }
   };
@@ -87,8 +94,8 @@ const ChatPanel = ({ displayChat }) => {
         <div className={styles.chat_panel__search_box}>
           <input
             ref={searchRef}
-            onChange={(event) => {
-              if (event.target.value === '') setSearchResult(undefined);
+            onChange={() => {
+              setSearchResult(undefined);
             }}
             type='text'
             placeholder={languageContextTextChat.find}

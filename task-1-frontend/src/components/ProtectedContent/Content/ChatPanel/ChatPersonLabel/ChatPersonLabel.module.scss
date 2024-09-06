@@ -1,9 +1,10 @@
 @import '@styles/text.scss';
+@import '@styles/animation.scss';
 .chat_person_label {
   font-size: 1.2em;
   cursor: pointer;
   width: 92%;
-  background-color: var(--background-color);
+  background-color: var(--content-color);
   padding: 5px 0 0 10px;
   height: 50px;
   margin: auto;
@@ -21,6 +22,8 @@
     margin-bottom: 10px;
     border-radius: 15px;
     text-align: center;
+    padding-block: 10px;
+    animation: chat_box 0.5s forwards;
   }
   &__text {
     &_name {
@@ -57,10 +60,8 @@
       &_content {
         font-style: italic;
         font-size: 0.8em;
-        // width: 70%;
       }
       &_date {
-        // max-width: 30%;
         float: right;
         font-size: 0.7em;
       }

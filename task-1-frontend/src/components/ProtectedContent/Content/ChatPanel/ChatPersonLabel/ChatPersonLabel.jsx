@@ -38,7 +38,6 @@ const ChatPersonLabel = ({ labelData, newChat, closeNewChat }) => {
     };
 
     const socket = getSocket();
-
     if (socket) {
       socket.addEventListener('message', newMessageHandler);
     }
@@ -49,7 +48,7 @@ const ChatPersonLabel = ({ labelData, newChat, closeNewChat }) => {
         socket.removeEventListener('message', newMessageHandler);
       }
     };
-  }, []);
+  }, [labelData]);
   if (newChat) {
     if (labelData === NOT_FOUND)
       return (

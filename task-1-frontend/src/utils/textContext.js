@@ -5,6 +5,8 @@ export const LanguageContext = createContext();
 export const languageText = {
   ru: {
     value: 'ru',
+    loading: 'Загрузается',
+    notFound: 'Не найдено',
     header: {
       text: 'задание для стажировки летом 2024 - elecard',
       editButton: 'Изменить данные',
@@ -116,6 +118,8 @@ export const languageText = {
   },
   en: {
     value: 'en',
+    loading: 'Loading',
+    notFound: 'Not found',
     header: {
       text: 'intern task summer 2024 - elecard',
       editButton: 'Edit profile',
