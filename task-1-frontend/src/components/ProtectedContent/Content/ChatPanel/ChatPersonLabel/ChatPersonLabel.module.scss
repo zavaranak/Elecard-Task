@@ -60,6 +60,10 @@
       &_content {
         font-style: italic;
         font-size: 0.8em;
+        max-width: 300px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       &_date {
         float: right;

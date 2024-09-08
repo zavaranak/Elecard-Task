@@ -70,4 +70,26 @@ form {
       text-align: center;
     }
   }
+  @media screen and (max-width: 450px) {
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    button {
+      margin: 0;
+      padding: 0;
+    }
+    p,
+    input,
+    label {
+      text-align: left;
+      width: 100%;
+      margin-block: unset;
+    }
+    input {
+      outline: none;
+    }
+  }
 }

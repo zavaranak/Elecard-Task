@@ -12,6 +12,12 @@
     overflow-y: auto;
     scroll-behavior: smooth;
     overflow-anchor: none;
+    &_loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
   &__content {
     display: flex;
@@ -26,52 +32,26 @@
     background-color: var(--background-color);
     gap: 10px;
     padding-block: 10px;
-    // height: 50px;
     padding-left: 15px;
   }
   &__name {
     max-width: 200px;
-
+    font-weight: 600;
     white-space: nowrap;
   }
-  &__message {
-    color: white;
+  &__suggest {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
-    flex-direction: column;
-    padding-inline: 20px;
-    padding-block: 3px;
-    p {
-      font-size: 1.1em;
-      max-width: 80%;
-      padding: 10px;
-      border-radius: 10px;
-      word-break: break-all;
-      &[type='date'] {
-        margin-top: 1px;
-        font-size: 0.8em;
-        padding: 3px;
-        border-radius: 5px;
-        background-color: transparent;
-        color: var(--text-main-color);
-      }
-    }
-    &_send {
-      display: flex;
-      p {
-        background-color: var(--border-color);
-        align-self: flex-end;
-      }
-    }
-    &_receive {
-      display: flex;
-      p {
-        background-color: var(--content-color);
-        color: var(--text-main-color);
-        align-self: flex-start;
-      }
-    }
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    text-wrap: nowrap;
+    font-size: 0.8em;
+    font-weight: 800;
   }
-
   &__text_box {
     margin-bottom: 5px;
     width: 100%;
@@ -87,7 +67,7 @@
       border: 2px solid var(--border-color);
       background-color: var(--background-color);
       border-radius: 10px;
-      color: var(--text-main-color);
+      color: var(--border-color);
       cursor: pointer;
       &:hover {
         background-color: var(--border-color);
@@ -96,6 +76,22 @@
         }
       }
     }
+
+    &_edit {
+      input {
+        border: 2px solid var(--message-color) !important;
+      }
+      button {
+        border: 2px solid var(--message-color);
+        &:hover {
+          background-color: var(--message-color);
+        }
+      }
+      svg {
+        color: var(--message-color);
+      }
+    }
+
     input {
       color: var(--text-main-color);
       background-color: var(--background-color);

@@ -9,6 +9,11 @@
     position: absolute;
     right: 5px;
   }
+  &__loading {
+    position: absolute;
+    top: 0px;
+    right: 50px;
+  }
   &__arrows {
     display: flex;
     gap: 5px;
@@ -19,14 +24,15 @@
       color: var(--text-main-color);
       border-radius: 5px;
     }
-    top: 40px;
+    top: -5px;
     font-size: 0.9em;
     position: absolute;
-    right: 340px;
+    right: 50px;
     z-index: 100;
     padding-inline: 5px;
     &_text {
-      min-width: max-content;
+      text-align: center;
+      min-width: 50px;
       max-width: 100px;
       padding-top: 3px;
       font-size: 0.9em;
@@ -35,7 +41,7 @@
   }
   &__search_box {
     position: absolute;
-    top: 40px;
+    top: -50px;
     z-index: 100;
     right: 20px;
     color: var(--text-main-color);
@@ -50,8 +56,15 @@
     padding: 5px;
     background-color: var(--content-color);
     &_open {
-      width: 300px;
+      width: 250px;
       border-color: var(--border-color);
+    }
+  }
+  &__marked_message {
+    div {
+      p {
+        background-color: var(--message-color);
+      }
     }
   }
 }

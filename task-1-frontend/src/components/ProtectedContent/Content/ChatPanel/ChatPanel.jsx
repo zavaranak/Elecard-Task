@@ -14,30 +14,37 @@ import { getSocket } from '@utils/websocketService';
 import { setAlertStatus } from '@store/appSlice';
 import { LanguageContext } from '@utils/textContext';
 import ChatPersonLabel from './ChatPersonLabel/ChatPersonLabel';
+import Loading from '@components/Loading/Loading';
 
 const ChatPanel = ({ displayChat }) => {
   const dispatch = useDispatch();
 
   const languageContextTextChat = useContext(LanguageContext).text.chat;
   const [searchResult, setSearchResult] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const chatList = useSelector(selectUserChatList);
   const chatIdArray = useSelector(selectUserChatBoxId);
   const searchRef = useRef(null);
   const searchAsync = async (data) => {
     if (data !== '') {
       const result = await searchPeople(data);
-      if (result.email) {
+      if (result.email && Array.isArray(chatIdArray)) {
         chatIdArray.map((item) => {
           if (Object.keys(item)[0] === result.email) {
             result.chatBoxId = Object.values(item)[0];
           }
         });
       }
+      setIsSearching(false);
       setSearchResult(result);
     }
   };
-  const searchHandler = (data) => {
-    searchAsync(data);
+  const searchHandler = () => {
+    if (searchRef.current.value !== '') {
+      setIsSearching(true);
+      setSearchResult(null);
+      searchAsync(searchRef.current.value);
+    }
   };
   const closeNewChat = () => {
     setSearchResult(null);
@@ -101,11 +108,12 @@ const ChatPanel = ({ displayChat }) => {
             placeholder={languageContextTextChat.find}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                event.target.value !== '' && searchHandler(event.target.value);
+                searchHandler();
               }
             }}
           />
           <Search onClick={searchHandler} />
+          {isSearching && <Loading spinOnly={true} size='small' />}
         </div>
       </div>
       {searchResult && (

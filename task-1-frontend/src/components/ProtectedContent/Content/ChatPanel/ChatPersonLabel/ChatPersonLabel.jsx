@@ -16,19 +16,26 @@ const ChatPersonLabel = ({ labelData, newChat, closeNewChat }) => {
   const handleDisplayChatBox = () => {
     setDisplayChatBox(true);
   };
+  const fetchLastMessage = async () => {
+    const fetchedLastMessage = await getLastMessage(labelData.chatBoxId);
+    setLastMessage(fetchedLastMessage);
+  };
+
   useEffect(() => {
-    const fetchLastMessage = async () => {
-      const fetchedLastMessage = await getLastMessage(labelData.chatBoxId);
-      setLastMessage(fetchedLastMessage);
-    };
+    newChat || fetchLastMessage();
+  }, [displayChatBox]);
+
+  useEffect(() => {
     const handleParsedMessages = (parsedMessage) => {
-      if (
-        parsedMessage.sender === labelData.email &&
-        parsedMessage.type === 'new_message'
-      ) {
-        fetchLastMessage();
+      if (parsedMessage.sender === labelData.email) {
+        if (parsedMessage.type === 'new_message') {
+          setLastMessage(parsedMessage);
+        } else {
+          fetchLastMessage();
+        }
       }
     };
+
     const newMessageHandler = (event) => {
       if (event.data instanceof Blob) {
         event.data.text().then((result) => {

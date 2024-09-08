@@ -6,15 +6,20 @@ import SignOut from '@icons/SignOut.svg';
 import styles from './UserProfile.module.scss';
 import { LanguageContext } from '@utils/textContext';
 import { Edit } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
-import { selectUserData } from '@store/userSlice';
-import {} from '@store/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUserData, resetUserData } from '@store/userSlice';
+import Loading from '@components/Loading/Loading';
 
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const editProfileText = useContext(LanguageContext).text.header;
-
   const [showMenu, setShowMenu] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+
+  const signOutHandlerCustom = () => {
+    dispatch(resetUserData());
+    signOutHandler();
+  };
 
   useEffect(() => {
     document.addEventListener('click', () => {
@@ -28,8 +33,12 @@ const UserProfile = () => {
   }, []);
   const userData = useSelector(selectUserData);
 
-  if (!userData) {
-    return <div>...</div>;
+  if (!userData.lastName) {
+    return (
+      <div>
+        <Loading size='small' spinOnly={true} />
+      </div>
+    );
   }
   return (
     <div data-testid='user-profile' className={styles.user_profile}>
@@ -65,7 +74,7 @@ const UserProfile = () => {
                 <Edit></Edit>
                 {editProfileText.editButton}
               </li>
-              <li onClick={signOutHandler}>
+              <li onClick={signOutHandlerCustom}>
                 <SignOut />
                 {editProfileText.signOut}
               </li>

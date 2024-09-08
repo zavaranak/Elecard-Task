@@ -102,7 +102,7 @@ const SignUpForm = () => {
             })}
             placeholder={languageContextTextForm.patronym.text}
           />
-          {patronymToggle && <p type='error'>{errors?.patronym?.message}</p>}
+          <p type='error'>{!!patronymToggle && errors?.patronym?.message}</p>
         </label>
       </div>
       <label>

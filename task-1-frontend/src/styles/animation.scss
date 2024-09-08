@@ -1,25 +1,24 @@
 @keyframes slide_in {
   0% {
-    // transform: translateY(-100%);
-    transform: translate(-50%, -100%);
+    transform: translate(-100%, 20px);
 
     opacity: 1;
     visibility: unset;
   }
   20% {
-    transform: translate(-50%, 0);
+    transform: translate(0, 20px);
     opacity: 1;
   }
   85% {
-    transform: translate(-50%, 0px);
+    transform: translate(10px, 20px);
     opacity: 1;
   }
   95% {
-    transform: translate(-50%, -40%);
+    transform: translate(0, 20px);
     opacity: 0.3;
   }
   100% {
-    transform: translate(-50%, -100%);
+    transform: translate(-100%, 20px);
     opacity: 0;
   }
 }

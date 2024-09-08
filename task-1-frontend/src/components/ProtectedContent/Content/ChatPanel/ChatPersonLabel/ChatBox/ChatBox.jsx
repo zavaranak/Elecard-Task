@@ -1,30 +1,48 @@
-import clsx from 'clsx';
 import styles from './ChatBox.module.scss';
 import { ArrowBack, Send } from '@mui/icons-material';
-import { useEffect, useRef, useState } from 'react';
-import { fetchChatBox, handleMessage, createNewChatBox } from '@utils/firebase';
+import { useContext, useEffect, useRef, useState } from 'react';
+import {
+  fetchChatBox,
+  handleMessage,
+  createNewChatBox,
+  handleDeleteMessage,
+  handleUpdateMessage,
+  updateReadMessage,
+  markAllMessagesAsRead,
+  NEW_MES,
+  DEL_MES,
+  UPD_MES,
+  NEW_REQ,
+  READ_MES,
+  READ_ALL,
+} from '@utils/firebase';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData, fetchChatBoxId } from '@store/userSlice';
 import { getSocket } from '@utils/websocketService';
 import ButtonsChatBox from './ButtonsChatBox/ButtonsChatBox';
-// import { LanguageContext } from '@utils/textContext';
+import Loading from '@components/Loading/Loading';
+import Message from './Message/Message';
+import clsx from 'clsx';
+import { LanguageContext } from '@utils/textContext';
 
 const NOT_READY = 'notReady';
 const READY = 'ready';
 const STARTING = 'starting';
+const EDIT_MESSAGE = 'edit';
 const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
-  // const languageContextTextChat = useContext(LanguageContext).text.chat;
+  const LanguageContextChatText = useContext(LanguageContext).text.chat;
   const dispatch = useDispatch();
   const user = useSelector(selectUserData).email;
   const [messages, setMessages] = useState();
+  const [firstTime, setFirstTime] = useState(true);
   const [chatStatus, setChatStatus] = useState(NOT_READY);
   const [targetUser, setTargetUser] = useState(targetUserData);
+  const [editMessage, setEditMessage] = useState(null);
   const [queue, setQueue] = useState([]);
   const messageEndRef = useRef(null);
+  const messagesRef = useRef(null);
   const inputRef = useRef(null);
-  const scrollToBottom = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+
   const updateChatBox = (id) => {
     const newTarget = { ...targetUser, chatBoxId: id };
     setChatStatus(READY);
@@ -32,64 +50,147 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
     dispatch(fetchChatBoxId());
   };
 
-  const handleSendingMessage = () => {
-    const timestamp = new Date().getTime();
-    const messagePackageCustom = {
-      sender: user,
-      timestamp: timestamp,
-      content: inputRef.current.value,
-      type: chatStatus === NOT_READY ? 'new_chat_request' : 'new_message',
-    };
+  const frontendDeleteMessage = (index) => {
     setMessages((prev) => {
-      return [...prev, messagePackageCustom];
+      let temp = prev.slice(0);
+      temp.splice(index, 1);
+      return temp;
     });
-    inputRef.current.value = '';
-    switch (chatStatus) {
-      case READY: {
-        handleMessage(
-          messagePackageCustom,
-          targetUser.chatBoxId,
-          targetUser.email
-        );
-        break;
-      }
-      case NOT_READY: {
-        setChatStatus(STARTING);
-        const newId = timestamp.toString() + targetUser.email + user;
-        createNewChatBox(targetUser.email, messagePackageCustom).then(() => {
-          updateChatBox(newId);
+  };
+  const frontendEditMessage = (message, index) => {
+    setMessages((prev) => {
+      let temp = prev;
+      temp.splice(index, 1, message);
+      return temp;
+    });
+    setEditMessage(null);
+  };
+  const customHandleDeleteMessage = (index, messageId) => {
+    handleDeleteMessage(targetUser.chatBoxId, messageId, targetUser.email);
+    frontendDeleteMessage(index);
+  };
+
+  const handleEditMessage = (index, message) => {
+    setChatStatus(EDIT_MESSAGE);
+    const messageId = message.timestamp.toString() + message.sender;
+    setEditMessage([index, messageId]);
+    inputRef.current.value = message.content;
+    inputRef.current.focus();
+  };
+
+  const updateMesReadState = (messageId) => {
+    const queryMessage = messagesRef.current.querySelector(
+      `[id='${messageId}']`
+    );
+    const indexMessage = queryMessage.getAttribute('index');
+    setMessages((prev) => {
+      const temp = prev.slice(0);
+      const tempMes = prev[indexMessage];
+      tempMes.status = 'read';
+      temp.splice(indexMessage, 1, tempMes);
+      return temp;
+    });
+  };
+
+  const handleSendingMessage = () => {
+    if (Array.isArray(messages)) {
+      const timestamp = new Date().getTime();
+      const messagePackageCustom = {
+        sender: user,
+        content: inputRef.current.value,
+        type:
+          chatStatus === NOT_READY
+            ? NEW_REQ
+            : chatStatus === EDIT_MESSAGE
+            ? UPD_MES
+            : NEW_MES,
+        status: 'sending',
+      };
+      chatStatus !== EDIT_MESSAGE &&
+        (messagePackageCustom.timestamp = timestamp) &&
+        setMessages((prev) => {
+          return [...prev, messagePackageCustom];
         });
-        break;
-      }
-      case STARTING: {
-        setQueue((prev) => {
-          if (prev.length > 0) {
-            return [...prev, messagePackageCustom];
+      inputRef.current.value = '';
+      switch (chatStatus) {
+        case READY: {
+          handleMessage(
+            messagePackageCustom,
+            targetUser.chatBoxId,
+            targetUser.email
+          );
+          break;
+        }
+        case NOT_READY: {
+          setChatStatus(STARTING);
+          const newId = timestamp.toString() + targetUser.email + user;
+          createNewChatBox(targetUser.email, messagePackageCustom).then(() => {
+            updateChatBox(newId);
+          });
+          break;
+        }
+        case STARTING: {
+          setQueue((prev) => {
+            if (prev.length > 0) {
+              return [...prev, messagePackageCustom];
+            }
+            return [messagePackageCustom];
+          });
+          break;
+        }
+        case EDIT_MESSAGE: {
+          if (
+            messagePackageCustom.content !== messages[editMessage[0]].content
+          ) {
+            messagePackageCustom.timestamp = messages[editMessage[0]].timestamp;
+            frontendEditMessage(messagePackageCustom, editMessage[0]);
+            handleUpdateMessage(
+              targetUser.chatBoxId,
+              editMessage[1],
+              messagePackageCustom,
+              targetUser.email
+            );
           }
-          return [messagePackageCustom];
-        });
-        break;
+
+          setChatStatus(READY);
+        }
       }
     }
   };
-  const sendedMessageClass = clsx(
-    styles.chat_box__message,
-    styles.chat_box__message_send
-  );
-  const receivedMessageClass = clsx(
-    styles.chat_box__message,
-    styles.chat_box__message_receive
-  );
   useEffect(() => {
     const socket = getSocket();
     const handleNewComingMessage = (event) => {
       const handleParsedMessages = (message) => {
-        if (
-          message.type === 'new_message' &&
-          message.sender === targetUser.email
-        ) {
+        if (message.type === NEW_MES && message.sender === targetUser.email) {
+          message.status = 'read';
           const { target, ...rest } = message;
           setMessages((prev) => [...prev, rest]);
+          const messageId = message.timestamp.toString() + message.sender;
+          updateReadMessage(targetUser.chatBoxId, targetUser.email, messageId);
+        }
+        if (message.type === DEL_MES && message.sender === targetUser.email) {
+          const queryMessage = messagesRef.current.querySelector(
+            `[id='${message.messageId}']`
+          );
+          frontendDeleteMessage(queryMessage.getAttribute('index'));
+        }
+        if (message.type === UPD_MES && message.sender === targetUser.email) {
+          const queryMessage = messagesRef.current.querySelector(
+            `[id='${message.messageId}']`
+          );
+          const index = queryMessage.getAttribute('index');
+          frontendEditMessage(message, index);
+        }
+        if (message.type === READ_MES && message.sender === targetUser.email) {
+          updateMesReadState(message.messageId);
+        }
+        if (message.type === READ_ALL && message.sender === targetUser.email) {
+          setMessages((prev) => {
+            return prev.map((mes) => {
+              mes.status !== 'read' && (mes.status = 'read');
+              return mes;
+            });
+          });
         }
       };
       if (event.data instanceof Blob) {
@@ -105,10 +206,15 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
       const messageFetched = await fetchChatBox(targetUser.chatBoxId);
       setMessages(messageFetched);
       setChatStatus(READY);
+
+      setTimeout(() => {
+        setFirstTime(false);
+      }, 100);
     };
 
     (!!targetUser.chatBoxId && fetchMessages()) || setMessages([]);
-
+    !!targetUser.chatBoxId &&
+      markAllMessagesAsRead(targetUser.chatBoxId, targetUser.email);
     return () => {
       if (socket) {
         socket.removeEventListener('message', handleNewComingMessage);
@@ -116,6 +222,16 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
     };
   }, []);
   useEffect(() => {
+    const scrollToBottom = () => {
+      if (messagesRef.current) {
+        const { scrollHeight, clientHeight, scrollTop } = messagesRef.current;
+        const maxScrollTop = scrollHeight - clientHeight;
+        const isNearBottom = maxScrollTop - scrollTop < 400;
+        if (isNearBottom || firstTime) {
+          messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
     scrollToBottom();
   }, [messages]);
   useEffect(() => {
@@ -141,59 +257,53 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
         </div>
         <ButtonsChatBox chatBoxId={targetUser.chatBoxId} />
       </div>
-      <div className={styles.chat_box__wrapper}>
+      <div ref={messagesRef} className={styles.chat_box__wrapper}>
         <div id='messages_box' className={styles.chat_box__content}>
-          {Array.isArray(messages) &&
-            messages.map((message) => {
-              if (message.sender === user) {
-                return (
-                  <div
-                    key={message.timestamp}
-                    id={message.timestamp.toString() + message.sender}
-                    className={sendedMessageClass}
-                  >
-                    <p>{message.content}</p>
-                    <p type='date'>
-                      {new Date(message.timestamp)
-                        .getHours()
-                        .toString()
-                        .padStart(2, '0') +
-                        ':' +
-                        new Date(message.timestamp)
-                          .getMinutes()
-                          .toString()
-                          .padStart(2, '0')}
-                    </p>
-                  </div>
-                );
-              }
-              if (message.sender !== user) {
-                return (
-                  <div
-                    key={message.timestamp}
-                    id={message.timestamp.toString() + message.sender}
-                    className={receivedMessageClass}
-                  >
-                    <p>{message.content}</p>
-                    <p type='date'>
-                      {new Date(message.timestamp)
-                        .getHours()
-                        .toString()
-                        .padStart(2, '0') +
-                        ':' +
-                        new Date(message.timestamp)
-                          .getMinutes()
-                          .toString()
-                          .padStart(2, '0')}
-                    </p>
-                  </div>
-                );
-              }
-            })}
+          {chatStatus === NOT_READY && Array.isArray(messages) && (
+            <div className={styles.chat_box__suggest}>
+              {LanguageContextChatText.suggest}
+            </div>
+          )}
+          {(Array.isArray(messages) &&
+            messages.map((message, index) => {
+              return (
+                <div
+                  key={index}
+                  index={index}
+                  id={message.timestamp.toString() + message.sender}
+                >
+                  <Message
+                    handleEditMessage={() => {
+                      handleEditMessage(index, message);
+                    }}
+                    customHandleDeleteMessage={() => {
+                      customHandleDeleteMessage(
+                        index,
+                        message.timestamp.toString() + message.sender,
+                        targetUser.email
+                      );
+                    }}
+                    setMessages={setMessages}
+                    chatBoxId={targetUser.chatBoxId}
+                    message={message}
+                    type={message.sender === user ? 'send' : 'receive'}
+                  />
+                </div>
+              );
+            })) || (
+            <div className={styles.chat_box__wrapper_loading}>
+              <Loading size='medium'></Loading>
+            </div>
+          )}
         </div>
         <div ref={messageEndRef}></div>
       </div>
-      <div className={styles.chat_box__text_box}>
+      <div
+        className={clsx(
+          styles.chat_box__text_box,
+          chatStatus === EDIT_MESSAGE && styles.chat_box__text_box_edit
+        )}
+      >
         <input
           ref={inputRef}
           type='text'

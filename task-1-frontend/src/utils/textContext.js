@@ -114,6 +114,8 @@ export const languageText = {
       find: 'поиск людей',
       pronoun: 'Вы:',
       notFound: 'Человек не найден',
+      findMes: 'Искать сообщения',
+      suggest: 'Начать эту беседу вашим первым сообщением',
     },
   },
   en: {
@@ -225,6 +227,8 @@ export const languageText = {
       find: 'find people',
       pronoun: 'You:',
       notFound: 'Not found',
+      findMes: 'Find messages',
+      suggest: 'Start chat by sending your first message',
     },
   },
 };

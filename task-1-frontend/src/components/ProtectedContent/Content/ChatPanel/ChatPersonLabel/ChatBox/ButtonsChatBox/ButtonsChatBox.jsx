@@ -4,11 +4,13 @@ import styles from './ButtonsChatBox.module.scss';
 import clsx from 'clsx';
 import { findMessagesFireBase } from '@utils/firebase';
 import { LanguageContext } from '@utils/textContext';
+import Loading from '@components/Loading/Loading';
 
 const ButtonsChatBox = ({ chatBoxId }) => {
   const searchRef = useRef(null);
   const LanguageContextContentText = useContext(LanguageContext).text;
   const [displaySearchBox, setDisplaySearchBox] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
   const [currentMes, setCurrentMes] = useState();
   const searchBoxStyles = clsx(
@@ -45,14 +47,15 @@ const ButtonsChatBox = ({ chatBoxId }) => {
   };
 
   const findMessages = async (e) => {
-    if (e.key === 'Enter') {
-      const queryParam = e.target.value;
-
+    const queryParam = e.target.value;
+    if (e.key === 'Enter' && queryParam !== '') {
+      setIsLoading(true);
       const result = await findMessagesFireBase(queryParam, chatBoxId);
       if (Array.isArray(result) && result.length > 0) {
         setCurrentMes(result.length);
       }
       setSearchResult(result);
+      setIsLoading(false);
     }
   };
   const resetState = () => {
@@ -61,13 +64,18 @@ const ButtonsChatBox = ({ chatBoxId }) => {
   };
 
   useEffect(() => {
+    let targetMessage;
     if (currentMes) {
       const messages = document.querySelector('#messages_box');
       const tempMessage = searchResult[currentMes - 1];
-      const targetMessage = messages.querySelector(
+      targetMessage = messages.querySelector(
         `[id="${tempMessage.timestamp.toString() + tempMessage.sender}"]`
       );
       targetMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      targetMessage.classList.add(styles.buttons_chat_box__marked_message);
+      return () => {
+        targetMessage.classList.remove(styles.buttons_chat_box__marked_message);
+      };
     }
   }, [currentMes]);
   return (
@@ -79,10 +87,17 @@ const ButtonsChatBox = ({ chatBoxId }) => {
       <input
         ref={searchRef}
         className={searchBoxStyles}
+        placeholder={LanguageContextContentText.chat.findMes}
         type='text'
         onKeyDown={findMessages}
         onChange={resetState}
       />
+      {isLoading && (
+        <div className={styles.buttons_chat_box__loading}>
+          <Loading size='small' spinOnly={true} />
+        </div>
+      )}
+
       {(currentMes && (
         <div className={styles.buttons_chat_box__arrows}>
           <Close onClick={handleOpenSearchBox} />

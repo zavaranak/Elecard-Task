@@ -4,11 +4,12 @@ import { signInHandler } from '@utils/firebase.js';
 import { useState, useContext } from 'react';
 import { LanguageContext } from '@utils/textContext';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import Loading from '@components/Loading/Loading';
 
 const SignUpForm = () => {
   const languageContextTextForm = useContext(LanguageContext).text.form;
   const [signInMessage, setSignInMessage] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [displayPassword, setDisplayPassword] = useState(false);
   const { register, handleSubmit, formState, setFocus } = useForm();
   const { errors } = formState;
@@ -17,9 +18,9 @@ const SignUpForm = () => {
     setDisplayPassword((prev) => !prev);
   };
   const customHandleSubmit = async (data) => {
-    setLoading(true);
+    setIsLoading(true);
     await signInHandler(data).then((error) => {
-      setLoading(false);
+      setIsLoading(false);
       if (error) {
         setSignInMessage(languageContextTextForm.errors.signIn.default);
         setFocus('email');
@@ -74,10 +75,11 @@ const SignUpForm = () => {
       </label>
       <p type='main-error'>{signInMessage}</p>
       <input
-        disabled={loading}
+        disabled={isLoading}
         type='submit'
         value={languageContextTextForm.buttons.signIn}
       />
+      {isLoading && <Loading size='medium' />}
     </form>
   );
 };

@@ -24,8 +24,14 @@ const userSlice = createSlice({
       state.authState = action.payload.state;
     },
     setUserData: (state, action) => {
-      Object.assign(state.data, action.payload.data.metadata);
-      state.chatBoxId = action.payload.data.chatBoxId;
+      if (!action.payload.data) {
+        state.data = {};
+        state.chatBoxId = [];
+        state.chatList = [];
+      } else {
+        Object.assign(state.data, action.payload.data.metadata);
+        state.chatBoxId = action.payload.data.chatBoxId;
+      }
     },
     updateUser: (state, action) => {
       Object.assign(state.data, action.payload);
@@ -47,8 +53,8 @@ export const {
 } = userSlice.actions;
 
 const fetchUserDataOnSignIn = () => async (dispatch) => {
-  const userData = await selectUserDataFirebase();
   dispatch(setUserState({ state: 'passed' }));
+  const userData = await selectUserDataFirebase();
   dispatch(setUserData({ data: userData }));
 };
 export const fetchChatBoxId = () => async (dispatch) => {
@@ -58,6 +64,10 @@ export const fetchChatBoxId = () => async (dispatch) => {
 export const fetchChatList = (chatIdArray) => async (dispatch) => {
   const newChatList = await fetchChatListFireBase(chatIdArray);
   dispatch(updateUserChatList(newChatList));
+};
+
+export const resetUserData = () => (dispatch) => {
+  dispatch(setUserData({ data: null }));
 };
 
 export const listenToAuthState = () => (dispatch) => {
