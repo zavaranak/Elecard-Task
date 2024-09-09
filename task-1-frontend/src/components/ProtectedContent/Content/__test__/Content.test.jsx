@@ -23,6 +23,12 @@ jest.mock('@content/CardView/CardView', () => {
   };
   return CardView;
 });
+jest.mock('@content/ChatPanel/ChatPanel', () => {
+  const ChatPanel = () => {
+    return <div>Chat Panel</div>;
+  };
+  return ChatPanel;
+});
 jest.mock('@content/TreeView/TreeView', () => {
   const TreeView = ({ setView }) => {
     return (

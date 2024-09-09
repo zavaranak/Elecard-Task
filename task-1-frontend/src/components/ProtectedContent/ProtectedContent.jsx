@@ -15,12 +15,13 @@ const ProtectedContent = ({ displayChat }) => {
     dispatch(listenToAuthState());
   }, []);
 
-  if (!authState)
+  if (!authState) {
     return (
       <div className={styles.protected_content__loading}>
         <Loading size='large' />
       </div>
     );
+  }
   return (
     <div className={styles.protected_content}>
       {authState === 'notPassed' && <Form />}

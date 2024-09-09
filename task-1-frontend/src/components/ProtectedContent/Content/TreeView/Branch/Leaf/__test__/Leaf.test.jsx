@@ -26,6 +26,12 @@ jest.mock('@content/Modal/Modal', () => {
   };
   return Modal;
 });
+jest.mock('@content/ButtonDownload/ButtonDownload', () => {
+  const ButtonDownload = () => {
+    return <div>ButtonDownload</div>;
+  };
+  return ButtonDownload;
+});
 
 const Wrapper = (props) => {
   return (

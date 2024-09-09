@@ -11,6 +11,8 @@ import { signUpHandler } from '@utils/firebase';
 
 jest.mock('@utils/firebase.js', () => ({
   signUpHandler: jest.fn(),
+  ERROR_EMAIL: 'erroremail',
+  ERROR: 'error',
 }));
 
 const Wrapper = () => {
@@ -110,7 +112,7 @@ describe('SignUpForm component', () => {
     ).toBeInTheDocument();
   });
   test('Fill SignUpForm and submit with error ', async () => {
-    signUpHandler.mockReturnValue('error');
+    signUpHandler.mockResolvedValue('error');
     render(<Wrapper />);
     const firstName = screen.getByRole('textbox', { name: /first name/i });
     const lastName = screen.getByRole('textbox', { name: /last name/i });
@@ -139,11 +141,12 @@ describe('SignUpForm component', () => {
     await act(async () => {
       fireEvent.click(screen.getByText(/sign up/i));
     });
+
     expect(screen.queryByText(/unable to sign up/i)).toBeInTheDocument();
   });
 
   test('Fill SignUpForm and submit existed email', async () => {
-    signUpHandler.mockReturnValue('erroremail');
+    signUpHandler.mockResolvedValue('erroremail');
     render(<Wrapper />);
     const firstName = screen.getByRole('textbox', { name: /first name/i });
     const lastName = screen.getByRole('textbox', { name: /last name/i });

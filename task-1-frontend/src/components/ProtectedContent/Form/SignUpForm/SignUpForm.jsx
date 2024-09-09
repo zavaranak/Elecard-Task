@@ -33,11 +33,14 @@ const SignUpForm = () => {
   const customHandleSubmit = async (data) => {
     setLoading(true);
     signUpHandler(data).then((error) => {
-      if (error)
-        if (error === ERROR_EMAIL)
+      console.log(error);
+      if (error) {
+        if (error === ERROR_EMAIL) {
           setSignUpMessage(languageContextTextForm.errors.signUp.errorEmail);
-        else if (error == ERROR)
+        } else if (error == ERROR) {
           setSignUpMessage(languageContextTextForm.errors.signUp.default);
+        }
+      }
       setLoading(false);
     });
   };

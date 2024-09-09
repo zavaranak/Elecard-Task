@@ -15,6 +15,7 @@ const UserProfile = () => {
   const editProfileText = useContext(LanguageContext).text.header;
   const [showMenu, setShowMenu] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
+  const userData = useSelector(selectUserData);
 
   const signOutHandlerCustom = () => {
     dispatch(resetUserData());
@@ -31,9 +32,8 @@ const UserProfile = () => {
       });
     };
   }, []);
-  const userData = useSelector(selectUserData);
 
-  if (!userData.lastName) {
+  if (!userData?.lastName) {
     return (
       <div>
         <Loading size='small' spinOnly={true} />
@@ -74,7 +74,7 @@ const UserProfile = () => {
                 <Edit></Edit>
                 {editProfileText.editButton}
               </li>
-              <li onClick={signOutHandlerCustom}>
+              <li data-testid='button-sign-out' onClick={signOutHandlerCustom}>
                 <SignOut />
                 {editProfileText.signOut}
               </li>

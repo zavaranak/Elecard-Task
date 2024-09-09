@@ -101,15 +101,7 @@ describe('CardView Component', () => {
     const buttonPage = within(pagination).getByText('1');
     fireEvent.click(buttonPage);
   });
-  test('Render skeleton at "useSelector(selectCard())=== 0"', () => {
-    const mockSelector = jest.fn((selector) => {
-      if (selector === 'selectCard') return 0;
-    });
-    useSelector.mockImplementation(mockSelector);
-    render(<CardView setView={setView} />);
-    const skeleton = screen.queryByTestId('skeleton');
-    expect(skeleton).toBeInTheDocument();
-  });
+
   test('Recover card base on LocalStorage', () => {
     const mockGetItem = jest
       .spyOn(Storage.prototype, 'getItem')

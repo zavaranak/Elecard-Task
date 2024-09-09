@@ -1,9 +1,17 @@
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import ButtonDownload from '../ButtonDownload';
+import { useDispatch } from 'react-redux';
 
 jest.mock('@components/Alert/Alert', () => {
   return jest.fn(({ status }) => status); // Mock implementation
 });
+
+jest.mock('react-redux', () => ({
+  useDispatch: jest.fn(() => jest.fn()),
+}));
+jest.mock('@store/appSlice', () => ({
+  setAlertStatus: jest.fn(),
+}));
 const url = '/api/health/covid-5905183__480.jpg';
 const name = 'covid-5905183__480';
 let mockClick;

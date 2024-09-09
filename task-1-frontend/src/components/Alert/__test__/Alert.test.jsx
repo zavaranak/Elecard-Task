@@ -46,6 +46,10 @@ describe('Alert Component', () => {
     render(<Wrapper status='updateUser' />);
     expect(screen.getByText(/updated user profile/i)).toBeInTheDocument();
   });
+  test('Render Alert at "status===newMessage"', () => {
+    render(<Wrapper status='newMessage' />);
+    expect(screen.getByText(/new message/i)).toBeInTheDocument();
+  });
   test('Render Alert at "status===notUpdateUser"', () => {
     render(<Wrapper status='notUpdateUser' />);
     expect(screen.getByText(/no change to update/i)).toBeInTheDocument();

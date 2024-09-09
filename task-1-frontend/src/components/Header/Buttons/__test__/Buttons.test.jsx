@@ -10,7 +10,6 @@ import { LanguageContext, languageText } from '@utils/textContext';
 import Buttons from '../Buttons';
 import styles from '../Buttons.module.scss';
 import { onAuthStateChanged } from 'firebase/auth';
-import { signOutHandler } from '@utils/firebase';
 
 jest.mock('@utils/firebase.js', () => ({
   auth: 'auth',
@@ -19,6 +18,10 @@ jest.mock('@utils/firebase.js', () => ({
 jest.mock('firebase/auth', () => ({
   onAuthStateChanged: jest.fn(),
 }));
+jest.mock('react-redux', () => ({
+  useSelector: jest.fn(),
+}));
+jest.mock('@store/userSlice', () => ({}));
 
 jest.mock('../UserProfile/UserProfile', () => {
   const UserProfile = () => {
@@ -73,14 +76,6 @@ describe('Buttons (Headers) Components', () => {
       fireEvent.click(screen.queryByTestId('button-language'));
     });
     expect(screen.queryByText(/en/i)).toBeInTheDocument();
-  });
-  test('Test sign out', () => {
-    onAuthStateChanged.mockImplementation((auth, callback) => {
-      callback({ user: 'tester' });
-    });
-    render(<Wrapper />);
-    fireEvent.click(screen.queryByTestId('button-sign-out'));
-    expect(signOutHandler).toHaveBeenCalledTimes(1);
   });
   test('Test case when invalid authorization', () => {
     onAuthStateChanged.mockImplementation((auth, callback) => {

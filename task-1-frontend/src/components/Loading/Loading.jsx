@@ -7,15 +7,13 @@ const Loading = ({ size, spinOnly }) => {
   const languageContextProtedtedContent = useContext(LanguageContext).text;
   const classLoading = clsx(styles.loading, styles[`loading_${size}`]);
   return (
-    <div>
-      <div className={classLoading}>
-        <div className={styles.loading_spin}></div>
-        {spinOnly || (
-          <div className={styles.loading_text}>
-            {languageContextProtedtedContent.loading}
-          </div>
-        )}
-      </div>
+    <div data-testid='loading' className={classLoading}>
+      <div className={styles.loading_spin}></div>
+      {spinOnly || (
+        <div className={styles.loading_text}>
+          {languageContextProtedtedContent.loading}
+        </div>
+      )}
     </div>
   );
 };
