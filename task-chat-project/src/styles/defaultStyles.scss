@@ -1,0 +1,95 @@
+form {
+  input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
+    background-color: var(--background-color);
+    color: var(--text-main-color);
+    &:disabled {
+      color: var();
+      background-color: var(--dark-color);
+      border: var(--text-main-color) solid 1px;
+    }
+    &[type='submit'] {
+      border: 1px solid var(--border-color) !important;
+    }
+    &[type='checkbox'] {
+      width: 30px;
+      height: 30px;
+      accent-color: var(--border-color);
+    }
+  }
+
+  input[type='submit'] {
+    &:disabled {
+      color: var(--dark2-color) !important;
+      background-color: var(--border-color);
+    }
+    &:hover {
+      text-shadow: none;
+    }
+  }
+
+  input[type='submit'],
+  input[type='button'],
+  button {
+    background-color: var(--background-color);
+    color: var(--text-main-color);
+    text-transform: uppercase;
+    border: transparent;
+    &:hover {
+      text-shadow: 1px 3px 3px;
+      background: var(--border-color);
+      color: var(--background-color);
+    }
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+  label {
+    text-align: left;
+    text-transform: uppercase;
+  }
+  p {
+    text-transform: uppercase;
+    padding-bottom: 10px !important;
+    font-weight: 500;
+    &[type='error'] {
+      color: var(--failed-color);
+      font-size: 0.8em;
+      text-align: left;
+    }
+    &[type='main-error'] {
+      color: var(--failed-color);
+      font-size: 1em;
+      text-align: center;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+
+    button {
+      margin: 0;
+      padding: 0;
+    }
+    p,
+    input,
+    label {
+      text-align: left;
+      width: 100%;
+      margin-block: unset;
+    }
+    input {
+      outline: none;
+    }
+  }
+}

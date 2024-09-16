@@ -1,0 +1,47 @@
+.form {
+  width: 60%;
+  margin: auto;
+
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5;
+  &__header {
+    display: flex;
+    button {
+      width: 50%;
+    }
+  }
+  &__button {
+    &_active {
+      background-color: var(--border-color) !important;
+      color: var(--background-color) !important;
+    }
+  }
+  button {
+    background-color: var(--background-color);
+    color: var(--text-main-color);
+    text-transform: uppercase;
+    border: transparent;
+    &:hover {
+      text-shadow: 1px 3px 3px;
+      background: var(--border-color);
+      color: var(--background-color);
+    }
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
+  }
+  @media screen and (max-width: 400px) {
+    .form {
+      &__header {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &__button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

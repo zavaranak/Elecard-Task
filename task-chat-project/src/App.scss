@@ -1,0 +1,30 @@
+@import '../node_modules/normalize.css/normalize.css';
+@import '@styles/pallete.scss';
+@import '@styles/sizing.scss';
+@import '@styles/defaultStyles.scss';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+  background-color: var(--background-color);
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  font-family: 'Rubik', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+@media screen and (max-witdh: 450px) {
+  body {
+    width: 450px;
+    overflow: hidden;
+  }
+}

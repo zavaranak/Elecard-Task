@@ -1,0 +1,35 @@
+@import '@styles/animation.scss';
+@import '@styles/text.scss';
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20%;
+
+  button {
+    padding-top: 10px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--text-main-color);
+    &:hover {
+      svg {
+        filter: drop-shadow(1px 1px 2px);
+      }
+    }
+  }
+  &__lang_button {
+    margin-top: 5px;
+    &:hover {
+      cursor: pointer;
+      // text-shadow: 0.1px 1px;
+      color: var(--border-color);
+    }
+  }
+  &__item {
+    &_clicked {
+      animation: rotate 0.5s normal linear;
+    }
+  }
+}

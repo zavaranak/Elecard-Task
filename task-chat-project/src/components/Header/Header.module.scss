@@ -1,0 +1,29 @@
+@import '@styles/text.scss';
+.header {
+  @include uppercase;
+  font-weight: 900;
+  background-color: var(--background-color);
+  color: var(--text-main-color);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: var(--header-height);
+  display: flex;
+  position: fixed;
+  justify-content: space-around;
+  align-items: center;
+  &__title {
+    width: 40%;
+  }
+  &__button {
+    width: 20%;
+  }
+  @media screen and (max-width: 670px) {
+    flex-direction: column;
+    &__title,
+    &__button {
+      width: auto;
+    }
+  }
+}

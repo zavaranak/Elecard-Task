@@ -1,0 +1,50 @@
+.message {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding-inline: 20px;
+  padding-block: 3px;
+  &__content {
+    position: relative;
+    width: max-content;
+    max-width: 70%;
+    p {
+      font-size: 1.1em;
+      // width: max-content;
+      padding: 10px;
+      border-radius: 10px;
+      word-break: break-all;
+    }
+    &_date {
+      display: flex;
+      svg {
+        color: var(--text-main-color);
+        width: 15px;
+      }
+      p {
+        width: max-content;
+        margin-top: 1px;
+        font-size: 0.8em;
+        padding: 3px;
+        border-radius: 5px;
+        background-color: transparent !important;
+        color: var(--text-main-color);
+      }
+    }
+  }
+  &_send {
+    display: flex;
+    align-items: flex-end;
+    p {
+      background-color: var(--border-color);
+    }
+  }
+  &_receive {
+    display: flex;
+    align-items: flex-start;
+    p {
+      background-color: var(--content-color);
+      color: var(--text-main-color);
+    }
+  }
+}

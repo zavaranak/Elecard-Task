@@ -1,0 +1,36 @@
+.sign_up_form {
+  &__patronym {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    label {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
+    gap: 15px;
+    @media screen and (max-width: 450px) {
+      flex-direction: column;
+      label {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+  }
+  &__password {
+    position: relative;
+  }
+  &__visibility_icon {
+    position: absolute;
+    right: 10px;
+    top: 25%;
+    transform: 'translateY(-50%)';
+    cursor: pointer;
+    width: max-content;
+    height: 100%;
+  }
+}

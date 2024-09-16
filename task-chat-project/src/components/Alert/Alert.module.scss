@@ -1,0 +1,30 @@
+@import '@styles/animation.scss';
+@import '@styles/text.scss';
+.alert {
+  @include uppercase;
+  font-weight: 300 !important;
+  position: fixed;
+  background-color: var(--background-color);
+  padding: 10px;
+  border-radius: 0 50px 50px 0;
+  z-index: 200;
+  font-size: 0.8em;
+  font-weight: 400 !important;
+  border: 1px solid;
+  color: var(--border-color);
+  opacity: 0;
+  &__message {
+    &_good {
+      color: var(--success-color);
+    }
+    &_bad {
+      color: var(--failed-color);
+    }
+  }
+  &__new_message {
+    color: var(--message-color);
+  }
+  &_slide_in {
+    animation: slide_in 2s ease-in;
+  }
+}
