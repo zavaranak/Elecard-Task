@@ -5,6 +5,7 @@ import { selectUserData } from '@store/userSlice';
 import { LanguageContext } from '@utils/textContext';
 import { getLastMessage, NOT_FOUND } from '@utils/firebase';
 import { getSocket } from '@utils/websocketService';
+
 const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
   const [lastMessage, setLastMessage] = useState('');
 
@@ -21,7 +22,7 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
     const date = dateString.toLocaleDateString();
     return `${hour}:${minute} - ${date}`;
   };
-
+  const clickHandler = handleChatBoxBehavior.bind(null, true, labelData);
   useEffect(() => {
     newChat || fetchLastMessage();
   }, []);
@@ -57,12 +58,6 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
     };
   }, [labelData]);
   if (newChat) {
-    const clickHandler = handleChatBoxBehavior.bind(
-      null,
-      true,
-      labelData,
-      true
-    );
     if (labelData === NOT_FOUND)
       return (
         <div className={styles.chat_person_label_new}>
@@ -84,15 +79,16 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
       </div>
     );
   }
-  const clickHandler = handleChatBoxBehavior.bind(null, true, labelData);
   return (
     <div onClick={clickHandler}>
       <div key={labelData.email} className={styles.chat_person_label}>
-        <div className={styles.chat_person_label__text_name}>
-          {labelData.firstName} {labelData.patronym} {labelData.lastName}
-        </div>
-        <div className={styles.chat_person_label__text_email}>
-          {labelData.email}
+        <div className={styles.chat_person_label__info}>
+          <div className={styles.chat_person_label__text_name}>
+            {labelData.firstName} {labelData.patronym} {labelData.lastName}
+          </div>
+          <div className={styles.chat_person_label__text_email}>
+            {labelData.email}
+          </div>
         </div>
         <div className={styles.chat_person_label__text_last_message}>
           <div className={styles.chat_person_label__text_last_message_content}>

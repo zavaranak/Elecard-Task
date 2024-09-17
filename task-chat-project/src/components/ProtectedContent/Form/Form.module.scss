@@ -1,11 +1,16 @@
 .form {
+  background-color: var(--content-color);
   width: 60%;
+  padding: 30px;
   margin: auto;
-
   max-width: 700px;
   display: flex;
   flex-direction: column;
   transition: all 0.5;
+  margin-top: 100px;
+  padding-top: 50px;
+  border-radius: 15px;
+  overflow: hidden;
   &__header {
     display: flex;
     button {
@@ -23,14 +28,14 @@
     color: var(--text-main-color);
     text-transform: uppercase;
     border: transparent;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
     &:hover {
       text-shadow: 1px 3px 3px;
       background: var(--border-color);
       color: var(--background-color);
     }
-    width: 80%;
-    margin: auto;
-    margin-bottom: 30px;
   }
   @media screen and (max-width: 400px) {
     .form {

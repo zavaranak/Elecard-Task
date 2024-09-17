@@ -29,7 +29,9 @@ const NOT_READY = 'notReady';
 const READY = 'ready';
 const STARTING = 'starting';
 const EDIT_MESSAGE = 'edit';
-const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
+const SEND = 'send';
+const RECEIVE = 'receive';
+const ChatBox = ({ targetUserData, closeChatBox }) => {
   const LanguageContextChatText = useContext(LanguageContext).text.chat;
   const dispatch = useDispatch();
   const user = useSelector(selectUserData).email;
@@ -158,6 +160,9 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
     }
   };
   useEffect(() => {
+    setFirstTime(true);
+    setTargetUser(targetUserData);
+    setMessages(null);
     const socket = getSocket();
     const handleNewComingMessage = (event) => {
       const handleParsedMessages = (message) => {
@@ -187,7 +192,7 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
         if (message.type === READ_ALL && message.sender === targetUser.email) {
           setMessages((prev) => {
             return prev.map((mes) => {
-              mes.status !== 'read' && (mes.status = 'read');
+              mes.status !== READ_MES && (mes.status = 'read');
               return mes;
             });
           });
@@ -203,24 +208,24 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
       socket.addEventListener('message', handleNewComingMessage);
     }
     const fetchMessages = async () => {
-      const messageFetched = await fetchChatBox(targetUser.chatBoxId);
+      const messageFetched = await fetchChatBox(targetUserData.chatBoxId);
       setMessages(messageFetched);
       setChatStatus(READY);
-
       setTimeout(() => {
         setFirstTime(false);
-      }, 100);
+      }, 1);
     };
 
     (!!targetUser.chatBoxId && fetchMessages()) || setMessages([]);
     !!targetUser.chatBoxId &&
       markAllMessagesAsRead(targetUser.chatBoxId, targetUser.email);
+
     return () => {
       if (socket) {
         socket.removeEventListener('message', handleNewComingMessage);
       }
     };
-  }, []);
+  }, [targetUserData]);
   useEffect(() => {
     const scrollToBottom = () => {
       if (messagesRef.current) {
@@ -245,7 +250,7 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
   return (
     <div className={styles.chat_box}>
       <div className={styles.chat_box__taskbar}>
-        <ArrowBack onClick={handleDisplayChatBox} />
+        <ArrowBack onClick={closeChatBox} />
         <div className={styles.chat_box__name}>
           <p>
             {targetUser.firstName +
@@ -286,7 +291,7 @@ const ChatBox = ({ targetUserData, handleDisplayChatBox }) => {
                     setMessages={setMessages}
                     chatBoxId={targetUser.chatBoxId}
                     message={message}
-                    type={message.sender === user ? 'send' : 'receive'}
+                    type={message.sender === user ? SEND : RECEIVE}
                   />
                 </div>
               );

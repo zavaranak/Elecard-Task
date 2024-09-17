@@ -99,18 +99,62 @@ export const updateUserData = async (data, patronymChange) => {
   await updateDoc(doc(userRef, email), { metadata: data });
 };
 
-export const searchPeople = async (email) => {
-  try {
-    return getDoc(doc(userRef, email.toString()))
-      .then((data) => {
-        if (!data) return NOT_FOUND;
-        const metadata = data.data().metadata;
-        if (metadata.email === auth.currentUser.email) return NOT_FOUND;
-        else return metadata;
-      })
-      .catch(() => {
-        return NOT_FOUND;
+export const searchPeople = async (queryString) => {
+  // const searchByEmail = async (email) => {
+  //   return getDoc(doc(userRef, email.toString()))
+  //     .then((data) => {
+  //       if (!data) return false;
+  //       const metadata = data.data().metadata;
+  //       if (metadata.email === auth.currentUser.email) return NOT_FOUND;
+  //       else return metadata;
+  //     })
+  //     .catch(() => {
+  //       return false;
+  //     });
+  // };
+  const searchByEmail = async (email) => {
+    const q = query(userRef);
+
+    try {
+      const querySnapshot = await getDocs(q);
+      const matchingUsers = [];
+
+      querySnapshot.forEach((doc) => {
+        const userData = doc.data();
+        if (
+          userData.metadata.email &&
+          userData.metadata.email.toLowerCase().includes(email.toLowerCase())
+        ) {
+          // Exclude the current user
+          if (userData.metadata.email !== auth.currentUser.email) {
+            matchingUsers.push(userData.metadata);
+          }
+        }
       });
+
+      if (matchingUsers.length === 0) {
+        return NOT_FOUND;
+      }
+      return matchingUsers;
+    } catch (error) {
+      console.error('Error searching for users by email:', error);
+      return false;
+    }
+  };
+
+  try {
+    const resultByEmail = await searchByEmail(queryString);
+    return resultByEmail;
+    // return getDoc(doc(userRef, email.toString()))
+    //   .then((data) => {
+    //     if (!data) return NOT_FOUND;
+    //     const metadata = data.data().metadata;
+    //     if (metadata.email === auth.currentUser.email) return NOT_FOUND;
+    //     else return metadata;
+    //   })
+    //   .catch(() => {
+    //     return NOT_FOUND;
+    //   });
   } catch (err) {
     console.log('Error when searching for people:', err);
   }

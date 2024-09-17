@@ -1,34 +1,42 @@
 @import '@styles/text.scss';
 @import '@styles/animation.scss';
 .chat_person_label {
+  box-sizing: border-box;
   font-size: 1.2em;
   cursor: pointer;
-  width: 92%;
-  background-color: var(--content-color);
+  width: 100%;
+  background-color: var(--background-color);
   padding: 5px 0 0 10px;
-  height: 50px;
+  height: 70px;
   margin: auto;
-  display: flexbox;
-  border-radius: 15px;
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  // grid-template-columns: 3fr 1fr;
+  &:hover {
+    background-color: var(--hover-color);
+  }
   &_new {
+    box-sizing: border-box;
     font-size: 1em;
     cursor: pointer;
-    width: 92%;
+    width: 100%;
     margin-inline: auto;
     background-color: var(--border-color);
-    height: 30px;
     padding: 5px;
-    margin-bottom: 10px;
-    border-radius: 15px;
     text-align: center;
     padding-block: 10px;
     animation: chat_box 0.5s forwards;
+    &:hover {
+      background-color: var(--message-color);
+    }
+  }
+  &__info {
+    display: flex;
   }
   &__text {
     &_name {
       display: inline-block;
-      max-width: 70%;
+      max-width: 80%;
       overflow: hidden;
       font-weight: 400;
       text-overflow: ellipsis;

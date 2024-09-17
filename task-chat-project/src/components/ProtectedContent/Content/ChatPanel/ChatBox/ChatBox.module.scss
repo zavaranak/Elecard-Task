@@ -2,16 +2,18 @@
   display: flex;
   font-weight: 400;
   width: 100%;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
   &__wrapper {
     background-color: var(--background-color) !important;
     border-top: 1px solid var(--border-color);
-    position: absolute;
-    bottom: 55px;
-    top: 100px;
     width: 100%;
+    height: 80%;
     overflow-y: auto;
     scroll-behavior: smooth;
     overflow-anchor: none;
+    padding-bottom: 30px;
     &_loading {
       position: absolute;
       top: 50%;
@@ -26,17 +28,18 @@
   &__taskbar {
     font-size: 1.3em;
     display: flex;
-    position: absolute;
     top: 58.25px;
     width: 100%;
-    background-color: var(--background-color);
+    height: 8%;
+    align-items: center;
+    background-color: var(--content-color);
     gap: 10px;
-    padding-block: 10px;
-    padding-left: 15px;
+    padding: 20px;
+    box-sizing: border-box;
   }
   &__name {
     max-width: 200px;
-    font-weight: 600;
+    font-weight: 400;
     white-space: nowrap;
   }
   &__suggest {
@@ -53,26 +56,29 @@
     font-weight: 800;
   }
   &__text_box {
-    margin-bottom: 5px;
+    background-color: var(--background-color);
+    z-index: 100;
+    position: relative;
     width: 100%;
-    position: absolute;
-    bottom: 0px;
+    height: 9%;
     display: flex;
+    border-radius: 0px 0px 15px 0px;
+    overflow: hidden;
     button {
-      width: 50px;
-      margin-right: 5px;
+      width: 60px;
+      position: absolute;
+      right: 5px;
+      top: 15px;
       display: flex;
       justify-content: center;
       align-items: center;
-      border: 2px solid var(--border-color);
+      border: 1px solid transparent;
       background-color: var(--background-color);
-      border-radius: 10px;
       color: var(--border-color);
       cursor: pointer;
       &:hover {
-        background-color: var(--border-color);
         svg {
-          color: white;
+          color: var(--text-main-color);
         }
       }
     }
@@ -91,19 +97,18 @@
         color: var(--message-color);
       }
     }
-
     input {
       color: var(--text-main-color);
       background-color: var(--background-color);
-      margin-inline: 10px;
-      border: 2px solid var(--border-color);
-      border-radius: 15px;
+      border: 1px solid;
+      border-color: var(--border-color) transparent transparent transparent;
+      font-size: 1.1em;
+      padding: 10px 50px 10px 10px;
+      flex-grow: 1;
+      position: relative;
       &:focus {
         outline: none;
       }
-      font-size: 1.1em;
-      padding: 10px;
-      flex-grow: 1;
     }
   }
 }

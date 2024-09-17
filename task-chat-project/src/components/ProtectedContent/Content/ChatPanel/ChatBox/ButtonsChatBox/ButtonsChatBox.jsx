@@ -80,10 +80,9 @@ const ButtonsChatBox = ({ chatBoxId }) => {
   }, [currentMes]);
   return (
     <div className={styles.buttons_chat_box}>
-      <Search
-        className={styles.buttons_chat_box__more_vert}
-        onClick={handleOpenSearchBox}
-      />
+      <div className={styles.buttons_chat_box__search}>
+        <Search onClick={handleOpenSearchBox} />
+      </div>
       <input
         ref={searchRef}
         className={searchBoxStyles}

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ChatPanel.module.scss';
 import clsx from 'clsx';
-import { useState, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext, useRef, Suspense } from 'react';
 import { Search } from '@mui/icons-material';
 import { searchPeople } from '@utils/firebase';
 import {
@@ -31,15 +31,21 @@ const ChatPanel = () => {
   const searchAsync = async (data) => {
     if (data !== '') {
       const result = await searchPeople(data);
-      if (result.email && Array.isArray(chatIdArray)) {
-        chatIdArray.map((item) => {
-          if (Object.keys(item)[0] === result.email) {
-            result.chatBoxId = Object.values(item)[0];
-          }
-        });
-      }
       setIsSearching(false);
-      setSearchResult(result);
+      const chatIdLibrary = {};
+      chatIdArray.forEach((item) => {
+        Object.assign(chatIdLibrary, item);
+      });
+
+      const parsedResult = result.map((item) => {
+        if (chatIdLibrary[item.email]) {
+          const newItem = { ...item };
+          newItem.chatBoxId = chatIdLibrary[item.email];
+          return newItem;
+        }
+        return item;
+      });
+      setSearchResult(parsedResult);
     }
   };
   const searchHandler = () => {
@@ -49,20 +55,13 @@ const ChatPanel = () => {
       searchAsync(searchRef.current.value);
     }
   };
-  const closeNewChat = () => {
-    setSearchResult(null);
-    searchRef.current.value = '';
-  };
 
-  const handleChatBoxBehavior = (display, data, closeChat) => {
+  const handleChatBoxBehavior = (display, data) => {
     if (display) {
-      setDisplayChatBox((prev) => !prev);
+      setDisplayChatBox(true);
     }
     if (typeof data === 'object') {
       setChatBoxData(data);
-    }
-    if (closeChat) {
-      closeNewChat();
     }
   };
 
@@ -125,12 +124,27 @@ const ChatPanel = () => {
 
       <div className={styles.chat_panel__wrapper}>
         <div className={styles.chat_panel__list}>
-          {searchResult && (
-            <ChatPersonLabel
-              labelData={searchResult}
-              newChat={true}
-              handleChatBoxBehavior={handleChatBoxBehavior}
-            />
+          {Array.isArray(searchResult) &&
+            searchResult.map((item) => (
+              <ChatPersonLabel
+                key={`search${item.email}`}
+                labelData={item}
+                newChat={true}
+                handleChatBoxBehavior={handleChatBoxBehavior}
+              />
+            ))}
+          {/* {Array.isArray(chatList) &&
+            chatList.map((item) => (
+              <ChatPersonLabel
+                key={item.email}
+                labelData={item}
+                handleChatBoxBehavior={handleChatBoxBehavior}
+              />
+            ))} */}
+          {chatList.length === 0 && (
+            <div className={styles.chat_panel__list_loading}>
+              <Loading spinOnly={true} size='medium' />
+            </div>
           )}
           {chatList.map((item) => (
             <ChatPersonLabel
@@ -140,12 +154,16 @@ const ChatPanel = () => {
             />
           ))}
         </div>
-        {displayChatBox && (
-          <ChatBox
-            targetUserData={chatBoxData}
-            handleDisplayChatBox={handleChatBoxBehavior}
-          />
-        )}
+        <div className={styles.chat_panel__box}>
+          {(displayChatBox && (
+            <ChatBox
+              targetUserData={chatBoxData}
+              closeChatBox={() => {
+                setDisplayChatBox(false);
+              }}
+            />
+          )) || <div> </div>}
+        </div>
       </div>
     </div>
   );

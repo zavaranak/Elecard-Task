@@ -31,9 +31,9 @@ const Buttons = () => {
   return (
     <div className={styles.buttons} data-testid='buttons-header'>
       {authState === 'passed' && (
-        <>
+        <div className={styles.buttons__item}>
           <UserProfile />
-        </>
+        </div>
       )}
       <button
         data-testid='button-darkmode'

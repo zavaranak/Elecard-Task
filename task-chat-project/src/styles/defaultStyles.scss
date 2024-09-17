@@ -40,6 +40,9 @@ form {
   button {
     background-color: var(--background-color);
     color: var(--text-main-color);
+    width: 80%;
+    margin: auto;
+    margin-bottom: 30px;
     text-transform: uppercase;
     border: transparent;
     &:hover {
@@ -47,9 +50,6 @@ form {
       background: var(--border-color);
       color: var(--background-color);
     }
-    width: 80%;
-    margin: auto;
-    margin-bottom: 30px;
   }
   label {
     text-align: left;

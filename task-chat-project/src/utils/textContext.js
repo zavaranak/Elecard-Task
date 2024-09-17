@@ -8,13 +8,11 @@ export const languageText = {
     loading: 'Загрузается',
     notFound: 'Не найдено',
     header: {
-      text: 'задание для стажировки летом 2024 - elecard',
+      text: 'Мессенджер',
       editButton: 'Изменить данные',
       signOut: 'Выйти',
     },
-    footer: {
-      text: '© 2024 фронтенд на react - данг',
-    },
+
     taskbar: {
       selector: {
         sort: {
@@ -123,11 +121,11 @@ export const languageText = {
     loading: 'Loading',
     notFound: 'Not found',
     header: {
-      text: 'intern task summer 2024 - elecard',
+      text: 'Messenger',
       editButton: 'Edit profile',
       signOut: 'Sign out',
     },
-    footer: { text: '© 2024 frontend by react - dang' },
+
     taskbar: {
       selector: {
         sort: {

@@ -1,6 +1,6 @@
 @mixin light-theme {
   --main-color: #004dbb;
-  --content-color: #edf2fa;
+  --content-color: #efefef;
   --success-color: #38c73c;
   --failed-color: #ff0000;
   --border-color: #00b0b0;
@@ -9,7 +9,8 @@
   --text-main-color: #004dbb;
   --background-color: #fff;
   --disabled-color: #07060090;
-  --message-color: rgb(255, 115, 0);
+  --message-color: rgba(221, 63, 31, 0.622);
+  --hover-color: #83d0d08b;
 }
 @mixin dark-theme {
   --main-color: #000;
@@ -23,6 +24,7 @@
   --background-color: #000;
   --disabled-color: #f5f5f5a7;
   --message-color: rgb(255, 115, 0);
+  --hover-color: #83d0d08b;
 }
 :root {
   @include light-theme;
