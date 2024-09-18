@@ -1,11 +1,12 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { LanguageContext } from '@utils/textContext';
 import styles from './SignUpForm.module.scss';
 import { signUpHandler, ERROR_EMAIL, ERROR } from '@utils/firebase.js';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const { register, handleSubmit, watch, formState, reset } = useForm();
   const [loading, setLoading] = useState(false);
   const { errors } = formState;
@@ -13,14 +14,13 @@ const SignUpForm = () => {
   const [displayPassword, setDisplayPassword] = useState(false);
   const [displayPassword2, setDisplayPassword2] = useState(false);
   const [signUpMessage, setSignUpMessage] = useState('');
-  const languageContextTextForm = useContext(LanguageContext).text.form;
   const checkPassword = (confirmedPassword) => {
     if (watch('password') !== confirmedPassword)
-      return languageContextTextForm.passwordConfirm.validationMatch;
+      return t('form.passwordConfirm.validationMatch');
   };
   useEffect(() => {
     reset();
-  }, [languageContextTextForm, reset]);
+  }, [t('value'), reset]);
 
   const handleVisibilityPassword = (e) => {
     e.stopPropagation();
@@ -50,36 +50,36 @@ const SignUpForm = () => {
       onSubmit={handleSubmit(customHandleSubmit)}
     >
       <label>
-        <p>{languageContextTextForm.firstName.text}</p>
+        <p>{t('form.firstName.text')}</p>
         <input
           {...register('firstName', {
             required: {
               value: true,
-              message: languageContextTextForm.firstName.validationRequire,
+              message: t('form.firstName.validationRequire'),
             },
             pattern: {
               value: /[A-Za-zЁёА-я]+$/g,
-              message: languageContextTextForm.firstName.validationPattern,
+              message: t('form.firstName.validationPattern'),
             },
           })}
-          placeholder={languageContextTextForm.firstName.text}
+          placeholder={t('form.firstName.text')}
         />
         <p type='error'>{errors?.firstName?.message}</p>
       </label>
       <label>
-        <p>{languageContextTextForm.lastName.text}</p>
+        <p>{t('form.lastName.text')}</p>
         <input
           {...register('lastName', {
             required: {
               value: true,
-              message: languageContextTextForm.lastName.validationRequire,
+              message: t('form.lastName.validationRequire'),
             },
             pattern: {
               value: /[A-Za-zЁёА-я]+$/g,
-              message: languageContextTextForm.lastName.validationPattern,
+              message: t('form.lastName.validationPattern'),
             },
           })}
-          placeholder={languageContextTextForm.lastName.text}
+          placeholder={t('form.lastName.text')}
         />
         <p type='error'>{errors?.lastName?.message}</p>
       </label>
@@ -90,58 +90,58 @@ const SignUpForm = () => {
           checked={patronymToggle}
         />
         <label>
-          <p>{languageContextTextForm.patronym.text}</p>
+          <p>{t('form.patronym.text')}</p>
           <input
             {...register('patronym', {
               disabled: !patronymToggle,
               required: {
                 value: patronymToggle,
-                message: languageContextTextForm.patronym.validationRequire,
+                message: t('form.patronym.validationRequire'),
               },
               pattern: {
                 value: /[A-Za-zЁёА-я]+$/g,
-                message: languageContextTextForm.patronym.validationPattern,
+                message: t('form.patronym.validationPattern'),
               },
             })}
-            placeholder={languageContextTextForm.patronym.text}
+            placeholder={t('form.patronym.text')}
           />
           <p type='error'>{!!patronymToggle && errors?.patronym?.message}</p>
         </label>
       </div>
       <label>
-        <p>{languageContextTextForm.email.text}</p>
+        <p>{t('form.email.text')}</p>
         <input
           {...register('email', {
             required: {
               value: true,
-              message: languageContextTextForm.email.validationRequire,
+              message: t('form.email.validationRequire'),
             },
             pattern: {
               value: /\S+@\S+\.\S+/,
-              message: languageContextTextForm.email.validationPattern,
+              message: t('form.email.validationPattern'),
             },
           })}
-          placeholder={languageContextTextForm.email.text}
+          placeholder={t('form.email.text')}
         />
         <p type='error'>{errors?.email?.message}</p>
       </label>
       <label>
-        <p>{languageContextTextForm.password.text}</p>
+        <p>{t('form.password.text')}</p>
         <div className={styles.sign_up_form__password}>
           <input
             data-testid='sign-up-input-password'
             {...register('password', {
               required: {
                 value: true,
-                message: languageContextTextForm.password.validationRequire,
+                message: t('form.password.validationRequire'),
               },
               minLength: {
                 value: 6,
-                message: languageContextTextForm.password.validationLength,
+                message: t('form.password.validationLength'),
               },
             })}
             type={displayPassword ? 'text' : 'password'}
-            placeholder={languageContextTextForm.password.text}
+            placeholder={t('form.password.text')}
           />{' '}
           <div
             className={styles.sign_up_form__visibility_icon}
@@ -154,20 +154,19 @@ const SignUpForm = () => {
         <p type='error'>{errors?.password?.message}</p>
       </label>
       <label>
-        <p>{languageContextTextForm.passwordConfirm.text}</p>
+        <p>{t('form.passwordConfirm.text')}</p>
         <div className={styles.sign_up_form__password}>
           <input
             data-testid='sign-up-input-password-confirm'
             {...register('passwordConfirm', {
               required: {
                 value: true,
-                message:
-                  languageContextTextForm.passwordConfirm.validationRequire,
+                message: t('form.passwordConfirm.validationRequire'),
               },
               validate: checkPassword,
             })}
             type={displayPassword2 ? 'text' : 'password'}
-            placeholder={languageContextTextForm.passwordConfirm.text}
+            placeholder={t('form.passwordConfirm.text')}
           />
           <div
             className={styles.sign_up_form__visibility_icon}
@@ -182,7 +181,7 @@ const SignUpForm = () => {
       <input
         disabled={loading}
         type='submit'
-        value={languageContextTextForm.buttons.signUp}
+        value={t('form.buttons.signUp')}
       />
     </form>
   );

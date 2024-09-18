@@ -38,13 +38,13 @@
         padding: 5px;
         border-radius: 3px;
         outline: 1px solid var(--text-main-color);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         &:hover {
           color: white;
           background-color: var(--dark2-color);
         }
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
       }
     }
   }

@@ -5,7 +5,6 @@ import styles from './ProtectedContent.module.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectUserAuthState } from '@store/userSlice';
 import { listenToAuthState } from '@store/userSlice';
-
 import Loading from '@components/Loading/Loading';
 
 const ProtectedContent = () => {

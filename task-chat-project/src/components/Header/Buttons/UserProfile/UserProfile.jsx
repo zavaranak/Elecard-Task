@@ -1,18 +1,18 @@
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { signOutHandler } from '@utils/firebase';
 import ProfileEditForm from './ProfileEditForm/ProfileEditForm';
 import User from '@icons/User.svg';
 import SignOut from '@icons/SignOut.svg';
 import styles from './UserProfile.module.scss';
-import { LanguageContext } from '@utils/textContext';
 import { Edit } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUserData, resetUserData } from '@store/userSlice';
 import Loading from '@components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const editProfileText = useContext(LanguageContext).text.header;
+  const { t } = useTranslation();
   const [showMenu, setShowMenu] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const userData = useSelector(selectUserData);
@@ -72,11 +72,11 @@ const UserProfile = () => {
                 }}
               >
                 <Edit></Edit>
-                {editProfileText.editButton}
+                {t('header.editButton')}
               </li>
               <li data-testid='button-sign-out' onClick={signOutHandlerCustom}>
                 <SignOut />
-                {editProfileText.signOut}
+                {t('header.signOut')}
               </li>
             </ul>
           </div>

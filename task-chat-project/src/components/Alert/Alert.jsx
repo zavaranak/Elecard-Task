@@ -1,39 +1,38 @@
-import { useContext } from 'react';
 import styles from './Alert.module.scss';
 import clsx from 'clsx';
-import { LanguageContext } from '@utils/textContext';
+import { useTranslation } from 'react-i18next';
 const Alert = ({ status }) => {
-  const languageContextTextAlert = useContext(LanguageContext).text.alert;
+  const { t } = useTranslation();
   let message = '';
   let successfulStatus = ['good', 'download', 'updateUser'];
   let failedStatus = ['bad', 'errorDownload'];
   switch (status) {
     case 'good': {
-      message = languageContextTextAlert.success.load;
+      message = t('alert.success.load');
       break;
     }
     case 'bad': {
-      message = languageContextTextAlert.failure.load;
+      message = t('alert.failure.load');
       break;
     }
     case 'loading': {
-      message = languageContextTextAlert.loading;
+      message = t('alert.loading');
       break;
     }
     case 'updateUser': {
-      message = languageContextTextAlert.success.updateProfile;
+      message = t('alert.success.updateProfile');
       break;
     }
     case 'notUpdateUser': {
-      message = languageContextTextAlert.failure.updateProfile;
+      message = t('alert.failure.updateProfile');
       break;
     }
     case 'newMessage': {
-      message = languageContextTextAlert.message.new;
+      message = t('alert.message.new');
       break;
     }
     default: {
-      message = languageContextTextAlert.loading;
+      message = t('alert.loading');
       break;
     }
   }

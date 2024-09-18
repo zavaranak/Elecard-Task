@@ -5,6 +5,12 @@
   flex-direction: column;
   position: relative;
   height: 100%;
+  @media screen and (max-width: 680px) {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+  }
   &__wrapper {
     background-color: var(--background-color) !important;
     border-top: 1px solid var(--border-color);

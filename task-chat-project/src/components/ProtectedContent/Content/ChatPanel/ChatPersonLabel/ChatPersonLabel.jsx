@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './ChatPersonLabel.module.scss';
 import { useSelector } from 'react-redux';
 import { selectUserData } from '@store/userSlice';
-import { LanguageContext } from '@utils/textContext';
 import { getLastMessage, NOT_FOUND } from '@utils/firebase';
 import { getSocket } from '@utils/websocketService';
+import { useTranslation } from 'react-i18next';
 
 const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
+  const currentDate = new Date().toDateString();
+  const { t } = useTranslation();
   const [lastMessage, setLastMessage] = useState('');
-
   const user = useSelector(selectUserData).email;
-  const languageContextTextChat = useContext(LanguageContext).text.chat;
   const fetchLastMessage = async () => {
     const fetchedLastMessage = await getLastMessage(labelData.chatBoxId);
     setLastMessage(fetchedLastMessage);
@@ -20,9 +20,12 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
     const hour = dateString.getHours().toString().padStart(2, '0');
     const minute = dateString.getMinutes().toString().padStart(2, '0');
     const date = dateString.toLocaleDateString();
-    return `${hour}:${minute} - ${date}`;
+    if (currentDate === dateString.toDateString()) {
+      return `${hour}:${minute}`;
+    }
+    return `${date}`;
   };
-  const clickHandler = handleChatBoxBehavior.bind(null, true, labelData);
+  const clickHandler = handleChatBoxBehavior.bind(null, labelData);
   useEffect(() => {
     newChat || fetchLastMessage();
   }, []);
@@ -62,7 +65,7 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
       return (
         <div className={styles.chat_person_label_new}>
           <div className={styles.chat_person_label__text_name_new}>
-            {languageContextTextChat.notFound}
+            {t('chat.notFound')}
           </div>
         </div>
       );
@@ -86,17 +89,17 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
           <div className={styles.chat_person_label__text_name}>
             {labelData.firstName} {labelData.patronym} {labelData.lastName}
           </div>
-          <div className={styles.chat_person_label__text_email}>
-            {labelData.email}
+          <div className={styles.chat_person_label__text_date}>
+            {timestampParserToDate(lastMessage.timestamp)}
           </div>
         </div>
-        <div className={styles.chat_person_label__text_last_message}>
-          <div className={styles.chat_person_label__text_last_message_content}>
-            {lastMessage.sender === user && languageContextTextChat.pronoun}{' '}
+        <div className={styles.chat_person_label__text_email}>
+          {labelData.email}
+        </div>
+        <div className={styles.chat_person_label__last_message}>
+          <div className={styles.chat_person_label__last_message_content}>
+            {lastMessage.sender === user && t('chat.pronoun')}{' '}
             {lastMessage.content}
-          </div>
-          <div className={styles.chat_person_label__text_last_message_date}>
-            {timestampParserToDate(lastMessage.timestamp)}
           </div>
         </div>
       </div>

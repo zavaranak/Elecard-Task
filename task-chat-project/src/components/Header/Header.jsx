@@ -1,15 +1,14 @@
 import styles from './Header.module.scss';
 import Buttons from './Buttons/Buttons';
-import { useContext } from 'react';
-import { LanguageContext } from '@utils/textContext';
+import { useTranslation } from 'react-i18next';
 
 const Header = ({ toggleChat }) => {
-  const languageContextTextHeader = useContext(LanguageContext).text.header;
+  const { t } = useTranslation();
   return (
     <div data-testid='header' className={styles.header}>
       <div className={styles.header__title}>
         <p>
-          <b>{languageContextTextHeader.text}</b>
+          <b>{t('header.text')}</b>
         </p>
       </div>
       <div className={styles.header__button}>

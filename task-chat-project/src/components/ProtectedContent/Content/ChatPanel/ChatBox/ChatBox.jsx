@@ -1,6 +1,6 @@
 import styles from './ChatBox.module.scss';
 import { ArrowBack, Send } from '@mui/icons-material';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   fetchChatBox,
   handleMessage,
@@ -23,7 +23,7 @@ import ButtonsChatBox from './ButtonsChatBox/ButtonsChatBox';
 import Loading from '@components/Loading/Loading';
 import Message from './Message/Message';
 import clsx from 'clsx';
-import { LanguageContext } from '@utils/textContext';
+import { useTranslation } from 'react-i18next';
 
 const NOT_READY = 'notReady';
 const READY = 'ready';
@@ -32,7 +32,7 @@ const EDIT_MESSAGE = 'edit';
 const SEND = 'send';
 const RECEIVE = 'receive';
 const ChatBox = ({ targetUserData, closeChatBox }) => {
-  const LanguageContextChatText = useContext(LanguageContext).text.chat;
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useSelector(selectUserData).email;
   const [messages, setMessages] = useState();
@@ -163,6 +163,8 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
     setFirstTime(true);
     setTargetUser(targetUserData);
     setMessages(null);
+    setChatStatus(NOT_READY);
+    setQueue([]);
     const socket = getSocket();
     const handleNewComingMessage = (event) => {
       const handleParsedMessages = (message) => {
@@ -216,9 +218,12 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
       }, 1);
     };
 
-    (!!targetUser.chatBoxId && fetchMessages()) || setMessages([]);
-    !!targetUser.chatBoxId &&
-      markAllMessagesAsRead(targetUser.chatBoxId, targetUser.email);
+    if (!!targetUserData.chatBoxId) {
+      fetchMessages();
+      markAllMessagesAsRead(targetUserData.chatBoxId, targetUserData.email);
+    } else {
+      setMessages([]);
+    }
 
     return () => {
       if (socket) {
@@ -265,9 +270,7 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
       <div ref={messagesRef} className={styles.chat_box__wrapper}>
         <div id='messages_box' className={styles.chat_box__content}>
           {chatStatus === NOT_READY && Array.isArray(messages) && (
-            <div className={styles.chat_box__suggest}>
-              {LanguageContextChatText.suggest}
-            </div>
+            <div className={styles.chat_box__suggest}>{t('chat.suggest')}</div>
           )}
           {(Array.isArray(messages) &&
             messages.map((message, index) => {

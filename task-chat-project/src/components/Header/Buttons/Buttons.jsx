@@ -1,15 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useCallback, useEffect } from 'react';
 import Sun from '@icons/Sun.svg';
 import Moon from '@icons/Moon.svg';
 import UserProfile from './UserProfile/UserProfile';
 import styles from './Buttons.module.scss';
-import { languageText, LanguageContext } from '@utils/textContext';
 import { useSelector } from 'react-redux';
 import { selectUserAuthState } from '@store/userSlice';
+import { useTranslation } from 'react-i18next';
+import '@utils/i18next';
 
 const Buttons = () => {
+  const { t, i18n } = useTranslation();
   const authState = useSelector(selectUserAuthState);
-  const languageContextValue = useContext(LanguageContext);
   const [darktheme, setDarktheme] = useState(
     localStorage.darktheme ? JSON.parse(localStorage.darktheme) : false
   );
@@ -19,12 +20,10 @@ const Buttons = () => {
     setDarktheme((prev) => !prev);
   };
   const languageSwitchingHandler = () => {
-    if (languageContextValue.text.value === 'en') {
-      languageContextValue.setText(languageText.ru);
-      localStorage.setItem('lang', 'ru');
-    } else if (languageContextValue.text.value === 'ru') {
-      languageContextValue.setText(languageText.en);
-      localStorage.setItem('lang', 'en');
+    if (t('value') === 'ru') {
+      i18n.changeLanguage('en');
+    } else if (t('value') === 'en') {
+      i18n.changeLanguage('ru');
     }
   };
 
@@ -52,7 +51,7 @@ const Buttons = () => {
         onClick={languageSwitchingHandler}
         data-testid='button-language'
       >
-        {languageContextValue.text.value}
+        {t('value')}
       </div>
     </div>
   );

@@ -1,19 +1,19 @@
 import { useForm } from 'react-hook-form';
-import { useState, useContext, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { updateUserData } from '@utils/firebase';
 import { selectUserData, updateUser } from '@store/userSlice';
 import styles from './ProfileEditForm.module.scss';
-import { LanguageContext } from '@utils/textContext';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAlertStatus } from '@store/appSlice';
+import { useTranslation } from 'react-i18next';
 
 const ProfileEditForm = ({ closeForm }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const userData = useSelector(selectUserData);
   const { register, handleSubmit, formState } = useForm();
   const [patronymToggle, setPatronymToggle] = useState(!!userData.patronym);
   const { errors } = formState;
-  const languageContextTextForm = useContext(LanguageContext).text.form;
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -51,7 +51,7 @@ const ProfileEditForm = ({ closeForm }) => {
     <div data-testid='edit-form' className={styles.profile_edit_form}>
       <div className={styles.profile_edit_form__form_box}>
         <p className={styles.profile_edit_form__header}>
-          {languageContextTextForm.buttons.updateProfile}
+          {t('form.buttons.updateProfile')}
         </p>
         <form
           onSubmit={handleSubmit((data) => {
@@ -59,16 +59,16 @@ const ProfileEditForm = ({ closeForm }) => {
           })}
         >
           <label>
-            <p>{languageContextTextForm.firstName.text}</p>
+            <p>{t('form.firstName.text')}</p>
             <input
               {...register('firstName', {
                 required: {
                   value: true,
-                  message: languageContextTextForm.firstName.validationRequire,
+                  message: t('form.firstName.validationRequire'),
                 },
                 pattern: {
                   value: /[A-Za-zЁёА-я]+$/g,
-                  message: languageContextTextForm.firstName.validationPattern,
+                  message: t('form.firstName.validationPattern'),
                 },
               })}
               defaultValue={userData.firstName}
@@ -76,16 +76,16 @@ const ProfileEditForm = ({ closeForm }) => {
             <p type='error'>{errors?.firstName?.message}</p>
           </label>
           <label>
-            <p>{languageContextTextForm.lastName.text}</p>
+            <p>{t('form.lastName.text')}</p>
             <input
               {...register('lastName', {
                 required: {
                   value: true,
-                  message: languageContextTextForm.lastName.validationRequire,
+                  message: t('form.lastName.validationRequire'),
                 },
                 pattern: {
                   value: /[A-Za-zЁёА-я]+$/g,
-                  message: languageContextTextForm.lastName.validationPattern,
+                  message: t('form.lastName.validationPattern'),
                 },
               })}
               defaultValue={userData.lastName}
@@ -101,7 +101,7 @@ const ProfileEditForm = ({ closeForm }) => {
                 onChange={() => setPatronymToggle((prev) => !prev)}
                 checked={patronymToggle}
               />
-              {languageContextTextForm.patronym.text}
+              {t('form.patronym.text')}
             </p>
             <input
               data-testid='input-patronym'
@@ -109,11 +109,11 @@ const ProfileEditForm = ({ closeForm }) => {
                 disabled: !patronymToggle,
                 required: {
                   value: patronymToggle,
-                  message: languageContextTextForm.patronym.validationRequire,
+                  message: t('form.patronym.validationRequire'),
                 },
                 pattern: {
                   value: /[A-Za-zЁёА-я]+$/g,
-                  message: languageContextTextForm.patronym.validationPattern,
+                  message: t('form.patronym.validationPattern'),
                 },
               })}
               defaultValue={userData.patronym}
@@ -124,7 +124,7 @@ const ProfileEditForm = ({ closeForm }) => {
           <input
             data-testid='button-submit-edit-form'
             type='submit'
-            value={languageContextTextForm.buttons.updateProfile}
+            value={t('form.buttons.updateProfile')}
           />
           <input
             data-testid='button-close-edit-form'
@@ -132,7 +132,7 @@ const ProfileEditForm = ({ closeForm }) => {
             onClick={() => {
               closeForm(false);
             }}
-            value={languageContextTextForm.buttons.cancel}
+            value={t('form.buttons.cancel')}
           />
         </form>
       </div>

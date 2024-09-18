@@ -1,14 +1,14 @@
 import { ArrowDownward, ArrowUpward, Close, Search } from '@mui/icons-material';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from './ButtonsChatBox.module.scss';
 import clsx from 'clsx';
 import { findMessagesFireBase } from '@utils/firebase';
-import { LanguageContext } from '@utils/textContext';
 import Loading from '@components/Loading/Loading';
+import { useTranslation } from 'react-i18next';
 
 const ButtonsChatBox = ({ chatBoxId }) => {
+  const { t } = useTranslation();
   const searchRef = useRef(null);
-  const LanguageContextContentText = useContext(LanguageContext).text;
   const [displaySearchBox, setDisplaySearchBox] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
@@ -86,7 +86,7 @@ const ButtonsChatBox = ({ chatBoxId }) => {
       <input
         ref={searchRef}
         className={searchBoxStyles}
-        placeholder={LanguageContextContentText.chat.findMes}
+        placeholder={t('chat.findMes')}
         type='text'
         onKeyDown={findMessages}
         onChange={resetState}
@@ -110,7 +110,7 @@ const ButtonsChatBox = ({ chatBoxId }) => {
         (searchResult && (
           <div className={styles.buttons_chat_box__arrows}>
             <div className={styles.buttons_chat_box__arrows_text}>
-              {LanguageContextContentText.notFound}
+              {t('notFound')}
             </div>
           </div>
         ))}

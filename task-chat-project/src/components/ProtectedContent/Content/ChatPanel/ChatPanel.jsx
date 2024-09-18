@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ChatPanel.module.scss';
 import clsx from 'clsx';
-import { useState, useEffect, useContext, useRef, Suspense } from 'react';
-import { Search } from '@mui/icons-material';
-import { searchPeople } from '@utils/firebase';
+import { useState, useEffect, useRef } from 'react';
+import { Close, Search } from '@mui/icons-material';
+import { searchPeople, NOT_FOUND } from '@utils/firebase';
 import {
   selectUserChatBoxId,
   fetchChatBoxId,
@@ -12,15 +12,14 @@ import {
 } from '@store/userSlice';
 import { getSocket } from '@utils/websocketService';
 import { setAlertStatus } from '@store/appSlice';
-import { LanguageContext } from '@utils/textContext';
 import ChatPersonLabel from './ChatPersonLabel/ChatPersonLabel';
 import Loading from '@components/Loading/Loading';
 import ChatBox from './ChatBox/ChatBox';
+import { useTranslation } from 'react-i18next';
 
 const ChatPanel = () => {
   const dispatch = useDispatch();
-
-  const languageContextTextChat = useContext(LanguageContext).text.chat;
+  const { t } = useTranslation();
   const [searchResult, setSearchResult] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [chatBoxData, setChatBoxData] = useState();
@@ -29,14 +28,14 @@ const ChatPanel = () => {
   const chatIdArray = useSelector(selectUserChatBoxId);
   const searchRef = useRef(null);
   const searchAsync = async (data) => {
-    if (data !== '') {
-      const result = await searchPeople(data);
-      setIsSearching(false);
-      const chatIdLibrary = {};
-      chatIdArray.forEach((item) => {
-        Object.assign(chatIdLibrary, item);
-      });
+    const result = await searchPeople(data);
+    setIsSearching(false);
+    const chatIdLibrary = {};
+    chatIdArray.forEach((item) => {
+      Object.assign(chatIdLibrary, item);
+    });
 
+    if (Array.isArray(result)) {
       const parsedResult = result.map((item) => {
         if (chatIdLibrary[item.email]) {
           const newItem = { ...item };
@@ -46,22 +45,30 @@ const ChatPanel = () => {
         return item;
       });
       setSearchResult(parsedResult);
-    }
+    } else setSearchResult(NOT_FOUND);
   };
   const searchHandler = () => {
     if (searchRef.current.value !== '') {
       setIsSearching(true);
       setSearchResult(null);
-      searchAsync(searchRef.current.value);
+      if (searchRef.current.value !== '') {
+        if (chatIdArray.length === chatList.length) {
+          searchAsync(searchRef.current.value);
+        }
+      }
     }
   };
 
-  const handleChatBoxBehavior = (display, data) => {
-    if (display) {
-      setDisplayChatBox(true);
-    }
+  const handleChatBoxBehavior = (data) => {
+    setDisplayChatBox(true);
     if (typeof data === 'object') {
       setChatBoxData(data);
+    }
+  };
+  const resetSearch = () => {
+    setSearchResult(null);
+    if (searchRef) {
+      searchRef.current.value = '';
     }
   };
 
@@ -71,34 +78,7 @@ const ChatPanel = () => {
     dispatch(fetchChatList(chatIdArray));
   }, [chatIdArray, dispatch]);
 
-  useEffect(() => {
-    const socket = getSocket();
-
-    const handleNewComingMessage = (event) => {
-      const handleParsedMessages = (message) => {
-        if (message.type === 'new_message') {
-          dispatch(setAlertStatus('newMessage'));
-        }
-        if (message.type === 'new_chat_request') {
-          dispatch(fetchChatBoxId());
-          dispatch(setAlertStatus('newMessage'));
-        }
-      };
-      if (event.data instanceof Blob) {
-        event.data.text().then((result) => {
-          handleParsedMessages(JSON.parse(result));
-        });
-      } else handleParsedMessages(JSON.parse(event.data));
-    };
-    if (socket) {
-      socket.addEventListener('message', handleNewComingMessage);
-    }
-    return () => {
-      if (socket) {
-        socket.removeEventListener('message', handleNewComingMessage);
-      }
-    };
-  }, []);
+  if (chatIdArray > 0) return <Loading size='large' />;
 
   return (
     <div className={classChatPanel}>
@@ -110,14 +90,15 @@ const ChatPanel = () => {
               setSearchResult(undefined);
             }}
             type='text'
-            placeholder={languageContextTextChat.find}
+            placeholder={t('chat.find')}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
                 searchHandler();
               }
             }}
           />
-          <Search onClick={searchHandler} />
+          {!searchResult && <Search onClick={searchHandler} />}
+          {searchResult && <Close onClick={resetSearch} />}
           {isSearching && <Loading spinOnly={true} size='small' />}
         </div>
       </div>
@@ -133,15 +114,14 @@ const ChatPanel = () => {
                 handleChatBoxBehavior={handleChatBoxBehavior}
               />
             ))}
-          {/* {Array.isArray(chatList) &&
-            chatList.map((item) => (
-              <ChatPersonLabel
-                key={item.email}
-                labelData={item}
-                handleChatBoxBehavior={handleChatBoxBehavior}
-              />
-            ))} */}
-          {chatList.length === 0 && (
+          {searchResult === NOT_FOUND && (
+            <ChatPersonLabel
+              labelData={searchResult}
+              newChat={true}
+              handleChatBoxBehavior={handleChatBoxBehavior}
+            />
+          )}
+          {chatIdArray.length > 0 && chatList.length === 0 && (
             <div className={styles.chat_panel__list_loading}>
               <Loading spinOnly={true} size='medium' />
             </div>
@@ -155,14 +135,14 @@ const ChatPanel = () => {
           ))}
         </div>
         <div className={styles.chat_panel__box}>
-          {(displayChatBox && (
+          {displayChatBox && (
             <ChatBox
               targetUserData={chatBoxData}
               closeChatBox={() => {
                 setDisplayChatBox(false);
               }}
             />
-          )) || <div> </div>}
+          )}
         </div>
       </div>
     </div>
