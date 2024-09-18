@@ -1,5 +1,5 @@
 @import '@styles/text.scss';
-.chat_panel {
+.chat-panel {
   margin-top: calc(var(--header-height) + 20px);
   display: flex;
   flex-direction: column;
@@ -37,7 +37,7 @@
     flex-grow: 1;
     border-left: 1px solid var(--border-color);
   }
-  &__search_box {
+  &__search-box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,7 +60,7 @@
       cursor: pointer;
     }
   }
-  &__search_result {
+  &__search-result {
     color: white;
     font-size: 0.9em;
     cursor: pointer;
@@ -99,7 +99,7 @@
     }
   }
   &__text {
-    &_target_chat {
+    &_target-chat {
       font-size: 1.2em;
       color: var(--border-color);
       overflow: hidden;

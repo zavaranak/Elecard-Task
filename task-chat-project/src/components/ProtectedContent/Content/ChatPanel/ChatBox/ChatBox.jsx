@@ -253,10 +253,10 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
     }
   }, [chatStatus]);
   return (
-    <div className={styles.chat_box}>
-      <div className={styles.chat_box__taskbar}>
+    <div className={styles['chat-box']}>
+      <div className={styles['chat-box__taskbar']}>
         <ArrowBack onClick={closeChatBox} />
-        <div className={styles.chat_box__name}>
+        <div className={styles['chat-box__name']}>
           <p>
             {targetUser.firstName +
               ' ' +
@@ -267,10 +267,12 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
         </div>
         <ButtonsChatBox chatBoxId={targetUser.chatBoxId} />
       </div>
-      <div ref={messagesRef} className={styles.chat_box__wrapper}>
-        <div id='messages_box' className={styles.chat_box__content}>
+      <div ref={messagesRef} className={styles['chat-box__wrapper']}>
+        <div id='messages_box' className={styles['chat-box__content']}>
           {chatStatus === NOT_READY && Array.isArray(messages) && (
-            <div className={styles.chat_box__suggest}>{t('chat.suggest')}</div>
+            <div className={styles['chat-box__suggest']}>
+              {t('chat.suggest')}
+            </div>
           )}
           {(Array.isArray(messages) &&
             messages.map((message, index) => {
@@ -299,7 +301,7 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
                 </div>
               );
             })) || (
-            <div className={styles.chat_box__wrapper_loading}>
+            <div className={styles['chat-box__wrapper_loading']}>
               <Loading size='medium'></Loading>
             </div>
           )}
@@ -308,8 +310,8 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
       </div>
       <div
         className={clsx(
-          styles.chat_box__text_box,
-          chatStatus === EDIT_MESSAGE && styles.chat_box__text_box_edit
+          styles['chat-box__text-box'],
+          chatStatus === EDIT_MESSAGE && styles['chat-box__text-box_edit']
         )}
       >
         <input

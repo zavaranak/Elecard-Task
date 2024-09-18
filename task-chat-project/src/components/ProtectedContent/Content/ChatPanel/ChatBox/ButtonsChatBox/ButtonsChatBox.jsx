@@ -14,8 +14,8 @@ const ButtonsChatBox = ({ chatBoxId }) => {
   const [searchResult, setSearchResult] = useState(null);
   const [currentMes, setCurrentMes] = useState();
   const searchBoxStyles = clsx(
-    styles.buttons_chat_box__search_box,
-    displaySearchBox && styles.buttons_chat_box__search_box_open
+    styles['buttons-chat-box__search-box'],
+    displaySearchBox && styles['buttons-chat-box__search-box_open']
   );
   const handleOpenSearchBox = () => {
     setDisplaySearchBox((prev) => {
@@ -72,15 +72,17 @@ const ButtonsChatBox = ({ chatBoxId }) => {
         `[id="${tempMessage.timestamp.toString() + tempMessage.sender}"]`
       );
       targetMessage.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      targetMessage.classList.add(styles.buttons_chat_box__marked_message);
+      targetMessage.classList.add(styles['buttons-chat-box__marked-message']);
       return () => {
-        targetMessage.classList.remove(styles.buttons_chat_box__marked_message);
+        targetMessage.classList.remove(
+          styles['buttons-chat-box__marked-message']
+        );
       };
     }
   }, [currentMes]);
   return (
-    <div className={styles.buttons_chat_box}>
-      <div className={styles.buttons_chat_box__search}>
+    <div className={styles['buttons-chat-box']}>
+      <div className={styles['buttons-chat-box__search']}>
         <Search onClick={handleOpenSearchBox} />
       </div>
       <input
@@ -92,24 +94,24 @@ const ButtonsChatBox = ({ chatBoxId }) => {
         onChange={resetState}
       />
       {isLoading && (
-        <div className={styles.buttons_chat_box__loading}>
+        <div className={styles['buttons-chat-box__loading']}>
           <Loading size='small' spinOnly={true} />
         </div>
       )}
 
       {(currentMes && (
-        <div className={styles.buttons_chat_box__arrows}>
+        <div className={styles['buttons-chat-box__arrows']}>
           <Close onClick={handleOpenSearchBox} />
           <ArrowUpward onClick={setPreviousMes} />
-          <div className={styles.buttons_chat_box__arrows_text}>
+          <div className={styles['buttons-chat-box__arrows_text']}>
             {currentMes}/{searchResult.length}
           </div>
           <ArrowDownward onClick={setNextMes} />
         </div>
       )) ||
         (searchResult && (
-          <div className={styles.buttons_chat_box__arrows}>
-            <div className={styles.buttons_chat_box__arrows_text}>
+          <div className={styles['buttons-chat-box__arrows']}>
+            <div className={styles['buttons-chat-box__arrows_text']}>
               {t('notFound')}
             </div>
           </div>

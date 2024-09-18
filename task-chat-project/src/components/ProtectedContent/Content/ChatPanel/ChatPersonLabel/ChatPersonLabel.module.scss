@@ -1,6 +1,6 @@
 @import '@styles/text.scss';
 @import '@styles/animation.scss';
-.chat_person_label {
+.chat-person-label {
   box-sizing: border-box;
   font-size: 1.2em;
   cursor: pointer;
@@ -36,7 +36,7 @@
   }
   &__text {
     &_date {
-      font-weight: 400;
+      font-weight: 4 00;
       flex-grow: 1;
       width: 40%;
       font-size: 0.7em;
@@ -68,7 +68,7 @@
       }
     }
   }
-  &__last_message {
+  &__last-message {
     display: flex;
     width: 100%;
     font-weight: 200;

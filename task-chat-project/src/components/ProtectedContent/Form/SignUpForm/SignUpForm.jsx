@@ -21,7 +21,6 @@ const SignUpForm = () => {
   useEffect(() => {
     reset();
   }, [t('value'), reset]);
-
   const handleVisibilityPassword = (e) => {
     e.stopPropagation();
     setDisplayPassword((prev) => !prev);
@@ -144,7 +143,7 @@ const SignUpForm = () => {
             placeholder={t('form.password.text')}
           />{' '}
           <div
-            className={styles.sign_up_form__visibility_icon}
+            className={styles['sign_up_form__visibility-icon']}
             onClick={handleVisibilityPassword}
           >
             {(displayPassword && <Visibility />) || <VisibilityOff />}
@@ -169,7 +168,7 @@ const SignUpForm = () => {
             placeholder={t('form.passwordConfirm.text')}
           />
           <div
-            className={styles.sign_up_form__visibility_icon}
+            className={styles['sign_up_form__visibility-icon']}
             onClick={handleVisibilityPassword2}
           >
             {(displayPassword2 && <Visibility />) || <VisibilityOff />}

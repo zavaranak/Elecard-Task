@@ -72,7 +72,7 @@ const ChatPanel = () => {
     }
   };
 
-  const classChatPanel = clsx(styles.chat_panel, styles.chat_panel_open);
+  const classChatPanel = clsx(styles['chat-panel'], styles['chat-panel_open']);
 
   useEffect(() => {
     dispatch(fetchChatList(chatIdArray));
@@ -82,8 +82,8 @@ const ChatPanel = () => {
 
   return (
     <div className={classChatPanel}>
-      <div className={styles.chat_panel__header}>
-        <div className={styles.chat_panel__search_box}>
+      <div className={styles['chat-panel__header']}>
+        <div className={styles['chat-panel__search-box']}>
           <input
             ref={searchRef}
             onChange={() => {
@@ -103,8 +103,8 @@ const ChatPanel = () => {
         </div>
       </div>
 
-      <div className={styles.chat_panel__wrapper}>
-        <div className={styles.chat_panel__list}>
+      <div className={styles['chat-panel__wrapper']}>
+        <div className={styles['chat-panel__list']}>
           {Array.isArray(searchResult) &&
             searchResult.map((item) => (
               <ChatPersonLabel
@@ -122,7 +122,7 @@ const ChatPanel = () => {
             />
           )}
           {chatIdArray.length > 0 && chatList.length === 0 && (
-            <div className={styles.chat_panel__list_loading}>
+            <div className={styles['chat-panel__list_loading']}>
               <Loading spinOnly={true} size='medium' />
             </div>
           )}
@@ -134,7 +134,7 @@ const ChatPanel = () => {
             />
           ))}
         </div>
-        <div className={styles.chat_panel__box}>
+        <div className={styles['chat-panel__box']}>
           {displayChatBox && (
             <ChatBox
               targetUserData={chatBoxData}

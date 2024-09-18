@@ -63,19 +63,19 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
   if (newChat) {
     if (labelData === NOT_FOUND)
       return (
-        <div className={styles.chat_person_label_new}>
-          <div className={styles.chat_person_label__text_name_new}>
+        <div className={styles['chat-person-label_new']}>
+          <div className={styles['chat-person-label__text_name_new']}>
             {t('chat.notFound')}
           </div>
         </div>
       );
     return (
       <div onClick={clickHandler}>
-        <div className={styles.chat_person_label_new}>
-          <div className={styles.chat_person_label__text_name_new}>
+        <div className={styles['chat-person-label_new']}>
+          <div className={styles['chat-person-label__text_name_new']}>
             {labelData.firstName} {labelData.patronym} {labelData.lastName}
           </div>
-          <div className={styles.chat_person_label__text_email_new}>
+          <div className={styles['chat-person-label__text_email_new']}>
             {labelData.email}
           </div>
         </div>
@@ -84,20 +84,20 @@ const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
   }
   return (
     <div onClick={clickHandler}>
-      <div key={labelData.email} className={styles.chat_person_label}>
-        <div className={styles.chat_person_label__info}>
-          <div className={styles.chat_person_label__text_name}>
+      <div key={labelData.email} className={styles['chat-person-label']}>
+        <div className={styles['chat-person-label__info']}>
+          <div className={styles['chat-person-label__text_name']}>
             {labelData.firstName} {labelData.patronym} {labelData.lastName}
           </div>
-          <div className={styles.chat_person_label__text_date}>
+          <div className={styles['chat-person-label__text_date']}>
             {timestampParserToDate(lastMessage.timestamp)}
           </div>
         </div>
-        <div className={styles.chat_person_label__text_email}>
+        <div className={styles['chat-person-label__text_email']}>
           {labelData.email}
         </div>
-        <div className={styles.chat_person_label__last_message}>
-          <div className={styles.chat_person_label__last_message_content}>
+        <div className={styles['chat-person-label__last-message']}>
+          <div className={styles['chat-person-label__last-message_content']}>
             {lastMessage.sender === user && t('chat.pronoun')}{' '}
             {lastMessage.content}
           </div>

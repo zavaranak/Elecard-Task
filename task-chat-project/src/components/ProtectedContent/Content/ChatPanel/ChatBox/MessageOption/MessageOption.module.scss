@@ -1,4 +1,4 @@
-.message_option {
+.message-option {
   transition: 0.5s;
   position: absolute;
   top: 8px;
@@ -7,13 +7,13 @@
   }
   &_send {
     right: 100%;
-    .message_option__dropdown {
+    .message-option__dropdown {
       right: 270%;
     }
   }
   &_receive {
     left: 100%;
-    .message_option__dropdown {
+    .message-option__dropdown {
       left: 0px;
     }
   }

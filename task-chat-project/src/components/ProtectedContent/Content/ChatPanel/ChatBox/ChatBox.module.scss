@@ -1,4 +1,4 @@
-.chat_box {
+.chat-box {
   display: flex;
   font-weight: 400;
   width: 100%;
@@ -61,7 +61,7 @@
     font-size: 0.8em;
     font-weight: 800;
   }
-  &__text_box {
+  &__text-box {
     background-color: var(--background-color);
     z-index: 100;
     position: relative;

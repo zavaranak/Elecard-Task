@@ -9,8 +9,8 @@ const MessageOption = ({
   handleEditMessage,
 }) => {
   const classOption = clsx(
-    styles.message_option,
-    styles[`message_option_${type}`]
+    styles['message-option'],
+    styles[`message-option_${type}`]
   );
   const [displayDropdown, setDisplayDropdown] = useState(false);
   const toggleDropdown = () => {
@@ -33,7 +33,7 @@ const MessageOption = ({
     <div className={classOption}>
       <MoreVert ref={dropdownRef} onClick={toggleDropdown} />
       {displayDropdown && (
-        <div className={styles.message_option__dropdown}>
+        <div className={styles['message-option__dropdown']}>
           <ul>
             <li onClick={handleEditMessage}>Edit</li>
             <li onClick={customHandleDeleteMessage}>Delete</li>
