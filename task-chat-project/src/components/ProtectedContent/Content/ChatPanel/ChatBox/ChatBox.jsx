@@ -60,12 +60,13 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
     });
   };
   const frontendEditMessage = (message, index) => {
+    setEditMessage(null);
     setMessages((prev) => {
-      let temp = prev;
+      message.status = prev[index].status;
+      const temp = [...prev];
       temp.splice(index, 1, message);
       return temp;
     });
-    setEditMessage(null);
   };
   const customHandleDeleteMessage = (index, messageId) => {
     handleDeleteMessage(targetUser.chatBoxId, messageId, targetUser.email);
@@ -186,6 +187,7 @@ const ChatBox = ({ targetUserData, closeChatBox }) => {
             `[id='${message.messageId}']`
           );
           const index = queryMessage.getAttribute('index');
+
           frontendEditMessage(message, index);
         }
         if (message.type === READ_MES && message.sender === targetUser.email) {

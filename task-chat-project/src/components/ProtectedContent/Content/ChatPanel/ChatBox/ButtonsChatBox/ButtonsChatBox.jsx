@@ -12,7 +12,7 @@ const ButtonsChatBox = ({ chatBoxId }) => {
   const [displaySearchBox, setDisplaySearchBox] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [searchResult, setSearchResult] = useState(null);
-  const [currentMes, setCurrentMes] = useState();
+  const [currentMessage, setcurrentMessage] = useState();
   const searchBoxStyles = clsx(
     styles['buttons-chat-box__search-box'],
     displaySearchBox && styles['buttons-chat-box__search-box_open']
@@ -30,7 +30,7 @@ const ButtonsChatBox = ({ chatBoxId }) => {
   };
 
   const setNextMes = () => {
-    setCurrentMes((prev) => {
+    setcurrentMessage((prev) => {
       if (prev < searchResult.length) {
         return prev + 1;
       }
@@ -38,7 +38,7 @@ const ButtonsChatBox = ({ chatBoxId }) => {
     });
   };
   const setPreviousMes = () => {
-    setCurrentMes((prev) => {
+    setcurrentMessage((prev) => {
       if (prev > 1) {
         return prev - 1;
       }
@@ -52,22 +52,22 @@ const ButtonsChatBox = ({ chatBoxId }) => {
       setIsLoading(true);
       const result = await findMessagesFireBase(queryParam, chatBoxId);
       if (Array.isArray(result) && result.length > 0) {
-        setCurrentMes(result.length);
+        setcurrentMessage(result.length);
       }
       setSearchResult(result);
       setIsLoading(false);
     }
   };
   const resetState = () => {
-    setCurrentMes(null);
+    setcurrentMessage(null);
     setSearchResult(null);
   };
 
   useEffect(() => {
     let targetMessage;
-    if (currentMes) {
+    if (currentMessage) {
       const messages = document.querySelector('#messages_box');
-      const tempMessage = searchResult[currentMes - 1];
+      const tempMessage = searchResult[currentMessage - 1];
       targetMessage = messages.querySelector(
         `[id="${tempMessage.timestamp.toString() + tempMessage.sender}"]`
       );
@@ -79,7 +79,7 @@ const ButtonsChatBox = ({ chatBoxId }) => {
         );
       };
     }
-  }, [currentMes]);
+  }, [currentMessage]);
   return (
     <div className={styles['buttons-chat-box']}>
       <div className={styles['buttons-chat-box__search']}>
@@ -99,12 +99,12 @@ const ButtonsChatBox = ({ chatBoxId }) => {
         </div>
       )}
 
-      {(currentMes && (
+      {(currentMessage && (
         <div className={styles['buttons-chat-box__arrows']}>
           <Close onClick={handleOpenSearchBox} />
           <ArrowUpward onClick={setPreviousMes} />
           <div className={styles['buttons-chat-box__arrows_text']}>
-            {currentMes}/{searchResult.length}
+            {currentMessage}/{searchResult.length}
           </div>
           <ArrowDownward onClick={setNextMes} />
         </div>

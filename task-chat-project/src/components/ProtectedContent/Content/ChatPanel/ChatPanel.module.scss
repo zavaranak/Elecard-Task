@@ -28,7 +28,7 @@
     display: flex;
     flex-direction: row;
     height: 70vh;
-    @media screen and (max-width: 380px) {
+    @media screen and (max-width: 600px) {
       width: 100%;
       flex-direction: column;
     }
@@ -36,6 +36,8 @@
   &__box {
     flex-grow: 1;
     border-left: 1px solid var(--border-color);
+    @media screen and (max-width: 600px) {
+    }
   }
   &__search-box {
     display: flex;

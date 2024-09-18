@@ -1,8 +1,15 @@
-# React + Vite
+## Десятый чеклист - 18 сентября
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Замечания:
 
-Currently, two official plugins are available:
+- ✅-- Отключить папку coverage из git
+- ✅-- Вынести в константу повторные строки
+- ✅-- Исправить нарушающие БЭМ (Яндекс) классы
+- ✅-- Вынести "new Date" в отдельную переменную
+- ✅-- Исправить сокарашение имён (которые не сотоит сокращать)
+- ✅-- Применить i18next для локализации сайта
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Задачи:
+
+- ✅ -- Отделить тестовое задание от доработок
+- ✅ -- Поиск частичному совпадению имен (электрольная почта)

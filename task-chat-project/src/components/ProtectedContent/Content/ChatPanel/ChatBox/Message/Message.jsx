@@ -5,6 +5,7 @@ import { Done, DoneAll } from '@mui/icons-material';
 
 const SENT = 'sent';
 const READ = 'read';
+const SEND = 'read';
 
 const Message = ({
   message,
@@ -27,8 +28,8 @@ const Message = ({
         <p>{message.content}</p>
       </div>
       <div className={styles[`message__content_date`]}>
-        {type === 'send' && message.status === SENT && <Done />}
-        {type === 'send' && message.status === READ && <DoneAll />}
+        {type === SEND && message.status === SENT && <Done />}
+        {type === SEND && message.status === READ && <DoneAll />}
 
         <p>
           {new Date(message.timestamp).getHours().toString().padStart(2, '0') +

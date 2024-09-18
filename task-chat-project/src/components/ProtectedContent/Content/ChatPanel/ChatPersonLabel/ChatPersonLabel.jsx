@@ -7,8 +7,8 @@ import { getSocket } from '@utils/websocketService';
 import { useTranslation } from 'react-i18next';
 
 const ChatPersonLabel = ({ labelData, newChat, handleChatBoxBehavior }) => {
-  const currentDate = new Date().toDateString();
   const { t } = useTranslation();
+  const currentDate = new Date().toDateString();
   const [lastMessage, setLastMessage] = useState('');
   const user = useSelector(selectUserData).email;
   const fetchLastMessage = async () => {

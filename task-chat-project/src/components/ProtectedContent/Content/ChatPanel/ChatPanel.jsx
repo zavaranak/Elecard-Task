@@ -6,12 +6,10 @@ import { Close, Search } from '@mui/icons-material';
 import { searchPeople, NOT_FOUND } from '@utils/firebase';
 import {
   selectUserChatBoxId,
-  fetchChatBoxId,
   fetchChatList,
   selectUserChatList,
 } from '@store/userSlice';
-import { getSocket } from '@utils/websocketService';
-import { setAlertStatus } from '@store/appSlice';
+
 import ChatPersonLabel from './ChatPersonLabel/ChatPersonLabel';
 import Loading from '@components/Loading/Loading';
 import ChatBox from './ChatBox/ChatBox';

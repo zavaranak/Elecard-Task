@@ -1,16 +1,17 @@
 @mixin light-theme {
   --main-color: #004dbb;
-  --content-color: #d2dce4;
+  --content-color: #dff3ff;
   --success-color: #38c73c;
   --failed-color: #ff0000;
   --border-color: #00b0b0;
-  --dark-color: hsla(0, 0%, 96%, 0.768);
+  --dark-color: hsla(182, 100%, 27%, 0.934);
   --dark2-color: #07060090;
   --text-main-color: #004dbb;
   --background-color: #fff;
   --disabled-color: #07060090;
   --message-color: rgba(221, 63, 31, 0.622);
   --hover-color: #83d0d08b;
+  --background2-color: #004dbb;
 }
 @mixin dark-theme {
   --main-color: #000;
@@ -25,6 +26,7 @@
   --disabled-color: #f5f5f5a7;
   --message-color: rgb(255, 115, 0);
   --hover-color: #83d0d08b;
+  --background2-color: #004dbb;
 }
 :root {
   @include light-theme;
